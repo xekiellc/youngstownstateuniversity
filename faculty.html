@@ -1,1 +1,541 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faculty — Youngstown State University</title>
+  <meta name="description" content="YSU faculty achievements, research, awards, and spotlights — celebrating Youngstown State's world-class educators."/>
+  <meta property="og:title" content="Faculty — Youngstown State University"/>
+  <meta property="og:image" content="assets/pete.jpg"/>
+  <meta property="og:url" content="https://youngstownstateuniversity.com/faculty.html"/>
+  <link rel="icon" href="assets/pete.jpg" type="image/jpeg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --scarlet: #CC0000;
+      --scarlet-dark: #990000;
+      --charcoal: #1A1A1A;
+      --warm-white: #FAF8F5;
+      --cream: #F2EDE6;
+      --mid: #6B6560;
+      --light-border: #E0DBD5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Source Serif 4', serif; background: var(--warm-white); color: var(--charcoal); }
+    a { text-decoration: none; color: inherit; }
+
+    /* MASTHEAD */
+    .masthead { background: var(--charcoal); border-bottom: 4px solid var(--scarlet); }
+    .masthead-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 32px 10px; border-bottom: 1px solid #2e2e2e;
+    }
+    .wordmark-main { font-family: 'Bebas Neue', sans-serif; font-size: 44px; letter-spacing: 4px; color: #fff; line-height: 1; }
+    .wordmark-sub { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 7px; color: var(--scarlet); }
+    .masthead-meta { text-align: right; font-size: 11px; letter-spacing: 1.5px; color: #555; font-weight: 300; text-transform: uppercase; }
+    .masthead-meta span { display: block; margin-top: 3px; color: #444; }
+    .pete-badge { width: 58px; height: 58px; border-radius: 50%; overflow: hidden; border: 2px solid var(--scarlet); flex-shrink: 0; }
+    .pete-badge img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    nav.main-nav { display: flex; padding: 0 32px; overflow-x: auto; scrollbar-width: none; }
+    nav.main-nav::-webkit-scrollbar { display: none; }
+    nav.main-nav a {
+      font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 2.5px;
+      color: #888; padding: 10px 18px; white-space: nowrap; transition: color 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+    nav.main-nav a:hover { color: #fff; }
+    nav.main-nav a.active { color: #fff; border-bottom-color: var(--scarlet); }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--charcoal); padding: 36px 32px 32px;
+      border-bottom: 1px solid #2e2e2e; position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: 'FACULTY';
+      position: absolute; right: -5px; top: -10px;
+      font-family: 'Bebas Neue', sans-serif; font-size: 130px;
+      color: rgba(204,0,0,0.06); letter-spacing: -2px; pointer-events: none; line-height: 1;
+    }
+    .page-header-eyebrow {
+      font-family: 'Bebas Neue', sans-serif; font-size: 11px;
+      letter-spacing: 4px; color: var(--scarlet); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .page-header-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 2px; background: var(--scarlet); }
+    .page-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 4px; color: #fff; line-height: 1; }
+    .page-header-sub { font-size: 13px; color: #555; font-weight: 300; letter-spacing: 1px; margin-top: 8px; }
+
+    /* FILTER BAR */
+    .filter-bar {
+      background: #fff; border-bottom: 1px solid var(--light-border);
+      padding: 0 32px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2.5px;
+      color: #aaa; padding: 12px 16px; cursor: pointer; white-space: nowrap;
+      border: none; background: none; border-bottom: 3px solid transparent; transition: color 0.2s;
+    }
+    .filter-btn:hover { color: var(--charcoal); }
+    .filter-btn.active { color: var(--scarlet); border-bottom-color: var(--scarlet); }
+
+    /* STATS STRIP */
+    .stats-strip {
+      background: var(--scarlet); padding: 16px 32px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-bottom: 3px solid var(--scarlet-dark);
+    }
+    .stat-item { text-align: center; padding: 0 12px; border-right: 1px solid rgba(255,255,255,0.15); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #fff; line-height: 1; }
+    .stat-label { font-size: 9px; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 300; margin-top: 3px; }
+
+    /* MAIN LAYOUT */
+    .page-wrap { max-width: 1160px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 1fr 260px; gap: 40px; }
+
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 4px;
+      color: var(--mid); border-top: 2px solid var(--scarlet); padding-top: 8px; margin-bottom: 22px;
+    }
+
+    /* FACULTY SPOTLIGHT */
+    .faculty-spotlight {
+      background: var(--charcoal); border-radius: 4px; padding: 28px;
+      margin-bottom: 32px; border-top: 3px solid var(--scarlet);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+    }
+    .fs-left {}
+    .fs-eyebrow { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 4px; color: var(--scarlet); margin-bottom: 10px; }
+    .fs-name { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 2px; color: #fff; line-height: 1; margin-bottom: 4px; }
+    .fs-title { font-size: 12px; color: #666; letter-spacing: 1px; text-transform: uppercase; font-weight: 300; margin-bottom: 16px; line-height: 1.5; }
+    .fs-bio { font-size: 14px; color: #999; line-height: 1.7; font-weight: 300; }
+    .fs-right { border-left: 1px solid #2e2e2e; padding-left: 28px; }
+    .fs-achievement {
+      padding: 14px 0; border-bottom: 1px solid #2a2a2a;
+    }
+    .fs-achievement:last-child { border-bottom: none; padding-bottom: 0; }
+    .fa-label { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 4px; }
+    .fa-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: #ccc; line-height: 1.3; }
+    .fa-detail { font-size: 12px; color: #555; margin-top: 3px; font-weight: 300; }
+
+    /* FACULTY GRID */
+    .faculty-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+    .faculty-card { border-bottom: 1px solid var(--light-border); padding-bottom: 20px; cursor: pointer; }
+    .faculty-card:hover .fc-name { color: var(--scarlet); }
+    .fc-dept {
+      display: inline-block; background: var(--cream); border: 1px solid var(--light-border);
+      font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2.5px;
+      color: var(--mid); padding: 3px 10px; border-radius: 2px; margin-bottom: 8px;
+    }
+    .fc-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; line-height: 1.2; color: var(--charcoal); margin-bottom: 3px; transition: color 0.2s; }
+    .fc-title { font-size: 12px; color: var(--mid); font-weight: 300; margin-bottom: 8px; letter-spacing: 0.3px; }
+    .fc-story { font-size: 13px; color: var(--mid); line-height: 1.6; font-weight: 300; }
+    .fc-meta { margin-top: 9px; font-size: 11px; color: #bbb; display: flex; gap: 10px; align-items: center; }
+    .fc-award { color: var(--scarlet); font-weight: 400; }
+
+    /* FACULTY LIST */
+    .faculty-list { display: flex; flex-direction: column; margin-bottom: 32px; }
+    .faculty-item {
+      padding: 18px 0; border-bottom: 1px solid var(--light-border);
+      display: grid; grid-template-columns: 1fr 140px; gap: 20px; align-items: start; cursor: pointer;
+    }
+    .faculty-item:hover .fi-name { color: var(--scarlet); }
+    .fi-dept { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2.5px; color: var(--scarlet); margin-bottom: 5px; }
+    .fi-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.2; color: var(--charcoal); margin-bottom: 4px; transition: color 0.2s; }
+    .fi-role { font-size: 12px; color: var(--mid); font-weight: 300; margin-bottom: 7px; }
+    .fi-story { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
+    .fi-badge {
+      text-align: center; background: var(--charcoal); border-radius: 4px;
+      padding: 12px 10px; border-top: 2px solid var(--scarlet);
+    }
+    .fi-badge-label { font-family: 'Bebas Neue', sans-serif; font-size: 8px; letter-spacing: 2px; color: var(--scarlet); margin-bottom: 4px; }
+    .fi-badge-text { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3; }
+    .fi-badge-year { font-size: 10px; color: #555; margin-top: 3px; font-weight: 300; }
+
+    /* SIDEBAR */
+    .sidebar { border-left: 1px solid var(--light-border); padding-left: 24px; }
+    .sidebar-section { margin-bottom: 30px; }
+    .sidebar-item { padding: 12px 0; border-bottom: 1px solid #ece9e4; cursor: pointer; }
+    .sidebar-item:hover .sit-title { color: var(--scarlet); }
+    .sit-tag { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 4px; }
+    .sit-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--charcoal); transition: color 0.2s; }
+    .sit-meta { font-size: 11px; color: #bbb; margin-top: 4px; font-weight: 300; }
+
+    /* DEPT BOX */
+    .dept-box { background: var(--charcoal); border-radius: 4px; padding: 18px; margin-bottom: 28px; border-top: 3px solid var(--scarlet); }
+    .dept-box-label { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 4px; color: var(--scarlet); margin-bottom: 14px; }
+    .dept-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid #2a2a2a;
+    }
+    .dept-row:last-child { border-bottom: none; }
+    .dr-name { font-size: 12px; color: #ccc; font-weight: 300; }
+    .dr-count { font-family: 'Bebas Neue', sans-serif; font-size: 15px; color: var(--scarlet); }
+
+    /* PUBLICATIONS BOX */
+    .pub-item { padding: 10px 0; border-bottom: 1px solid #ece9e4; }
+    .pub-item:last-child { border-bottom: none; }
+    .pub-journal { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2px; color: var(--scarlet); margin-bottom: 3px; }
+    .pub-title { font-size: 13px; font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 3px; }
+    .pub-authors { font-size: 11px; color: #bbb; font-weight: 300; }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal); border-top: 4px solid var(--scarlet);
+      padding: 24px 32px; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand .footer-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 4px; color: #fff; }
+    .footer-brand .footer-sub { font-size: 10px; letter-spacing: 2px; color: #444; text-transform: uppercase; margin-top: 2px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2px; color: #555; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--scarlet); }
+    .footer-copy { font-size: 10px; color: #333; letter-spacing: 1px; font-weight: 300; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .masthead-top { padding: 10px 16px; }
+      .wordmark-main { font-size: 30px; }
+      nav.main-nav { padding: 0 16px; }
+      .page-header { padding: 24px 16px; }
+      .page-header h1 { font-size: 36px; }
+      .filter-bar { padding: 0 16px; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); padding: 12px 16px; }
+      .stat-item:nth-child(2) { border-right: none; }
+      .page-wrap { grid-template-columns: 1fr; gap: 24px; padding: 20px 16px; }
+      .sidebar { border-left: none; border-top: 1px solid var(--light-border); padding-left: 0; padding-top: 24px; }
+      .faculty-spotlight { grid-template-columns: 1fr; }
+      .fs-right { border-left: none; padding-left: 0; border-top: 1px solid #2e2e2e; padding-top: 20px; }
+      .faculty-grid { grid-template-columns: 1fr; }
+      .faculty-item { grid-template-columns: 1fr; }
+      .fi-badge { display: none; }
+      footer { flex-direction: column; align-items: flex-start; padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <div>
+        <div class="wordmark-main">Youngstown State</div>
+        <div class="wordmark-sub">University</div>
+      </div>
+      <div class="masthead-meta">
+        <span id="dateline">Loading...</span>
+        <span>Youngstown, Ohio</span>
+        <span style="color:var(--scarlet);margin-top:4px;">Go Penguins</span>
+      </div>
+      <div class="pete-badge">
+        <img src="assets/pete.jpg" alt="Pete the Penguin"/>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">News</a>
+      <a href="sports.html">Sports</a>
+      <a href="science.html">Science</a>
+      <a href="accolades.html">Accolades</a>
+      <a href="students.html">Students</a>
+      <a href="faculty.html" class="active">Faculty</a>
+      <a href="alumni.html">Alumni</a>
+    </nav>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-eyebrow">Educators & Researchers</div>
+    <h1>YSU Faculty</h1>
+    <div class="page-header-sub">The scholars, researchers, and educators who make Youngstown State exceptional</div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="setFilter(this)">All</button>
+    <button class="filter-btn" onclick="setFilter(this)">Engineering</button>
+    <button class="filter-btn" onclick="setFilter(this)">Sciences</button>
+    <button class="filter-btn" onclick="setFilter(this)">Health</button>
+    <button class="filter-btn" onclick="setFilter(this)">Business</button>
+    <button class="filter-btn" onclick="setFilter(this)">Arts</button>
+    <button class="filter-btn" onclick="setFilter(this)">Liberal Arts</button>
+    <button class="filter-btn" onclick="setFilter(this)">Education</button>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num">680</div>
+      <div class="stat-label">Full-Time Faculty</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">94%</div>
+      <div class="stat-label">Terminal Degree Holders</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Guggenheim Fellows</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">42</div>
+      <div class="stat-label">Papers Published 2025</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="page-wrap">
+    <main>
+
+      <div class="section-label">Faculty Spotlight</div>
+
+      <!-- FACULTY SPOTLIGHT -->
+      <div class="faculty-spotlight">
+        <div class="fs-left">
+          <div class="fs-eyebrow">Faculty of the Month</div>
+          <div class="fs-name">Dr. Ahmed Khalil</div>
+          <div class="fs-title">Professor & Chair · Department of Political Science<br>Guggenheim Fellow 2026</div>
+          <p class="fs-bio">Dr. Ahmed Khalil joined YSU in 2011 after completing his doctorate at the University of Michigan and has since built one of the most cited research programs on post-industrial labor identity in the country. His 2023 book, <em>The Valley and the Machine</em>, was reviewed in the New York Times and assigned in graduate courses at Harvard and LSE. In April 2026, he became only the third YSU faculty member in the university's 118-year history to be named a Guggenheim Fellow — awarded for his ongoing research into how manufacturing communities rebuild civic identity after economic dislocation. He teaches 200-level American Politics and a graduate seminar in Political Economy.</p>
+        </div>
+        <div class="fs-right">
+          <div class="fs-achievement">
+            <div class="fa-label">2026 Honor</div>
+            <div class="fa-title">John Simon Guggenheim Memorial Fellowship</div>
+            <div class="fa-detail">Social Sciences · Third in YSU History</div>
+          </div>
+          <div class="fs-achievement">
+            <div class="fa-label">Publication</div>
+            <div class="fa-title">The Valley and the Machine — reviewed in the New York Times</div>
+            <div class="fa-detail">University of Chicago Press, 2023</div>
+          </div>
+          <div class="fs-achievement">
+            <div class="fa-label">Teaching</div>
+            <div class="fa-title">YSU Distinguished Teaching Award — 2022</div>
+            <div class="fa-detail">Nominated by students three consecutive years</div>
+          </div>
+          <div class="fs-achievement">
+            <div class="fa-label">At YSU Since</div>
+            <div class="fa-title">2011 · 15 Years of Service</div>
+            <div class="fa-detail">PhD, University of Michigan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Faculty Achievement</div>
+
+      <!-- FACULTY GRID -->
+      <div class="faculty-grid">
+        <div class="faculty-card">
+          <div class="fc-dept">Materials Science</div>
+          <div class="fc-name">Dr. Priya Nair</div>
+          <div class="fc-title">Associate Professor · Rayen School of Engineering</div>
+          <p class="fc-story">Dr. Nair's Advanced Materials Laboratory published a landmark study in Nature Materials on biodegradable battery technology, earning $4.2M in NSF funding and opening partnership discussions with three medical device manufacturers. Four of her undergraduate students earned co-authorship credits on the paper.</p>
+          <div class="fc-meta"><span>May 2026</span><span class="fc-award">Nature Materials · NSF $4.2M</span></div>
+        </div>
+        <div class="faculty-card">
+          <div class="fc-dept">Biology</div>
+          <div class="fc-name">Dr. Layla Chen</div>
+          <div class="fc-title">Associate Professor · Department of Biological Sciences</div>
+          <p class="fc-story">Dr. Chen's Climate Resilience Lab attracted a Fulbright Scholar from Berlin this spring, a testament to the lab's growing international reputation. Her decade-long Mahoning River ecosystem recovery study was published in Nature Ecology in April, earning widespread academic attention.</p>
+          <div class="fc-meta"><span>Apr 2026</span><span class="fc-award">Fulbright Host · Nature Ecology</span></div>
+        </div>
+        <div class="faculty-card">
+          <div class="fc-dept">Computer Science</div>
+          <div class="fc-name">Dr. Tariq Hassan</div>
+          <div class="fc-title">Associate Professor · Department of Computer Science & Information Systems</div>
+          <p class="fc-story">Dr. Hassan leads YSU's AI Ethics Initiative, a $1.8M Mellon Foundation-backed partnership with Case Western Reserve and the University of Pittsburgh examining responsible AI deployment in healthcare — the largest computer science grant in YSU's history.</p>
+          <div class="fc-meta"><span>May 2026</span><span class="fc-award">Mellon Foundation $1.8M</span></div>
+        </div>
+        <div class="faculty-card">
+          <div class="fc-dept">Fine Arts</div>
+          <div class="fc-name">Dr. Patricia Malone</div>
+          <div class="fc-title">Professor & Director · Dana School of Music</div>
+          <p class="fc-story">Under Dr. Malone's leadership, the Dana School of Music ensemble has been invited to perform at the Kennedy Center in Washington D.C. this fall — the most prestigious invitation in the program's history. The school also earned a rare commendation from NASM evaluators in 2024.</p>
+          <div class="fc-meta"><span>May 2026</span><span class="fc-award">Kennedy Center · NASM Commendation</span></div>
+        </div>
+      </div>
+
+      <div class="section-label">More Faculty News</div>
+
+      <!-- FACULTY LIST -->
+      <div class="faculty-list">
+        <div class="faculty-item">
+          <div>
+            <div class="fi-dept">Engineering</div>
+            <div class="fi-name">Dr. Irina Petrova</div>
+            <div class="fi-role">Associate Professor · Electrical Engineering</div>
+            <p class="fi-story">Dr. Petrova's Clean Energy Lab secured a $720K Department of Energy grant to develop next-generation perovskite-silicon tandem solar cells. The two-year project targets efficiency rates above 35%, which would surpass current commercial benchmarks by a significant margin.</p>
+          </div>
+          <div class="fi-badge">
+            <div class="fi-badge-label">Award</div>
+            <div class="fi-badge-text">DOE Research Grant</div>
+            <div class="fi-badge-year">$720K · 2025</div>
+          </div>
+        </div>
+        <div class="faculty-item">
+          <div>
+            <div class="fi-dept">Chemistry</div>
+            <div class="fi-name">Dr. James Osei</div>
+            <div class="fi-role">Associate Professor · Department of Chemistry</div>
+            <p class="fi-story">Dr. Osei's lab developed a low-cost cellulose-based water filtration membrane that removes 99.4% of common agricultural contaminants. The technology is now being piloted in three rural Ohio counties in partnership with the Ohio EPA and could have national implications for clean water access.</p>
+          </div>
+          <div class="fi-badge">
+            <div class="fi-badge-label">Impact</div>
+            <div class="fi-badge-text">Ohio EPA Partnership</div>
+            <div class="fi-badge-year">3 Counties · 2026</div>
+          </div>
+        </div>
+        <div class="faculty-item">
+          <div>
+            <div class="fi-dept">Physics</div>
+            <div class="fi-name">Dr. Wei Huang</div>
+            <div class="fi-role">Associate Professor · Department of Physics & Astronomy</div>
+            <p class="fi-story">Dr. Huang co-led a collaboration with Ohio State and Fermilab that detected a rare tau neutrino interaction signature in an underground scintillator array. The findings, published in the Journal of Applied Physics, could help refine the Standard Model of particle physics.</p>
+          </div>
+          <div class="fi-badge">
+            <div class="fi-badge-label">Publication</div>
+            <div class="fi-badge-text">Journal of Applied Physics</div>
+            <div class="fi-badge-year">Mar 2026</div>
+          </div>
+        </div>
+        <div class="faculty-item">
+          <div>
+            <div class="fi-dept">Aerospace Engineering</div>
+            <div class="fi-name">Dr. Marcos Rivera</div>
+            <div class="fi-role">Professor · Rayen School of Engineering</div>
+            <p class="fi-story">Dr. Rivera's team received a $540K NASA grant to develop lightweight carbon-fiber composites for deep-space applications. Three undergraduate students have been named paid research fellows on the project, gaining rare access to NASA-level aerospace research while still in school.</p>
+          </div>
+          <div class="fi-badge">
+            <div class="fi-badge-label">Grant</div>
+            <div class="fi-badge-text">NASA Research Award</div>
+            <div class="fi-badge-year">$540K · 2025</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- DEPT BOX -->
+      <div class="dept-box">
+        <div class="dept-box-label">Faculty by College</div>
+        <div class="dept-row">
+          <div class="dr-name">Rayen School of Engineering</div>
+          <div class="dr-count">112</div>
+        </div>
+        <div class="dept-row">
+          <div class="dr-name">College of Health & Human Services</div>
+          <div class="dr-count">98</div>
+        </div>
+        <div class="dept-row">
+          <div class="dr-name">College of Liberal Arts & Social Sciences</div>
+          <div class="dr-count">142</div>
+        </div>
+        <div class="dept-row">
+          <div class="dr-name">Williamson College of Business</div>
+          <div class="dr-count">86</div>
+        </div>
+        <div class="dept-row">
+          <div class="dr-name">College of Science, Technology & Math</div>
+          <div class="dr-count">118</div>
+        </div>
+        <div class="dept-row">
+          <div class="dr-name">Dana School of Music</div>
+          <div class="dr-count">48</div>
+        </div>
+        <div class="dept-row">
+          <div class="dr-name">College of Education</div>
+          <div class="dr-count">76</div>
+        </div>
+      </div>
+
+      <!-- RECENT PUBLICATIONS -->
+      <div class="sidebar-section">
+        <div class="section-label">Recent Publications</div>
+        <div class="pub-item">
+          <div class="pub-journal">Nature Materials</div>
+          <div class="pub-title">Biodegradable Manganese-Based Electrochemical Cells</div>
+          <div class="pub-authors">Nair et al. · 2026</div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-journal">Nature Ecology & Evolution</div>
+          <div class="pub-title">Decadal Recovery of Native Fish in Post-Industrial Rivers</div>
+          <div class="pub-authors">Chen et al. · Apr 2026</div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-journal">Journal of Applied Physics</div>
+          <div class="pub-title">Tau Neutrino Signatures in Underground Arrays</div>
+          <div class="pub-authors">Huang et al. · Mar 2026</div>
+        </div>
+        <div class="pub-item">
+          <div class="pub-journal">Water Research</div>
+          <div class="pub-title">Low-Cost Cellulose Membranes for Agricultural Runoff Filtration</div>
+          <div class="pub-authors">Osei et al. · Feb 2026</div>
+        </div>
+      </div>
+
+      <!-- RECENT FACULTY NEWS -->
+      <div class="sidebar-section">
+        <div class="section-label">Recent Faculty News</div>
+        <div class="sidebar-item">
+          <div class="sit-tag">Award</div>
+          <div class="sit-title">Dr. Khalil named Guggenheim Fellow — third in YSU history</div>
+          <div class="sit-meta">May 4, 2026</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sit-tag">Research</div>
+          <div class="sit-title">Dr. Nair's Nature Materials paper draws three industry partners</div>
+          <div class="sit-meta">May 5, 2026</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sit-tag">International</div>
+          <div class="sit-title">Dr. Chen hosts Fulbright Scholar from Berlin</div>
+          <div class="sit-meta">May 6, 2026</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sit-tag">Arts</div>
+          <div class="sit-title">Dana School ensemble invited to Kennedy Center</div>
+          <div class="sit-meta">May 5, 2026</div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <div class="footer-name">Youngstown State University</div>
+      <div class="footer-sub">youngstownstateuniversity.com · The Penguin Report · Not affiliated with YSU</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">News</a>
+      <a href="sports.html">Sports</a>
+      <a href="science.html">Science</a>
+      <a href="accolades.html">Accolades</a>
+      <a href="students.html">Students</a>
+      <a href="faculty.html">Faculty</a>
+      <a href="alumni.html">Alumni</a>
+    </div>
+    <div class="footer-copy">© 2026 youngstownstateuniversity.com</div>
+  </footer>
+
+  <script>
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const now = new Date();
+    document.getElementById('dateline').textContent =
+      days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+
+    function setFilter(btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
