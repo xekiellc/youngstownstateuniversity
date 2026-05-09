@@ -12,7 +12,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4051YC1LHZ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -146,20 +145,6 @@
     }
     .no-results.visible { display: block; }
 
-    .news-list { display: flex; flex-direction: column; }
-    .news-item {
-      display: grid; grid-template-columns: 80px 1fr;
-      gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--light-border); cursor: pointer;
-    }
-    .news-item:hover .ni-title { color: var(--scarlet); }
-    .ni-date-block { text-align: center; padding-top: 4px; }
-    .ni-month { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--scarlet); }
-    .ni-day { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--charcoal); line-height: 1; }
-    .ni-year { font-size: 10px; color: #bbb; letter-spacing: 1px; font-weight: 300; }
-    .ni-tag { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 5px; }
-    .ni-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 6px; transition: color 0.2s; }
-    .ni-excerpt { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
-
     .sidebar { border-left: 1px solid var(--light-border); padding-left: 24px; }
     .sidebar-section { margin-bottom: 30px; }
     .sidebar-item { padding: 12px 0; border-bottom: 1px solid #ece9e4; cursor: pointer; }
@@ -173,6 +158,7 @@
     .dept-row {
       display: flex; justify-content: space-between; align-items: center;
       padding: 8px 0; border-bottom: 1px solid #2a2a2a; cursor: pointer;
+      text-decoration: none; color: inherit;
     }
     .dept-row:last-child { border-bottom: none; }
     .dept-row:hover .dr-name { color: var(--scarlet); }
@@ -251,7 +237,6 @@
     <div class="page-header-sub">The scholars, researchers, and educators who make Youngstown State exceptional</div>
   </div>
 
-  <!-- FILTER BAR — ALL COLLEGES -->
   <div class="filter-bar">
     <button class="filter-btn active" data-filter="all" onclick="filterFaculty(this)">All</button>
     <button class="filter-btn" data-filter="engineering" onclick="filterFaculty(this)">Engineering</button>
@@ -265,7 +250,6 @@
     <button class="filter-btn" data-filter="graduate" onclick="filterFaculty(this)">Graduate Studies</button>
   </div>
 
-  <!-- STATS STRIP -->
   <div class="stats-strip">
     <div class="stat-item"><div class="stat-num">680</div><div class="stat-label">Full-Time Faculty</div></div>
     <div class="stat-item"><div class="stat-num">94%</div><div class="stat-label">Terminal Degree Holders</div></div>
@@ -277,7 +261,6 @@
     <main>
 
       <div class="section-label">Faculty Spotlight</div>
-
       <div class="faculty-spotlight">
         <div>
           <div class="fs-eyebrow">Faculty of the Month</div>
@@ -316,7 +299,6 @@
       <div class="section-label" id="faculty-section-label">Faculty Achievement</div>
       <div class="no-results" id="noResults">No faculty profiles found in this college yet.</div>
 
-      <!-- FACULTY CARDS — data-cat matches filter buttons -->
       <div class="faculty-grid" id="facultyGrid">
 
         <div class="faculty-card" data-cat="nursing">
@@ -470,47 +452,46 @@
 
     </main>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
       <div class="dept-box">
         <div class="dept-box-label">Faculty by College</div>
-        <div class="dept-row" onclick="filterFacultyByCollege('nursing')">
+        <a href="https://ysu.edu/nursing" target="_blank" rel="noopener" class="dept-row">
           <div class="dr-name">Nursing</div>
           <div class="dr-count">64</div>
-        </div>
-        <div class="dept-row" onclick="filterFacultyByCollege('engineering')">
+        </a>
+        <a href="https://ysu.edu/rayen-school-engineering" target="_blank" rel="noopener" class="dept-row">
           <div class="dr-name">Rayen School of Engineering</div>
           <div class="dr-count">112</div>
-        </div>
-        <div class="dept-row" onclick="filterFacultyByCollege('health')">
+        </a>
+        <a href="https://ysu.edu/chhs" target="_blank" rel="noopener" class="dept-row">
           <div class="dr-name">College of Health & Human Services</div>
           <div class="dr-count">98</div>
-        </div>
-        <div class="dept-row" onclick="filterFacultyByCollege('sciences')">
+        </a>
+        <a href="https://ysu.edu/cstem" target="_blank" rel="noopener" class="dept-row">
           <div class="dr-name">College of Science, Technology, Engineering & Math</div>
           <div class="dr-count">118</div>
-        </div>
-        <div class="dept-row" onclick="filterFacultyByCollege('business')">
+        </a>
+        <a href="https://ysu.edu/wcba" target="_blank" rel="noopener" class="dept-row">
           <div class="dr-name">Williamson College of Business</div>
           <div class="dr-count">86</div>
-        </div>
-        <div class="dept-row" onclick="filterFacultyByCollege('lass')">
+        </a>
+        <a href="https://ysu.edu/class" target="_blank" rel="noopener" class="dept-row">
           <div class="dr-name">College of Liberal Arts & Social Sciences</div>
           <div class="dr-count">142</div>
-        </div>
-        <div class="dept-row" onclick="filterFacultyByCollege('music')">
+        </a>
+        <a href="https://ysu.edu/dana-school-music" target="_blank" rel="noopener" class="dept-row">
           <div class="dr-name">Dana School of Music</div>
           <div class="dr-count">48</div>
-        </div>
-        <div class="dept-row" onclick="filterFacultyByCollege('education')">
+        </a>
+        <a href="https://ysu.edu/college-education" target="_blank" rel="noopener" class="dept-row">
           <div class="dr-name">College of Education</div>
           <div class="dr-count">76</div>
-        </div>
-        <div class="dept-row" onclick="filterFacultyByCollege('graduate')">
+        </a>
+        <a href="https://ysu.edu/graduate-studies" target="_blank" rel="noopener" class="dept-row">
           <div class="dr-name">College of Graduate Studies</div>
           <div class="dr-count">24</div>
-        </div>
+        </a>
       </div>
 
       <div class="sidebar-section">
@@ -600,15 +581,6 @@
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       applyFilter(btn.dataset.filter);
-    }
-
-    function filterFacultyByCollege(cat) {
-      document.querySelectorAll('.filter-btn').forEach(b => {
-        b.classList.remove('active');
-        if (b.dataset.filter === cat) b.classList.add('active');
-      });
-      applyFilter(cat);
-      window.scrollTo({ top: document.querySelector('.filter-bar').offsetTop - 60, behavior: 'smooth' });
     }
 
     function applyFilter(filter) {
