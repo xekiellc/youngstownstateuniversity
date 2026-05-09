@@ -12,6 +12,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4051YC1LHZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4051YC1LHZ');
+  </script>
   <style>
     :root {
       --scarlet: #CC0000;
@@ -71,8 +79,8 @@
     }
     .filter-bar::-webkit-scrollbar { display: none; }
     .filter-btn {
-      font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2.5px;
-      color: #aaa; padding: 12px 16px; cursor: pointer; white-space: nowrap;
+      font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2px;
+      color: #aaa; padding: 12px 14px; cursor: pointer; white-space: nowrap;
       border: none; background: none; border-bottom: 3px solid transparent; transition: color 0.2s;
     }
     .filter-btn:hover { color: var(--charcoal); }
@@ -88,7 +96,7 @@
     .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #fff; line-height: 1; }
     .stat-label { font-size: 9px; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 300; margin-top: 3px; }
 
-    .page-wrap { max-width: 1160px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 1fr 260px; gap: 40px; }
+    .page-wrap { max-width: 1160px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 1fr 280px; gap: 40px; }
 
     .section-label {
       font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 4px;
@@ -112,36 +120,31 @@
     .fa-detail { font-size: 12px; color: #555; margin-top: 3px; font-weight: 300; }
 
     .faculty-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
-    .faculty-card { border-bottom: 1px solid var(--light-border); padding-bottom: 20px; cursor: pointer; }
+    .faculty-card {
+      border: 1px solid var(--light-border); border-radius: 4px; padding: 20px;
+      cursor: pointer; transition: box-shadow 0.2s; border-top: 3px solid var(--scarlet);
+      background: #fff;
+    }
+    .faculty-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
     .faculty-card:hover .fc-name { color: var(--scarlet); }
-    .fc-dept {
+    .faculty-card.hidden { display: none; }
+    .fc-college {
       display: inline-block; background: var(--cream); border: 1px solid var(--light-border);
-      font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2.5px;
-      color: var(--mid); padding: 3px 10px; border-radius: 2px; margin-bottom: 8px;
+      font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2px;
+      color: var(--mid); padding: 3px 10px; border-radius: 2px; margin-bottom: 10px;
     }
     .fc-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; line-height: 1.2; color: var(--charcoal); margin-bottom: 3px; transition: color 0.2s; }
-    .fc-title { font-size: 12px; color: var(--mid); font-weight: 300; margin-bottom: 8px; }
+    .fc-title { font-size: 12px; color: var(--mid); font-weight: 300; margin-bottom: 10px; }
     .fc-story { font-size: 13px; color: var(--mid); line-height: 1.6; font-weight: 300; }
-    .fc-meta { margin-top: 9px; font-size: 11px; color: #bbb; display: flex; gap: 10px; }
+    .fc-meta { margin-top: 10px; font-size: 11px; color: #bbb; display: flex; gap: 10px; flex-wrap: wrap; }
     .fc-award { color: var(--scarlet); font-weight: 400; }
 
-    .faculty-list { display: flex; flex-direction: column; margin-bottom: 32px; }
-    .faculty-item {
-      padding: 18px 0; border-bottom: 1px solid var(--light-border);
-      display: grid; grid-template-columns: 1fr 140px; gap: 20px; align-items: start; cursor: pointer;
+    .no-results {
+      display: none; text-align: center; padding: 48px 0;
+      font-family: 'Bebas Neue', sans-serif; font-size: 16px;
+      letter-spacing: 3px; color: #bbb;
     }
-    .faculty-item:hover .fi-name { color: var(--scarlet); }
-    .fi-dept { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2.5px; color: var(--scarlet); margin-bottom: 5px; }
-    .fi-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.2; color: var(--charcoal); margin-bottom: 4px; transition: color 0.2s; }
-    .fi-role { font-size: 12px; color: var(--mid); font-weight: 300; margin-bottom: 7px; }
-    .fi-story { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
-    .fi-badge {
-      text-align: center; background: var(--charcoal); border-radius: 4px;
-      padding: 12px 10px; border-top: 2px solid var(--scarlet);
-    }
-    .fi-badge-label { font-family: 'Bebas Neue', sans-serif; font-size: 8px; letter-spacing: 2px; color: var(--scarlet); margin-bottom: 4px; }
-    .fi-badge-text { font-family: 'Playfair Display', serif; font-size: 12px; font-weight: 700; color: #fff; line-height: 1.3; }
-    .fi-badge-year { font-size: 10px; color: #555; margin-top: 3px; font-weight: 300; }
+    .no-results.visible { display: block; }
 
     .news-list { display: flex; flex-direction: column; }
     .news-item {
@@ -167,9 +170,13 @@
 
     .dept-box { background: var(--charcoal); border-radius: 4px; padding: 18px; margin-bottom: 28px; border-top: 3px solid var(--scarlet); }
     .dept-box-label { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 4px; color: var(--scarlet); margin-bottom: 14px; }
-    .dept-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #2a2a2a; }
+    .dept-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid #2a2a2a; cursor: pointer;
+    }
     .dept-row:last-child { border-bottom: none; }
-    .dr-name { font-size: 12px; color: #ccc; font-weight: 300; }
+    .dept-row:hover .dr-name { color: var(--scarlet); }
+    .dr-name { font-size: 12px; color: #ccc; font-weight: 300; transition: color 0.2s; }
     .dr-count { font-family: 'Bebas Neue', sans-serif; font-size: 15px; color: var(--scarlet); }
 
     .pub-item { padding: 10px 0; border-bottom: 1px solid #ece9e4; }
@@ -206,8 +213,6 @@
       .faculty-spotlight { grid-template-columns: 1fr; }
       .fs-right { border-left: none; padding-left: 0; border-top: 1px solid #2e2e2e; padding-top: 20px; }
       .faculty-grid { grid-template-columns: 1fr; }
-      .faculty-item { grid-template-columns: 1fr; }
-      .fi-badge { display: none; }
       footer { flex-direction: column; align-items: flex-start; padding: 20px 16px; }
     }
   </style>
@@ -246,34 +251,26 @@
     <div class="page-header-sub">The scholars, researchers, and educators who make Youngstown State exceptional</div>
   </div>
 
+  <!-- FILTER BAR — ALL COLLEGES -->
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="setFilter(this)">All</button>
-    <button class="filter-btn" onclick="setFilter(this)">Engineering</button>
-    <button class="filter-btn" onclick="setFilter(this)">Sciences</button>
-    <button class="filter-btn" onclick="setFilter(this)">Health</button>
-    <button class="filter-btn" onclick="setFilter(this)">Business</button>
-    <button class="filter-btn" onclick="setFilter(this)">Arts</button>
-    <button class="filter-btn" onclick="setFilter(this)">Liberal Arts</button>
-    <button class="filter-btn" onclick="setFilter(this)">Education</button>
+    <button class="filter-btn active" data-filter="all" onclick="filterFaculty(this)">All</button>
+    <button class="filter-btn" data-filter="engineering" onclick="filterFaculty(this)">Engineering</button>
+    <button class="filter-btn" data-filter="nursing" onclick="filterFaculty(this)">Nursing</button>
+    <button class="filter-btn" data-filter="health" onclick="filterFaculty(this)">Health Sciences</button>
+    <button class="filter-btn" data-filter="sciences" onclick="filterFaculty(this)">Sciences & Math</button>
+    <button class="filter-btn" data-filter="business" onclick="filterFaculty(this)">Business</button>
+    <button class="filter-btn" data-filter="lass" onclick="filterFaculty(this)">Liberal Arts & Social Sciences</button>
+    <button class="filter-btn" data-filter="music" onclick="filterFaculty(this)">Music & Arts</button>
+    <button class="filter-btn" data-filter="education" onclick="filterFaculty(this)">Education</button>
+    <button class="filter-btn" data-filter="graduate" onclick="filterFaculty(this)">Graduate Studies</button>
   </div>
 
+  <!-- STATS STRIP -->
   <div class="stats-strip">
-    <div class="stat-item">
-      <div class="stat-num">680</div>
-      <div class="stat-label">Full-Time Faculty</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">94%</div>
-      <div class="stat-label">Terminal Degree Holders</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">3</div>
-      <div class="stat-label">Guggenheim Fellows</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">42</div>
-      <div class="stat-label">Papers Published 2025</div>
-    </div>
+    <div class="stat-item"><div class="stat-num">680</div><div class="stat-label">Full-Time Faculty</div></div>
+    <div class="stat-item"><div class="stat-num">94%</div><div class="stat-label">Terminal Degree Holders</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Guggenheim Fellows</div></div>
+    <div class="stat-item"><div class="stat-num">42</div><div class="stat-label">Papers Published 2025</div></div>
   </div>
 
   <div class="page-wrap">
@@ -285,8 +282,8 @@
         <div>
           <div class="fs-eyebrow">Faculty of the Month</div>
           <div class="fs-name">Dr. Ahmed Khalil</div>
-          <div class="fs-title">Professor & Chair · Department of Political Science<br>Guggenheim Fellow 2026</div>
-          <p class="fs-bio">Dr. Ahmed Khalil joined YSU in 2011 after completing his doctorate at the University of Michigan and has since built one of the most cited research programs on post-industrial labor identity in the country. His 2023 book, <em>The Valley and the Machine</em>, was reviewed in the New York Times and assigned in graduate courses at Harvard and LSE. In April 2026, he became only the third YSU faculty member in the university's 118-year history to be named a Guggenheim Fellow.</p>
+          <div class="fs-title">Professor & Chair · Political Science · Guggenheim Fellow 2026</div>
+          <p class="fs-bio">Dr. Ahmed Khalil joined YSU in 2011 after completing his doctorate at the University of Michigan. His 2023 book <em>The Valley and the Machine</em> was reviewed in the New York Times and assigned in graduate courses at Harvard and LSE. In April 2026, he became only the third YSU faculty member in the university's 118-year history to be named a Guggenheim Fellow.</p>
         </div>
         <div class="fs-right">
           <div class="fs-achievement">
@@ -296,7 +293,7 @@
           </div>
           <div class="fs-achievement">
             <div class="fa-label">Publication</div>
-            <div class="fa-title">The Valley and the Machine — reviewed in the New York Times</div>
+            <div class="fa-title">The Valley and the Machine — New York Times reviewed</div>
             <div class="fa-detail">University of Chicago Press, 2023</div>
           </div>
           <div class="fs-achievement">
@@ -313,98 +310,159 @@
       </div>
 
       <div class="section-label">Live Faculty News</div>
-
       <!-- BEGIN:LIVE_NEWS -->
       <!-- END:LIVE_NEWS -->
 
-      <div class="section-label">Faculty Achievement</div>
+      <div class="section-label" id="faculty-section-label">Faculty Achievement</div>
+      <div class="no-results" id="noResults">No faculty profiles found in this college yet.</div>
 
-      <div class="faculty-grid">
-        <div class="faculty-card">
-          <div class="fc-dept">Materials Science</div>
+      <!-- FACULTY CARDS — data-cat matches filter buttons -->
+      <div class="faculty-grid" id="facultyGrid">
+
+        <div class="faculty-card" data-cat="nursing">
+          <div class="fc-college">Nursing — College of Health & Human Services</div>
+          <div class="fc-name">Dr. Sandra Morris</div>
+          <div class="fc-title">Professor & Chair · Department of Nursing</div>
+          <p class="fc-story">Dr. Morris led the curriculum redesign that earned YSU's Nursing program its #1 ranking in Ohio by U.S. News & World Report. Her partnership with Mercy Health has created 200+ clinical placements annually.</p>
+          <div class="fc-meta"><span>2026</span><span class="fc-award">#1 Ohio Nursing Program</span></div>
+        </div>
+
+        <div class="faculty-card" data-cat="engineering">
+          <div class="fc-college">Rayen School of Engineering</div>
           <div class="fc-name">Dr. Priya Nair</div>
-          <div class="fc-title">Associate Professor · Rayen School of Engineering</div>
-          <p class="fc-story">Dr. Nair's Advanced Materials Laboratory published a landmark study in Nature Materials on biodegradable battery technology, earning $4.2M in NSF funding and opening partnership discussions with three medical device manufacturers.</p>
+          <div class="fc-title">Associate Professor · Materials Science & Engineering</div>
+          <p class="fc-story">Dr. Nair's lab published a landmark study in Nature Materials on biodegradable battery technology, earning $4.2M in NSF funding. Four undergraduate students earned co-authorship on the paper.</p>
           <div class="fc-meta"><span>May 2026</span><span class="fc-award">Nature Materials · NSF $4.2M</span></div>
         </div>
-        <div class="faculty-card">
-          <div class="fc-dept">Biology</div>
+
+        <div class="faculty-card" data-cat="engineering">
+          <div class="fc-college">Rayen School of Engineering</div>
+          <div class="fc-name">Dr. Marcos Rivera</div>
+          <div class="fc-title">Professor · Aerospace Engineering</div>
+          <p class="fc-story">Dr. Rivera's team received a $540K NASA grant to develop lightweight carbon-fiber composites for deep-space applications. Three undergraduates are named paid research fellows on the project.</p>
+          <div class="fc-meta"><span>2025</span><span class="fc-award">NASA $540K Grant</span></div>
+        </div>
+
+        <div class="faculty-card" data-cat="engineering">
+          <div class="fc-college">Rayen School of Engineering</div>
+          <div class="fc-name">Dr. Irina Petrova</div>
+          <div class="fc-title">Associate Professor · Electrical Engineering</div>
+          <p class="fc-story">Dr. Petrova's Clean Energy Lab secured a $720K DOE grant to develop next-generation perovskite-silicon tandem solar cells targeting efficiency rates above 35%, surpassing current benchmarks.</p>
+          <div class="fc-meta"><span>2025</span><span class="fc-award">DOE $720K Grant</span></div>
+        </div>
+
+        <div class="faculty-card" data-cat="health">
+          <div class="fc-college">College of Health & Human Services</div>
+          <div class="fc-name">Dr. James Osei</div>
+          <div class="fc-title">Associate Professor · Health Sciences</div>
+          <p class="fc-story">Dr. Osei's lab developed a low-cost cellulose-based water filtration membrane removing 99.4% of agricultural contaminants, now piloted in three rural Ohio counties with the Ohio EPA.</p>
+          <div class="fc-meta"><span>Apr 2026</span><span class="fc-award">Ohio EPA Partnership</span></div>
+        </div>
+
+        <div class="faculty-card" data-cat="sciences">
+          <div class="fc-college">College of Science, Technology, Engineering & Mathematics</div>
           <div class="fc-name">Dr. Layla Chen</div>
-          <div class="fc-title">Associate Professor · Department of Biological Sciences</div>
-          <p class="fc-story">Dr. Chen's Climate Resilience Lab attracted a Fulbright Scholar from Berlin this spring. Her decade-long Mahoning River ecosystem recovery study was published in Nature Ecology in April, earning widespread academic attention.</p>
+          <div class="fc-title">Associate Professor · Biological Sciences</div>
+          <p class="fc-story">Dr. Chen's Climate Resilience Lab attracted a Fulbright Scholar from Berlin. Her decade-long Mahoning River ecosystem study was published in Nature Ecology in April 2026.</p>
           <div class="fc-meta"><span>Apr 2026</span><span class="fc-award">Fulbright Host · Nature Ecology</span></div>
         </div>
-        <div class="faculty-card">
-          <div class="fc-dept">Computer Science</div>
+
+        <div class="faculty-card" data-cat="sciences">
+          <div class="fc-college">College of Science, Technology, Engineering & Mathematics</div>
           <div class="fc-name">Dr. Tariq Hassan</div>
-          <div class="fc-title">Associate Professor · Department of Computer Science & Information Systems</div>
-          <p class="fc-story">Dr. Hassan leads YSU's AI Ethics Initiative, a $1.8M Mellon Foundation-backed partnership with Case Western Reserve and the University of Pittsburgh examining responsible AI deployment in healthcare.</p>
+          <div class="fc-title">Associate Professor · Computer Science & Information Systems</div>
+          <p class="fc-story">Dr. Hassan leads YSU's AI Ethics Initiative, a $1.8M Mellon Foundation partnership with Case Western and Pitt examining responsible AI deployment in healthcare settings.</p>
           <div class="fc-meta"><span>May 2026</span><span class="fc-award">Mellon Foundation $1.8M</span></div>
         </div>
-        <div class="faculty-card">
-          <div class="fc-dept">Fine Arts</div>
+
+        <div class="faculty-card" data-cat="sciences">
+          <div class="fc-college">College of Science, Technology, Engineering & Mathematics</div>
+          <div class="fc-name">Dr. Wei Huang</div>
+          <div class="fc-title">Associate Professor · Physics & Astronomy</div>
+          <p class="fc-story">Dr. Huang co-led a collaboration with Ohio State and Fermilab detecting a rare tau neutrino interaction, published in the Journal of Applied Physics, that could help refine the Standard Model.</p>
+          <div class="fc-meta"><span>Mar 2026</span><span class="fc-award">Journal of Applied Physics</span></div>
+        </div>
+
+        <div class="faculty-card" data-cat="business">
+          <div class="fc-college">Williamson College of Business</div>
+          <div class="fc-name">Dr. Angela Torres</div>
+          <div class="fc-title">Professor · Entrepreneurship & Innovation</div>
+          <p class="fc-story">Dr. Torres founded YSU's Penguin Startup Lab and mentored this year's national entrepreneurship competition champion. Under her leadership the program has produced three funded startups in two years.</p>
+          <div class="fc-meta"><span>2026</span><span class="fc-award">Startup Lab Founder</span></div>
+        </div>
+
+        <div class="faculty-card" data-cat="business">
+          <div class="fc-college">Williamson College of Business</div>
+          <div class="fc-name">Dr. Robert Kaminski</div>
+          <div class="fc-title">Professor · Finance & Economics</div>
+          <p class="fc-story">Dr. Kaminski's research on post-industrial regional economic recovery has been cited in Ohio state policy documents. He leads the Mahoning Valley Economic Development Research Center at YSU.</p>
+          <div class="fc-meta"><span>2025</span><span class="fc-award">Economic Policy Research</span></div>
+        </div>
+
+        <div class="faculty-card" data-cat="lass">
+          <div class="fc-college">College of Liberal Arts & Social Sciences</div>
+          <div class="fc-name">Dr. Ahmed Khalil</div>
+          <div class="fc-title">Professor & Chair · Political Science</div>
+          <p class="fc-story">The 2026 Guggenheim Fellow's research on post-industrial labor identity has made him one of the most cited political scientists in the Midwest. His book <em>The Valley and the Machine</em> earned national acclaim.</p>
+          <div class="fc-meta"><span>2026</span><span class="fc-award">Guggenheim Fellow</span></div>
+        </div>
+
+        <div class="faculty-card" data-cat="lass">
+          <div class="fc-college">College of Liberal Arts & Social Sciences</div>
+          <div class="fc-name">Dr. Maria Santos</div>
+          <div class="fc-title">Associate Professor · Department of Psychology</div>
+          <p class="fc-story">Dr. Santos's research on community resilience and trauma recovery in post-industrial cities has been funded by the Robert Wood Johnson Foundation. She runs YSU's Community Mental Health Research Lab.</p>
+          <div class="fc-meta"><span>2025</span><span class="fc-award">RWJ Foundation Grant</span></div>
+        </div>
+
+        <div class="faculty-card" data-cat="lass">
+          <div class="fc-college">College of Liberal Arts & Social Sciences</div>
+          <div class="fc-name">Dr. Thomas Nguyen</div>
+          <div class="fc-title">Associate Professor · Criminal Justice</div>
+          <p class="fc-story">Dr. Nguyen's work on recidivism reduction and community policing models has been adopted by three Ohio counties. He serves as a research consultant to the Ohio Department of Rehabilitation & Correction.</p>
+          <div class="fc-meta"><span>2025</span><span class="fc-award">Ohio DRC Consultant</span></div>
+        </div>
+
+        <div class="faculty-card" data-cat="music">
+          <div class="fc-college">Dana School of Music</div>
           <div class="fc-name">Dr. Patricia Malone</div>
           <div class="fc-title">Professor & Director · Dana School of Music</div>
-          <p class="fc-story">Under Dr. Malone's leadership, the Dana School of Music ensemble has been invited to perform at the Kennedy Center in Washington D.C. this fall — the most prestigious invitation in the program's history.</p>
+          <p class="fc-story">Under Dr. Malone's leadership, the Dana School ensemble has been invited to perform at the Kennedy Center this fall — the most prestigious invitation in the program's history.</p>
           <div class="fc-meta"><span>May 2026</span><span class="fc-award">Kennedy Center · NASM Commendation</span></div>
         </div>
-      </div>
 
-      <div class="section-label">More Faculty News</div>
+        <div class="faculty-card" data-cat="music">
+          <div class="fc-college">Dana School of Music</div>
+          <div class="fc-name">Prof. James Wilkins</div>
+          <div class="fc-title">Professor · Jazz Studies & Performance</div>
+          <p class="fc-story">Prof. Wilkins has led the YSU Jazz Ensemble to three consecutive regional championships. Two of his former students are now performing with major national orchestras and jazz ensembles.</p>
+          <div class="fc-meta"><span>2026</span><span class="fc-award">3× Regional Champions</span></div>
+        </div>
 
-      <div class="faculty-list">
-        <div class="faculty-item">
-          <div>
-            <div class="fi-dept">Engineering</div>
-            <div class="fi-name">Dr. Irina Petrova</div>
-            <div class="fi-role">Associate Professor · Electrical Engineering</div>
-            <p class="fi-story">Dr. Petrova's Clean Energy Lab secured a $720K Department of Energy grant to develop next-generation perovskite-silicon tandem solar cells targeting efficiency rates above 35%.</p>
-          </div>
-          <div class="fi-badge">
-            <div class="fi-badge-label">Award</div>
-            <div class="fi-badge-text">DOE Research Grant</div>
-            <div class="fi-badge-year">$720K · 2025</div>
-          </div>
+        <div class="faculty-card" data-cat="education">
+          <div class="fc-college">College of Education</div>
+          <div class="fc-name">Dr. Michael Davis</div>
+          <div class="fc-title">Professor · Curriculum & Instruction</div>
+          <p class="fc-story">Dr. Davis's research on early literacy intervention in underserved communities has been adopted by 14 Mahoning Valley school districts and cited in an Ohio Department of Education policy brief.</p>
+          <div class="fc-meta"><span>2025</span><span class="fc-award">ODE Policy Citation</span></div>
         </div>
-        <div class="faculty-item">
-          <div>
-            <div class="fi-dept">Chemistry</div>
-            <div class="fi-name">Dr. James Osei</div>
-            <div class="fi-role">Associate Professor · Department of Chemistry</div>
-            <p class="fi-story">Dr. Osei's lab developed a low-cost cellulose-based water filtration membrane that removes 99.4% of common agricultural contaminants, now being piloted in three rural Ohio counties in partnership with the Ohio EPA.</p>
-          </div>
-          <div class="fi-badge">
-            <div class="fi-badge-label">Impact</div>
-            <div class="fi-badge-text">Ohio EPA Partnership</div>
-            <div class="fi-badge-year">3 Counties · 2026</div>
-          </div>
+
+        <div class="faculty-card" data-cat="education">
+          <div class="fc-college">College of Education</div>
+          <div class="fc-name">Dr. Lisa Park</div>
+          <div class="fc-title">Associate Professor · Educational Leadership</div>
+          <p class="fc-story">Dr. Park's graduate program in Educational Leadership has placed 28 principals and district administrators across Northeast Ohio in the past three years, with a 100% licensure pass rate.</p>
+          <div class="fc-meta"><span>2026</span><span class="fc-award">100% Licensure Pass Rate</span></div>
         </div>
-        <div class="faculty-item">
-          <div>
-            <div class="fi-dept">Physics</div>
-            <div class="fi-name">Dr. Wei Huang</div>
-            <div class="fi-role">Associate Professor · Department of Physics & Astronomy</div>
-            <p class="fi-story">Dr. Huang co-led a collaboration with Ohio State and Fermilab that detected a rare tau neutrino interaction signature. The findings, published in the Journal of Applied Physics, could help refine the Standard Model of particle physics.</p>
-          </div>
-          <div class="fi-badge">
-            <div class="fi-badge-label">Publication</div>
-            <div class="fi-badge-text">Journal of Applied Physics</div>
-            <div class="fi-badge-year">Mar 2026</div>
-          </div>
+
+        <div class="faculty-card" data-cat="graduate">
+          <div class="fc-college">College of Graduate Studies</div>
+          <div class="fc-name">Dr. Carolyn Wright</div>
+          <div class="fc-title">Dean · College of Graduate Studies</div>
+          <p class="fc-story">Under Dr. Wright's leadership, graduate enrollment at YSU has increased 18% over three years. She spearheaded the new interdisciplinary PhD programs in Health Informatics and Applied Engineering.</p>
+          <div class="fc-meta"><span>2026</span><span class="fc-award">18% Graduate Enrollment Growth</span></div>
         </div>
-        <div class="faculty-item">
-          <div>
-            <div class="fi-dept">Aerospace Engineering</div>
-            <div class="fi-name">Dr. Marcos Rivera</div>
-            <div class="fi-role">Professor · Rayen School of Engineering</div>
-            <p class="fi-story">Dr. Rivera's team received a $540K NASA grant to develop lightweight carbon-fiber composites for deep-space applications, with three undergraduate students named as paid research fellows on the project.</p>
-          </div>
-          <div class="fi-badge">
-            <div class="fi-badge-label">Grant</div>
-            <div class="fi-badge-text">NASA Research Award</div>
-            <div class="fi-badge-year">$540K · 2025</div>
-          </div>
-        </div>
+
       </div>
 
       <!-- BEGIN:LAST_UPDATED -->
@@ -412,21 +470,48 @@
 
     </main>
 
+    <!-- SIDEBAR -->
     <aside class="sidebar">
 
       <div class="dept-box">
         <div class="dept-box-label">Faculty by College</div>
-        <div class="dept-row"><div class="dr-name">Rayen School of Engineering</div><div class="dr-count">112</div></div>
-        <div class="dept-row"><div class="dr-name">College of Health & Human Services</div><div class="dr-count">98</div></div>
-        <div class="dept-row"><div class="dr-name">College of Liberal Arts & Social Sciences</div><div class="dr-count">142</div></div>
-        <div class="dept-row"><div class="dr-name">Williamson College of Business</div><div class="dr-count">86</div></div>
-        <div class="dept-row"><div class="dr-name">College of Science, Technology & Math</div><div class="dr-count">118</div></div>
-        <div class="dept-row"><div class="dr-name">Dana School of Music</div><div class="dr-count">48</div></div>
-        <div class="dept-row"><div class="dr-name">College of Education</div><div class="dr-count">76</div></div>
+        <div class="dept-row" onclick="filterFacultyByCollege('nursing')">
+          <div class="dr-name">Nursing</div>
+          <div class="dr-count">64</div>
+        </div>
+        <div class="dept-row" onclick="filterFacultyByCollege('engineering')">
+          <div class="dr-name">Rayen School of Engineering</div>
+          <div class="dr-count">112</div>
+        </div>
+        <div class="dept-row" onclick="filterFacultyByCollege('health')">
+          <div class="dr-name">College of Health & Human Services</div>
+          <div class="dr-count">98</div>
+        </div>
+        <div class="dept-row" onclick="filterFacultyByCollege('sciences')">
+          <div class="dr-name">College of Science, Technology, Engineering & Math</div>
+          <div class="dr-count">118</div>
+        </div>
+        <div class="dept-row" onclick="filterFacultyByCollege('business')">
+          <div class="dr-name">Williamson College of Business</div>
+          <div class="dr-count">86</div>
+        </div>
+        <div class="dept-row" onclick="filterFacultyByCollege('lass')">
+          <div class="dr-name">College of Liberal Arts & Social Sciences</div>
+          <div class="dr-count">142</div>
+        </div>
+        <div class="dept-row" onclick="filterFacultyByCollege('music')">
+          <div class="dr-name">Dana School of Music</div>
+          <div class="dr-count">48</div>
+        </div>
+        <div class="dept-row" onclick="filterFacultyByCollege('education')">
+          <div class="dr-name">College of Education</div>
+          <div class="dr-count">76</div>
+        </div>
+        <div class="dept-row" onclick="filterFacultyByCollege('graduate')">
+          <div class="dr-name">College of Graduate Studies</div>
+          <div class="dr-count">24</div>
+        </div>
       </div>
-
-      <!-- BEGIN:LIVE_SIDEBAR -->
-      <!-- END:LIVE_SIDEBAR -->
 
       <div class="sidebar-section">
         <div class="section-label">Recent Publications</div>
@@ -447,7 +532,7 @@
         </div>
         <div class="pub-item">
           <div class="pub-journal">Water Research</div>
-          <div class="pub-title">Low-Cost Cellulose Membranes for Agricultural Runoff Filtration</div>
+          <div class="pub-title">Low-Cost Cellulose Membranes for Agricultural Runoff</div>
           <div class="pub-authors">Osei et al. · Feb 2026</div>
         </div>
       </div>
@@ -460,8 +545,18 @@
           <div class="sit-meta">May 4, 2026</div>
         </div>
         <div class="sidebar-item">
+          <div class="sit-tag">Nursing</div>
+          <div class="sit-title">YSU Nursing ranked #1 in Ohio</div>
+          <div class="sit-meta">2026</div>
+        </div>
+        <div class="sidebar-item">
           <div class="sit-tag">Research</div>
           <div class="sit-title">Dr. Nair's Nature Materials paper draws three industry partners</div>
+          <div class="sit-meta">May 5, 2026</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sit-tag">Arts</div>
+          <div class="sit-title">Dana School ensemble invited to Kennedy Center</div>
           <div class="sit-meta">May 5, 2026</div>
         </div>
         <div class="sidebar-item">
@@ -469,12 +564,10 @@
           <div class="sit-title">Dr. Chen hosts Fulbright Scholar from Berlin</div>
           <div class="sit-meta">May 6, 2026</div>
         </div>
-        <div class="sidebar-item">
-          <div class="sit-tag">Arts</div>
-          <div class="sit-title">Dana School ensemble invited to Kennedy Center</div>
-          <div class="sit-meta">May 5, 2026</div>
-        </div>
       </div>
+
+      <!-- BEGIN:LIVE_SIDEBAR -->
+      <!-- END:LIVE_SIDEBAR -->
 
     </aside>
   </div>
@@ -482,7 +575,7 @@
   <footer>
     <div class="footer-brand">
       <div class="footer-name">Youngstown State University</div>
-      <div class="footer-sub">youngstownstateuniversity.com · The Penguin Report · Not affiliated with YSU</div>
+      <div class="footer-sub">youngstownstateuniversity.com · Not affiliated with YSU</div>
     </div>
     <div class="footer-links">
       <a href="index.html">News</a>
@@ -503,9 +596,39 @@
     document.getElementById('dateline').textContent =
       days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
 
-    function setFilter(btn) {
+    function filterFaculty(btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      applyFilter(btn.dataset.filter);
+    }
+
+    function filterFacultyByCollege(cat) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active');
+        if (b.dataset.filter === cat) b.classList.add('active');
+      });
+      applyFilter(cat);
+      window.scrollTo({ top: document.querySelector('.filter-bar').offsetTop - 60, behavior: 'smooth' });
+    }
+
+    function applyFilter(filter) {
+      const cards = document.querySelectorAll('.faculty-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      document.getElementById('noResults').classList.toggle('visible', visible === 0);
+      const btn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+      document.getElementById('faculty-section-label').textContent =
+        filter === 'all' ? 'Faculty Achievement' : (btn ? btn.textContent + ' Faculty' : 'Faculty Achievement');
+    }
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const btn = document.querySelector(`.filter-btn[data-filter="${hash}"]`);
+      if (btn) filterFaculty(btn);
     }
   </script>
 
