@@ -131,13 +131,27 @@
     .sl-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--scarlet); line-height: 1; }
     .sl-stat-label { font-size: 9px; letter-spacing: 2px; color: #555; text-transform: uppercase; margin-top: 2px; font-weight: 300; }
 
+    /* SPORT CARDS */
     .sport-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
-    .sport-card { border-bottom: 1px solid var(--light-border); padding-bottom: 18px; cursor: pointer; }
+    .sport-card {
+      border: 1px solid var(--light-border); border-radius: 4px; padding: 20px;
+      cursor: pointer; transition: box-shadow 0.2s; border-top: 3px solid var(--scarlet);
+      background: #fff;
+    }
+    .sport-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
     .sport-card:hover .sc-title { color: var(--scarlet); }
+    .sport-card.hidden { display: none; }
     .sc-sport-tag { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 6px; }
     .sc-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; line-height: 1.25; color: var(--charcoal); margin-bottom: 7px; transition: color 0.2s; }
     .sc-excerpt { font-size: 13px; color: var(--mid); line-height: 1.6; font-weight: 300; }
     .sc-byline { margin-top: 9px; font-size: 11px; color: #bbb; }
+
+    .no-results {
+      display: none; text-align: center; padding: 48px 0;
+      font-family: 'Bebas Neue', sans-serif; font-size: 16px;
+      letter-spacing: 3px; color: #bbb;
+    }
+    .no-results.visible { display: block; }
 
     .standings-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 13px; }
     .standings-table thead tr { border-bottom: 2px solid var(--scarlet); }
@@ -151,6 +165,7 @@
     .standings-table tr.ysu-row td { font-weight: 400; background: rgba(204,0,0,0.04); }
     .standings-table tr.ysu-row td:first-child { border-left: 3px solid var(--scarlet); padding-left: 7px; }
     .standings-table td.num.win { color: var(--scarlet); }
+    .standings-table.hidden { display: none; }
     .team-name { font-weight: 400; }
     .team-name strong { font-weight: 700; }
 
@@ -228,7 +243,6 @@
 </head>
 <body>
 
-  <!-- MASTHEAD -->
   <header class="masthead">
     <div class="masthead-top">
       <div>
@@ -255,25 +269,26 @@
     </nav>
   </header>
 
-  <!-- PAGE HEADER -->
   <div class="page-header">
     <div class="page-header-eyebrow">Penguins Athletics</div>
     <h1>YSU Sports</h1>
     <div class="page-header-sub">Scores, standings, and stories from Penguin Nation</div>
   </div>
 
-  <!-- SPORT NAV -->
+  <!-- SPORT NAV — working filters -->
   <div class="sport-nav">
-    <button class="sport-btn active" onclick="setSport(this)">All Sports</button>
-    <button class="sport-btn" onclick="setSport(this)">Football</button>
-    <button class="sport-btn" onclick="setSport(this)">Baseball</button>
-    <button class="sport-btn" onclick="setSport(this)">Softball</button>
-    <button class="sport-btn" onclick="setSport(this)">Basketball</button>
-    <button class="sport-btn" onclick="setSport(this)">Volleyball</button>
-    <button class="sport-btn" onclick="setSport(this)">Track & Field</button>
-    <button class="sport-btn" onclick="setSport(this)">Soccer</button>
-    <button class="sport-btn" onclick="setSport(this)">Golf</button>
-    <button class="sport-btn" onclick="setSport(this)">Swimming</button>
+    <button class="sport-btn active" data-filter="all" onclick="filterSport(this)">All Sports</button>
+    <button class="sport-btn" data-filter="football" onclick="filterSport(this)">Football</button>
+    <button class="sport-btn" data-filter="baseball" onclick="filterSport(this)">Baseball</button>
+    <button class="sport-btn" data-filter="softball" onclick="filterSport(this)">Softball</button>
+    <button class="sport-btn" data-filter="basketball" onclick="filterSport(this)">Basketball</button>
+    <button class="sport-btn" data-filter="volleyball" onclick="filterSport(this)">Volleyball</button>
+    <button class="sport-btn" data-filter="track" onclick="filterSport(this)">Track & Field</button>
+    <button class="sport-btn" data-filter="soccer" onclick="filterSport(this)">Soccer</button>
+    <button class="sport-btn" data-filter="golf" onclick="filterSport(this)">Golf</button>
+    <button class="sport-btn" data-filter="swimming" onclick="filterSport(this)">Swimming</button>
+    <button class="sport-btn" data-filter="tennis" onclick="filterSport(this)">Tennis</button>
+    <button class="sport-btn" data-filter="crosscountry" onclick="filterSport(this)">Cross Country</button>
   </div>
 
   <!-- SCOREBOARD STRIP -->
@@ -322,7 +337,6 @@
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="page-wrap">
     <main>
 
@@ -333,119 +347,144 @@
         <h2 class="sl-title">Penguins Baseball Sweeps Horizon League Weekend Series — <em>Ranked #3 Nationally</em></h2>
         <p class="sl-excerpt">Ace pitcher Marco DelVecchio struck out 14 in Saturday's opener as YSU swept Wright State to improve to 31–7 on the season. The Penguins have now won 18 straight Horizon League games and sit third in the national FCS rankings — the highest in program history.</p>
         <div class="sl-stats">
-          <div class="sl-stat-item">
-            <div class="sl-stat-num">31–7</div>
-            <div class="sl-stat-label">Season Record</div>
-          </div>
-          <div class="sl-stat-item">
-            <div class="sl-stat-num">18</div>
-            <div class="sl-stat-label">Conf. Win Streak</div>
-          </div>
-          <div class="sl-stat-item">
-            <div class="sl-stat-num">#3</div>
-            <div class="sl-stat-label">National Rank</div>
-          </div>
-          <div class="sl-stat-item">
-            <div class="sl-stat-num">14</div>
-            <div class="sl-stat-label">DelVecchio K's</div>
-          </div>
+          <div class="sl-stat-item"><div class="sl-stat-num">31–7</div><div class="sl-stat-label">Season Record</div></div>
+          <div class="sl-stat-item"><div class="sl-stat-num">18</div><div class="sl-stat-label">Conf. Win Streak</div></div>
+          <div class="sl-stat-item"><div class="sl-stat-num">#3</div><div class="sl-stat-label">National Rank</div></div>
+          <div class="sl-stat-item"><div class="sl-stat-num">14</div><div class="sl-stat-label">DelVecchio K's</div></div>
         </div>
       </div>
 
       <div class="section-label">Live Sports News</div>
-
       <!-- BEGIN:LIVE_NEWS -->
       <!-- END:LIVE_NEWS -->
 
-      <div class="section-label">Latest Sports News</div>
+      <div class="section-label" id="sport-section-label">Latest Sports News</div>
+      <div class="no-results" id="noResults">No stories found for this sport yet.</div>
 
-      <div class="sport-grid">
-        <div class="sport-card">
+      <!-- SPORT CARDS — each tagged with data-cat -->
+      <div class="sport-grid" id="sportGrid">
+
+        <div class="sport-card" data-cat="baseball">
+          <div class="sc-sport-tag">Baseball</div>
+          <h3 class="sc-title">Penguins Baseball Sweep Horizon League Weekend Series — Ranked #3 Nationally</h3>
+          <p class="sc-excerpt">Marco DelVecchio struck out 14 as YSU improves to 31–7. The Penguins have now won 18 straight Horizon League games.</p>
+          <div class="sc-byline">May 6, 2026 · Athletics</div>
+        </div>
+
+        <div class="sport-card" data-cat="softball">
+          <div class="sc-sport-tag">Softball</div>
+          <h3 class="sc-title">Pitcher Aaliyah Reeves Throws No-Hitter Against Northern Kentucky, Strikes Out 11</h3>
+          <p class="sc-excerpt">The junior from Warren, Ohio delivered the first no-hitter in YSU softball history, walking just one batter in a dominant 4–0 shutout.</p>
+          <div class="sc-byline">May 5, 2026 · Athletics</div>
+        </div>
+
+        <div class="sport-card" data-cat="football">
+          <div class="sc-sport-tag">Football</div>
+          <h3 class="sc-title">Spring Game Draws 8,000 Fans to Stambaugh Stadium — Biggest Turnout in a Decade</h3>
+          <p class="sc-excerpt">New head coach Marcus Williams debuted his high-powered spread offense as the Penguins look to build on last season's playoff appearance.</p>
+          <div class="sc-byline">Apr 27, 2026 · Football</div>
+        </div>
+
+        <div class="sport-card" data-cat="golf">
+          <div class="sc-sport-tag">Golf</div>
+          <h3 class="sc-title">YSU Men's Golf Qualifies for NCAA Regional for Second Straight Year</h3>
+          <p class="sc-excerpt">The Penguins earned an at-large bid to the NCAA Columbus Regional after finishing second at the Horizon League Championship.</p>
+          <div class="sc-byline">Apr 30, 2026 · Athletics</div>
+        </div>
+
+        <div class="sport-card" data-cat="track">
           <div class="sc-sport-tag">Track & Field</div>
           <h3 class="sc-title">YSU Sweeps Horizon League Track & Field Championships — Men's and Women's Titles</h3>
           <p class="sc-excerpt">For the first time in school history, the Penguins claimed both the men's and women's outdoor titles at the Horizon League Championships in Cleveland.</p>
           <div class="sc-byline">May 3, 2026 · Athletics</div>
         </div>
-        <div class="sport-card">
-          <div class="sc-sport-tag">Softball</div>
-          <h3 class="sc-title">Pitcher Aaliyah Reeves Throws No-Hitter Against Northern Kentucky, Strikes Out 11</h3>
-          <p class="sc-excerpt">The junior from Warren, Ohio delivered the first no-hitter in YSU softball history, walking just one batter in a dominant 4–0 shutout performance.</p>
-          <div class="sc-byline">May 5, 2026 · Athletics</div>
+
+        <div class="sport-card" data-cat="volleyball">
+          <div class="sc-sport-tag">Volleyball</div>
+          <h3 class="sc-title">Penguins Volleyball Opens Fall Schedule with Three New Recruits from Mahoning Valley</h3>
+          <p class="sc-excerpt">Head coach Amanda Rivera announced the signing of three standout players from Northeast Ohio high schools, bolstering the squad ahead of the fall Horizon League season.</p>
+          <div class="sc-byline">Apr 20, 2026 · Athletics</div>
         </div>
-        <div class="sport-card">
+
+        <div class="sport-card" data-cat="basketball">
+          <div class="sc-sport-tag">Basketball</div>
+          <h3 class="sc-title">YSU Men's Basketball Signs Top Recruiting Class — Four Players Rated Three-Star or Higher</h3>
+          <p class="sc-excerpt">Head coach Jerrod Calhoun secured commitments from four highly rated prospects, including a point guard ranked in the top 150 nationally by ESPN.</p>
+          <div class="sc-byline">Apr 15, 2026 · Basketball</div>
+        </div>
+
+        <div class="sport-card" data-cat="soccer">
+          <div class="sc-sport-tag">Soccer</div>
+          <h3 class="sc-title">YSU Women's Soccer Announces Fall 2026 Schedule — Horizon League Opener vs Wright State</h3>
+          <p class="sc-excerpt">The Penguins open their Horizon League schedule at home against Wright State on September 12, with three preseason matches scheduled in August.</p>
+          <div class="sc-byline">Apr 10, 2026 · Athletics</div>
+        </div>
+
+        <div class="sport-card" data-cat="swimming">
+          <div class="sc-sport-tag">Swimming</div>
+          <h3 class="sc-title">YSU Swimmer Olivia Park Qualifies for NCAA Championships in 200m Butterfly</h3>
+          <p class="sc-excerpt">The sophomore from Columbus posted a time of 1:54.82 at the Horizon League Championships — well under the NCAA qualifying standard — earning a spot at the national meet.</p>
+          <div class="sc-byline">Mar 18, 2026 · Athletics</div>
+        </div>
+
+        <div class="sport-card" data-cat="crosscountry">
+          <div class="sc-sport-tag">Cross Country</div>
+          <h3 class="sc-title">YSU Cross Country Teams Both Finish in Top 3 at Horizon League Championships</h3>
+          <p class="sc-excerpt">The men's team placed second and the women's team finished third at the Horizon League Cross Country Championships held at Boardman Park in Youngstown.</p>
+          <div class="sc-byline">Nov 2, 2025 · Athletics</div>
+        </div>
+
+        <div class="sport-card" data-cat="tennis">
+          <div class="sc-sport-tag">Tennis</div>
+          <h3 class="sc-title">YSU Men's Tennis Wins Horizon League Regular Season Title for First Time Since 2018</h3>
+          <p class="sc-excerpt">The Penguins finished the regular season 8–1 in conference play, claiming the Horizon League regular season title and earning the top seed in the conference tournament.</p>
+          <div class="sc-byline">Apr 22, 2026 · Athletics</div>
+        </div>
+
+        <div class="sport-card" data-cat="football">
           <div class="sc-sport-tag">Football</div>
-          <h3 class="sc-title">Spring Game Draws 8,000 Fans to Stambaugh Stadium — Biggest Turnout in a Decade</h3>
-          <p class="sc-excerpt">New head coach Marcus Williams debuted his high-powered spread offense as the Penguins look to build on last season's playoff appearance heading into fall camp.</p>
-          <div class="sc-byline">Apr 27, 2026 · Football</div>
+          <h3 class="sc-title">YSU Football Announces 2026 Schedule — Home Opener vs Duquesne on September 5</h3>
+          <p class="sc-excerpt">The Penguins open at Stambaugh Stadium against Duquesne before a three-game road stretch. The Horizon League schedule begins September 26 at Illinois State.</p>
+          <div class="sc-byline">Mar 10, 2026 · Football</div>
         </div>
-        <div class="sport-card">
-          <div class="sc-sport-tag">Golf</div>
-          <h3 class="sc-title">YSU Men's Golf Qualifies for NCAA Regional for Second Straight Year</h3>
-          <p class="sc-excerpt">The Penguins earned an at-large bid to the NCAA Columbus Regional after finishing second at the Horizon League Championship, led by senior Tyler Nash's 68–69 weekend.</p>
-          <div class="sc-byline">Apr 30, 2026 · Athletics</div>
-        </div>
+
       </div>
 
-      <div class="section-label">Horizon League Baseball Standings</div>
-      <table class="standings-table">
-        <thead>
-          <tr>
-            <th>Team</th>
-            <th class="num">Conf W</th>
-            <th class="num">Conf L</th>
-            <th class="num">Overall W</th>
-            <th class="num">Overall L</th>
-            <th class="num">Streak</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="ysu-row">
-            <td class="team-name"><strong>Youngstown State</strong></td>
-            <td class="num win">22</td>
-            <td class="num">4</td>
-            <td class="num win">31</td>
-            <td class="num">7</td>
-            <td class="num" style="color:var(--scarlet);">W18</td>
-          </tr>
-          <tr>
-            <td class="team-name">Wright State</td>
-            <td class="num">18</td><td class="num">8</td>
-            <td class="num">26</td><td class="num">14</td>
-            <td class="num">W3</td>
-          </tr>
-          <tr>
-            <td class="team-name">Oakland</td>
-            <td class="num">16</td><td class="num">10</td>
-            <td class="num">24</td><td class="num">16</td>
-            <td class="num">L1</td>
-          </tr>
-          <tr>
-            <td class="team-name">Northern Kentucky</td>
-            <td class="num">14</td><td class="num">12</td>
-            <td class="num">22</td><td class="num">18</td>
-            <td class="num">W2</td>
-          </tr>
-          <tr>
-            <td class="team-name">Milwaukee</td>
-            <td class="num">12</td><td class="num">14</td>
-            <td class="num">19</td><td class="num">21</td>
-            <td class="num">L2</td>
-          </tr>
-          <tr>
-            <td class="team-name">Detroit Mercy</td>
-            <td class="num">8</td><td class="num">18</td>
-            <td class="num">14</td><td class="num">26</td>
-            <td class="num">L4</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- STANDINGS — shown for all or baseball -->
+      <div id="standingsSection">
+        <div class="section-label">Horizon League Baseball Standings</div>
+        <table class="standings-table" id="baseballStandings">
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th class="num">Conf W</th>
+              <th class="num">Conf L</th>
+              <th class="num">Overall W</th>
+              <th class="num">Overall L</th>
+              <th class="num">Streak</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="ysu-row">
+              <td class="team-name"><strong>Youngstown State</strong></td>
+              <td class="num win">22</td><td class="num">4</td>
+              <td class="num win">31</td><td class="num">7</td>
+              <td class="num" style="color:var(--scarlet);">W18</td>
+            </tr>
+            <tr><td class="team-name">Wright State</td><td class="num">18</td><td class="num">8</td><td class="num">26</td><td class="num">14</td><td class="num">W3</td></tr>
+            <tr><td class="team-name">Oakland</td><td class="num">16</td><td class="num">10</td><td class="num">24</td><td class="num">16</td><td class="num">L1</td></tr>
+            <tr><td class="team-name">Northern Kentucky</td><td class="num">14</td><td class="num">12</td><td class="num">22</td><td class="num">18</td><td class="num">W2</td></tr>
+            <tr><td class="team-name">Milwaukee</td><td class="num">12</td><td class="num">14</td><td class="num">19</td><td class="num">21</td><td class="num">L2</td></tr>
+            <tr><td class="team-name">Detroit Mercy</td><td class="num">8</td><td class="num">18</td><td class="num">14</td><td class="num">26</td><td class="num">L4</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <!-- BEGIN:LAST_UPDATED -->
       <!-- END:LAST_UPDATED -->
 
     </main>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
       <div class="athlete-box">
@@ -510,12 +549,16 @@
           <div class="si-title">Penguins earn NCAA Regional bid</div>
           <div class="si-meta">Apr 30, 2026</div>
         </div>
+        <div class="sidebar-item">
+          <div class="si-tag">Tennis · 1st</div>
+          <div class="si-title">Men's Tennis wins Horizon regular season title</div>
+          <div class="si-meta">Apr 22, 2026</div>
+        </div>
       </div>
 
     </aside>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-brand">
       <div class="footer-name">Youngstown State University</div>
@@ -540,9 +583,32 @@
     document.getElementById('dateline').textContent =
       days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
 
-    function setSport(btn) {
+    function filterSport(btn) {
       document.querySelectorAll('.sport-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      applyFilter(btn.dataset.filter);
+    }
+
+    function applyFilter(filter) {
+      const cards = document.querySelectorAll('.sport-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      document.getElementById('noResults').classList.toggle('visible', visible === 0);
+      const btn = document.querySelector(`.sport-btn[data-filter="${filter}"]`);
+      document.getElementById('sport-section-label').textContent =
+        filter === 'all' ? 'Latest Sports News' : (btn ? btn.textContent + ' News' : 'Latest Sports News');
+      const standingsSection = document.getElementById('standingsSection');
+      standingsSection.style.display = (filter === 'all' || filter === 'baseball') ? '' : 'none';
+    }
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const btn = document.querySelector(`.sport-btn[data-filter="${hash}"]`);
+      if (btn) filterSport(btn);
     }
   </script>
 
