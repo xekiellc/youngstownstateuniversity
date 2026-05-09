@@ -85,7 +85,6 @@
       object-fit: cover;
       object-position: center top;
     }
-    .masthead-text {}
     .masthead-name {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 42px;
@@ -102,9 +101,7 @@
       margin-top: 3px;
       font-weight: 300;
     }
-    .masthead-right {
-      text-align: right;
-    }
+    .masthead-right { text-align: right; }
     .masthead-location {
       font-size: 12px;
       color: rgba(255,255,255,0.5);
@@ -191,7 +188,7 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* HERO - PETE FULL PORTRAIT */
+    /* HERO */
     .hero {
       position: relative;
       height: 85vh;
@@ -204,16 +201,16 @@
     .hero-img {
       position: absolute;
       inset: 0;
-      background: url('assets/pete.jpg') center top / cover no-repeat;
+      background: url('assets/pete.jpg') right top / cover no-repeat;
     }
     .hero-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to right,
-        rgba(0,0,0,0.85) 0%,
-        rgba(0,0,0,0.6) 40%,
-        rgba(0,0,0,0.1) 70%,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.55) 35%,
+        rgba(0,0,0,0.05) 65%,
         rgba(0,0,0,0) 100%
       );
     }
@@ -223,13 +220,13 @@
       left: 0;
       right: 0;
       height: 200px;
-      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
     }
     .hero-content {
       position: relative;
       z-index: 2;
       padding: 60px 48px;
-      max-width: 640px;
+      max-width: 600px;
     }
     .hero-eyebrow {
       display: inline-flex;
@@ -256,10 +253,7 @@
       line-height: 1.08;
       margin-bottom: 20px;
     }
-    .hero-headline em {
-      color: var(--scarlet);
-      font-style: italic;
-    }
+    .hero-headline em { color: var(--scarlet); font-style: italic; }
     .hero-deck {
       font-size: 17px;
       color: rgba(255,255,255,0.75);
@@ -268,11 +262,7 @@
       margin-bottom: 28px;
       max-width: 500px;
     }
-    .hero-meta {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+    .hero-meta { display: flex; align-items: center; gap: 16px; }
     .hero-tag {
       background: var(--scarlet);
       color: #fff;
@@ -348,22 +338,25 @@
     }
     .section-label-link:hover { color: var(--scarlet); }
 
-    /* NEWS LIST - CLEAN WHITE CARDS */
+    /* NEWS CARDS */
     .news-list { margin-bottom: 44px; }
     .news-card {
       display: grid;
       grid-template-columns: 4px 1fr;
       gap: 20px;
-      padding: 20px 0;
+      padding: 22px 0;
       border-bottom: 1px solid var(--border);
       cursor: pointer;
       transition: all 0.2s;
     }
     .news-card:first-child { padding-top: 0; }
     .news-card:hover .nc-title { color: var(--scarlet); }
-    .nc-accent { background: var(--border); border-radius: 2px; transition: background 0.2s; }
+    .nc-accent {
+      background: var(--border);
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
     .news-card:hover .nc-accent { background: var(--scarlet); }
-    .nc-content {}
     .nc-tag {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 10px;
@@ -393,7 +386,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* FEATURE BAND - SCARLET */
+    /* FEATURE BAND */
     .feature-band {
       background: var(--scarlet);
       margin: 0 -32px 44px;
@@ -410,9 +403,11 @@
     }
     .feature-band-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1px 1fr 1px 1fr;
       gap: 24px;
+      align-items: start;
     }
+    .fb-divider { background: rgba(255,255,255,0.15); }
     .fb-item { cursor: pointer; }
     .fb-item:hover .fb-title { opacity: 0.75; }
     .fb-tag {
@@ -432,10 +427,6 @@
       transition: opacity 0.2s;
     }
     .fb-date { font-size: 11px; color: rgba(255,255,255,0.35); }
-    .fb-divider {
-      width: 1px;
-      background: rgba(255,255,255,0.15);
-    }
 
     /* LIVE NEWS */
     .live-wrap { margin-bottom: 44px; }
@@ -490,11 +481,7 @@
     }
 
     /* SIDEBAR */
-    .sidebar {}
-
-    /* PETE PORTRAIT SIDEBAR */
     .pete-portrait {
-      position: relative;
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 32px;
@@ -549,7 +536,6 @@
       border-bottom: 1px solid #2a2a2a;
     }
     .score-row:last-child { border-bottom: none; }
-    .sr-info {}
     .sr-teams { font-size: 12px; color: #bbb; font-weight: 300; }
     .sr-teams strong { color: #fff; font-weight: 400; }
     .sr-sport { font-size: 10px; color: #444; margin-top: 2px; letter-spacing: 1px; }
@@ -557,7 +543,7 @@
     .sr-result.win { color: var(--scarlet); }
     .sr-result.upcoming { color: #444; font-size: 11px; font-family: 'Source Serif 4', serif; font-weight: 300; }
 
-    /* SIDEBAR NEWS */
+    /* SIDEBAR ITEMS */
     .sidebar-section { margin-bottom: 32px; }
     .sidebar-item {
       padding: 14px 0;
@@ -592,7 +578,6 @@
       grid-template-columns: 1.5fr 1fr 1fr;
       gap: 40px;
     }
-    .footer-brand {}
     .footer-name {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 28px;
@@ -638,17 +623,17 @@
     @media (max-width: 900px) {
       .page-wrap { grid-template-columns: 1fr; gap: 32px; padding: 32px 20px; }
       .feature-band { margin: 0 -20px 36px; padding: 24px 20px; }
-      .feature-band-grid { grid-template-columns: 1fr; gap: 20px; }
+      .feature-band-grid { grid-template-columns: 1fr; }
       .fb-divider { display: none; }
       .accolades-strip { grid-template-columns: repeat(2, 1fr); }
       .bottom-cols { grid-template-columns: 1fr; }
       .masthead { padding: 14px 20px; }
-      .masthead-name { font-size: 30px; }
+      .masthead-name { font-size: 28px; }
       nav.main-nav { padding: 0 20px; }
       .top-bar { padding: 7px 20px; }
       .hero { height: 70vh; }
       .hero-content { padding: 40px 24px; }
-      .hero-headline { font-size: 36px; }
+      .hero-headline { font-size: 34px; }
       footer { grid-template-columns: 1fr; gap: 28px; padding: 28px 20px; }
       .footer-bottom { padding: 14px 20px; }
     }
@@ -668,7 +653,7 @@
       <div class="pete-badge">
         <img src="assets/pete.jpg" alt="Pete the Penguin"/>
       </div>
-      <div class="masthead-text">
+      <div>
         <div class="masthead-name">Youngstown State University</div>
         <div class="masthead-sub">Youngstown, Ohio · Est. 1908</div>
       </div>
@@ -721,7 +706,7 @@
     </span>
   </div>
 
-  <!-- HERO — PETE FULL PORTRAIT -->
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-img"></div>
     <div class="hero-overlay"></div>
@@ -769,15 +754,13 @@
         <a href="news.html" class="section-label-link">All News →</a>
       </div>
 
-      <!-- LIVE NEWS INJECTION -->
       <!-- BEGIN:LIVE_NEWS -->
       <!-- END:LIVE_NEWS -->
 
-      <!-- STATIC NEWS LIST -->
       <div class="news-list">
         <div class="news-card">
           <div class="nc-accent"></div>
-          <div class="nc-content">
+          <div>
             <div class="nc-tag">Baseball</div>
             <div class="nc-title">Penguins Sweep Horizon League Weekend Series — Ranked #3 Nationally</div>
             <div class="nc-excerpt">Marco DelVecchio struck out 14 in Saturday's opener as YSU improved to 31–7 on the season. The Penguins have now won 18 straight Horizon League games.</div>
@@ -786,7 +769,7 @@
         </div>
         <div class="news-card">
           <div class="nc-accent"></div>
-          <div class="nc-content">
+          <div>
             <div class="nc-tag">Research</div>
             <div class="nc-title">YSU Lab Publishes Breakthrough in Biodegradable Battery Technology</div>
             <div class="nc-excerpt">Dr. Priya Nair's team published findings in Nature Materials — a $4.2M NSF-backed study that could eliminate battery removal surgeries for millions of patients.</div>
@@ -795,7 +778,7 @@
         </div>
         <div class="news-card">
           <div class="nc-accent"></div>
-          <div class="nc-content">
+          <div>
             <div class="nc-tag">Faculty</div>
             <div class="nc-title">Professor Khalil Named Guggenheim Fellow — Third in YSU History</div>
             <div class="nc-excerpt">The political science chair becomes only the third YSU faculty member ever named a Guggenheim Fellow, recognized for landmark scholarship in post-industrial labor identity.</div>
@@ -804,7 +787,7 @@
         </div>
         <div class="news-card">
           <div class="nc-accent"></div>
-          <div class="nc-content">
+          <div>
             <div class="nc-tag">Students</div>
             <div class="nc-title">YSU Senior Wins National Entrepreneurship Competition, Lands $150K Investment</div>
             <div class="nc-excerpt">Dominique Walters beat 400+ competitors from Wharton, Kellogg, and Stanford with her agri-tech startup — earning a seed investment and accelerator placement.</div>
@@ -901,9 +884,8 @@
     </main>
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside>
 
-      <!-- PETE PORTRAIT -->
       <div class="pete-portrait">
         <img src="assets/pete.jpg" alt="Pete the Penguin — Youngstown State University"/>
         <div class="pete-portrait-bar">
@@ -912,25 +894,24 @@
         </div>
       </div>
 
-      <!-- SCOREBOARD -->
       <div class="scoreboard">
         <div class="score-head">Penguins Scores</div>
         <div class="score-row">
-          <div class="sr-info">
+          <div>
             <div class="sr-teams"><strong>YSU</strong> vs Wright State</div>
             <div class="sr-sport">Baseball · May 6</div>
           </div>
           <div class="sr-result win">W 8–2</div>
         </div>
         <div class="score-row">
-          <div class="sr-info">
+          <div>
             <div class="sr-teams"><strong>YSU</strong> vs N. Kentucky</div>
             <div class="sr-sport">Softball · May 5</div>
           </div>
           <div class="sr-result win">W 4–1</div>
         </div>
         <div class="score-row">
-          <div class="sr-info">
+          <div>
             <div class="sr-teams"><strong>YSU</strong> vs Oakland</div>
             <div class="sr-sport">Baseball · May 9</div>
           </div>
@@ -984,7 +965,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-brand">
+    <div>
       <div class="footer-name">Youngstown State University</div>
       <div class="footer-tagline">
         youngstownstateuniversity.com<br>
