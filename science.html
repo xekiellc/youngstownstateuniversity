@@ -12,6 +12,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4051YC1LHZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4051YC1LHZ');
+  </script>
   <style>
     :root {
       --scarlet: #CC0000;
@@ -71,8 +79,8 @@
     }
     .filter-bar::-webkit-scrollbar { display: none; }
     .filter-btn {
-      font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2.5px;
-      color: #aaa; padding: 12px 16px; cursor: pointer; white-space: nowrap;
+      font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2px;
+      color: #aaa; padding: 12px 14px; cursor: pointer; white-space: nowrap;
       border: none; background: none; border-bottom: 3px solid transparent; transition: color 0.2s;
     }
     .filter-btn:hover { color: var(--charcoal); }
@@ -97,13 +105,10 @@
       color: var(--mid); border-top: 2px solid var(--scarlet); padding-top: 8px; margin-bottom: 22px;
     }
 
+    /* FEATURED RESEARCH */
     .research-feature {
       background: var(--charcoal); border-radius: 4px; padding: 28px;
       margin-bottom: 32px; border-top: 3px solid var(--scarlet); position: relative; overflow: hidden;
-    }
-    .research-feature::after {
-      content: '⚗'; position: absolute; right: 24px; top: 16px;
-      font-size: 80px; opacity: 0.05; pointer-events: none;
     }
     .rf-tag { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 10px; }
     .rf-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 12px; }
@@ -116,32 +121,50 @@
     .rf-divider { width: 1px; height: 40px; background: #333; }
     .rf-pub { font-size: 12px; color: #555; font-weight: 300; font-style: italic; }
 
+    /* RESEARCH CARDS */
     .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
-    .research-card { border-bottom: 1px solid var(--light-border); padding-bottom: 20px; cursor: pointer; }
+    .research-card {
+      border: 1px solid var(--light-border); border-radius: 4px; padding: 20px;
+      cursor: pointer; transition: box-shadow 0.2s; border-top: 3px solid var(--scarlet);
+      background: #fff;
+    }
+    .research-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
     .research-card:hover .rc-title { color: var(--scarlet); }
+    .research-card.hidden { display: none; }
     .rc-field {
       display: inline-block; background: var(--cream); border: 1px solid var(--light-border);
       font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2.5px;
-      color: var(--mid); padding: 3px 10px; border-radius: 2px; margin-bottom: 8px;
+      color: var(--mid); padding: 3px 10px; border-radius: 2px; margin-bottom: 10px;
     }
     .rc-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 7px; transition: color 0.2s; }
     .rc-excerpt { font-size: 13px; color: var(--mid); line-height: 1.6; font-weight: 300; }
-    .rc-meta { margin-top: 9px; font-size: 11px; color: #bbb; display: flex; gap: 12px; align-items: center; }
+    .rc-meta { margin-top: 10px; font-size: 11px; color: #bbb; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
     .rc-grant { color: var(--scarlet); font-weight: 400; }
 
-    .research-list { display: flex; flex-direction: column; }
+    .no-results {
+      display: none; text-align: center; padding: 48px 0;
+      font-family: 'Bebas Neue', sans-serif; font-size: 16px;
+      letter-spacing: 3px; color: #bbb;
+    }
+    .no-results.visible { display: block; }
+
+    /* RESEARCH LIST */
+    .research-list { display: flex; flex-direction: column; margin-bottom: 32px; }
     .research-item {
       display: grid; grid-template-columns: 3px 1fr;
       gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--light-border); cursor: pointer;
     }
     .research-item:hover .ri-title { color: var(--scarlet); }
-    .ri-bar { background: var(--light-border); border-radius: 2px; }
+    .research-item.hidden { display: none; }
+    .ri-bar { background: var(--light-border); border-radius: 2px; transition: background 0.2s; }
     .research-item:hover .ri-bar { background: var(--scarlet); }
     .ri-field { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2.5px; color: var(--scarlet); margin-bottom: 5px; }
     .ri-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 5px; transition: color 0.2s; }
     .ri-excerpt { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
-    .ri-meta { font-size: 11px; color: #bbb; margin-top: 6px; }
+    .ri-meta { font-size: 11px; color: #bbb; margin-top: 6px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .ri-grant { color: var(--scarlet); font-weight: 400; }
 
+    /* LIVE NEWS */
     .news-list { display: flex; flex-direction: column; }
     .news-item {
       display: grid; grid-template-columns: 80px 1fr;
@@ -156,6 +179,7 @@
     .ni-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 6px; transition: color 0.2s; }
     .ni-excerpt { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
 
+    /* SIDEBAR */
     .sidebar { border-left: 1px solid var(--light-border); padding-left: 24px; }
     .sidebar-section { margin-bottom: 30px; }
     .sidebar-item { padding: 12px 0; border-bottom: 1px solid #ece9e4; cursor: pointer; }
@@ -172,13 +196,13 @@
     .gr-dept { font-size: 12px; color: #ccc; font-weight: 300; line-height: 1.3; }
     .gr-amount { font-family: 'Bebas Neue', sans-serif; font-size: 16px; color: var(--scarlet); white-space: nowrap; }
 
-    .dept-list { display: flex; flex-direction: column; gap: 0; }
+    .dept-list { display: flex; flex-direction: column; }
     .dept-item {
       padding: 10px 0; border-bottom: 1px solid #ece9e4;
       display: flex; align-items: center; justify-content: space-between; cursor: pointer;
     }
     .dept-item:hover .di-name { color: var(--scarlet); }
-    .di-name { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 2px; color: var(--charcoal); transition: color 0.2s; }
+    .di-name { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2px; color: var(--charcoal); transition: color 0.2s; }
     .di-count { font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--scarlet); }
 
     .last-updated { font-size: 10px; color: #aaa; letter-spacing: 1px; font-weight: 300; text-align: center; padding: 12px 0 4px; }
@@ -206,7 +230,6 @@
       .page-wrap { grid-template-columns: 1fr; gap: 24px; padding: 20px 16px; }
       .sidebar { border-left: none; border-top: 1px solid var(--light-border); padding-left: 0; padding-top: 24px; }
       .research-grid { grid-template-columns: 1fr; }
-      .rf-meta { gap: 16px; }
       footer { flex-direction: column; align-items: flex-start; padding: 20px 16px; }
     }
   </style>
@@ -245,17 +268,22 @@
     <div class="page-header-sub">Breakthroughs, grants, and discoveries from Penguin researchers</div>
   </div>
 
+  <!-- FILTER BAR — ALL DISCIPLINES -->
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="setFilter(this)">All</button>
-    <button class="filter-btn" onclick="setFilter(this)">Biology</button>
-    <button class="filter-btn" onclick="setFilter(this)">Engineering</button>
-    <button class="filter-btn" onclick="setFilter(this)">Chemistry</button>
-    <button class="filter-btn" onclick="setFilter(this)">Physics</button>
-    <button class="filter-btn" onclick="setFilter(this)">Health Sciences</button>
-    <button class="filter-btn" onclick="setFilter(this)">Computer Science</button>
-    <button class="filter-btn" onclick="setFilter(this)">Environmental</button>
+    <button class="filter-btn active" data-filter="all" onclick="filterScience(this)">All</button>
+    <button class="filter-btn" data-filter="biology" onclick="filterScience(this)">Biology</button>
+    <button class="filter-btn" data-filter="engineering" onclick="filterScience(this)">Engineering</button>
+    <button class="filter-btn" data-filter="chemistry" onclick="filterScience(this)">Chemistry</button>
+    <button class="filter-btn" data-filter="physics" onclick="filterScience(this)">Physics</button>
+    <button class="filter-btn" data-filter="health" onclick="filterScience(this)">Health Sciences</button>
+    <button class="filter-btn" data-filter="nursing" onclick="filterScience(this)">Nursing Research</button>
+    <button class="filter-btn" data-filter="cs" onclick="filterScience(this)">Computer Science</button>
+    <button class="filter-btn" data-filter="environmental" onclick="filterScience(this)">Environmental</button>
+    <button class="filter-btn" data-filter="energy" onclick="filterScience(this)">Energy</button>
+    <button class="filter-btn" data-filter="math" onclick="filterScience(this)">Mathematics</button>
   </div>
 
+  <!-- GRANT STRIP -->
   <div class="grant-strip">
     <div class="grant-label">Recent Grants</div>
     <div class="grant-scroll">
@@ -275,109 +303,112 @@
       <div class="research-feature">
         <div class="rf-tag">Materials Science · Nature Materials</div>
         <h2 class="rf-title">YSU Lab Publishes <em>Breakthrough</em> in Biodegradable Battery Technology</h2>
-        <p class="rf-excerpt">A team led by Dr. Priya Nair at YSU's Advanced Materials Laboratory has published landmark findings in Nature Materials, demonstrating a new manganese-based electrochemical cell capable of powering small implantable medical devices while fully dissolving in saline solution within 90 days. Three major medical device manufacturers have initiated partnership discussions.</p>
+        <p class="rf-excerpt">A team led by Dr. Priya Nair at YSU's Advanced Materials Laboratory has published landmark findings in Nature Materials, demonstrating a new manganese-based electrochemical cell capable of powering small implantable medical devices while fully dissolving in saline within 90 days.</p>
         <div class="rf-meta">
-          <div class="rf-meta-item">
-            <div class="rf-meta-num">$4.2M</div>
-            <div class="rf-meta-label">NSF Funding</div>
-          </div>
+          <div class="rf-meta-item"><div class="rf-meta-num">$4.2M</div><div class="rf-meta-label">NSF Funding</div></div>
           <div class="rf-divider"></div>
-          <div class="rf-meta-item">
-            <div class="rf-meta-num">90</div>
-            <div class="rf-meta-label">Day Dissolution</div>
-          </div>
+          <div class="rf-meta-item"><div class="rf-meta-num">90</div><div class="rf-meta-label">Day Dissolution</div></div>
           <div class="rf-divider"></div>
-          <div class="rf-meta-item">
-            <div class="rf-meta-num">4</div>
-            <div class="rf-meta-label">Student Co-Authors</div>
-          </div>
+          <div class="rf-meta-item"><div class="rf-meta-num">4</div><div class="rf-meta-label">Student Co-Authors</div></div>
           <div class="rf-divider"></div>
           <div class="rf-pub">Published in <em>Nature Materials</em>, Vol. 24, 2026</div>
         </div>
       </div>
 
       <div class="section-label">Live Science News</div>
-
       <!-- BEGIN:LIVE_NEWS -->
       <!-- END:LIVE_NEWS -->
 
-      <div class="section-label">Latest Research News</div>
+      <div class="section-label" id="science-section-label">Latest Research</div>
+      <div class="no-results" id="noResults">No research found in this discipline yet.</div>
 
-      <div class="research-grid">
-        <div class="research-card">
+      <!-- RESEARCH CARDS — data-cat matches filter buttons -->
+      <div class="research-grid" id="researchGrid">
+
+        <div class="research-card" data-cat="physics">
           <div class="rc-field">Physics</div>
           <h3 class="rc-title">YSU Physics Team Detects Rare Neutrino Signature in Underground Lab Collaboration</h3>
-          <p class="rc-excerpt">Working alongside teams from Ohio State and Fermilab, YSU physicists recorded a rare tau neutrino interaction that could help refine the Standard Model of particle physics.</p>
+          <p class="rc-excerpt">Working with Ohio State and Fermilab, YSU physicists recorded a rare tau neutrino interaction that could help refine the Standard Model of particle physics.</p>
           <div class="rc-meta"><span>May 4, 2026</span><span class="rc-grant">NSF Grant</span></div>
         </div>
-        <div class="research-card">
+
+        <div class="research-card" data-cat="cs">
           <div class="rc-field">Computer Science</div>
           <h3 class="rc-title">YSU AI Ethics Initiative Partners with Case Western and Pitt on $1.8M Study</h3>
-          <p class="rc-excerpt">The multi-university collaboration will spend three years examining responsible AI deployment in hospital settings, with YSU leading the data governance and bias-auditing workstreams.</p>
-          <div class="rc-meta"><span>May 3, 2026</span><span class="rc-grant">Mellon Foundation</span></div>
+          <p class="rc-excerpt">The multi-university collaboration examines responsible AI deployment in hospital settings, with YSU leading data governance and bias-auditing workstreams.</p>
+          <div class="rc-meta"><span>May 3, 2026</span><span class="rc-grant">Mellon Foundation $1.8M</span></div>
         </div>
-        <div class="research-card">
+
+        <div class="research-card" data-cat="health">
           <div class="rc-field">Health Sciences</div>
           <h3 class="rc-title">YSU Partners with Mercy Health on Five-Year Telehealth Research Initiative</h3>
-          <p class="rc-excerpt">Nursing and pharmacy students will be embedded directly into Mercy's telehealth platform, generating real-world clinical outcomes data to inform national policy discussions.</p>
-          <div class="rc-meta"><span>Apr 29, 2026</span><span class="rc-grant">NIH — $960K</span></div>
+          <p class="rc-excerpt">Nursing and pharmacy students embedded directly into Mercy's telehealth platform, generating real-world clinical outcomes data to inform national policy.</p>
+          <div class="rc-meta"><span>Apr 29, 2026</span><span class="rc-grant">NIH $960K</span></div>
         </div>
-        <div class="research-card">
-          <div class="rc-field">Environmental</div>
+
+        <div class="research-card" data-cat="environmental">
+          <div class="rc-field">Environmental Science</div>
           <h3 class="rc-title">Dr. Chen's Climate Resilience Lab Attracts Fulbright Researcher from Berlin</h3>
-          <p class="rc-excerpt">German climate scientist Dr. Hanna Wolff joins YSU's Biology Department on a year-long Fulbright fellowship to study urban heat island mitigation in post-industrial cities.</p>
+          <p class="rc-excerpt">Dr. Hanna Wolff joins YSU on a Fulbright fellowship to study urban heat island mitigation in post-industrial cities — validating YSU's growing international reputation.</p>
           <div class="rc-meta"><span>May 6, 2026</span><span class="rc-grant">Fulbright Program</span></div>
         </div>
-      </div>
 
-      <div class="section-label">More from the Labs</div>
+        <div class="research-card" data-cat="engineering">
+          <div class="rc-field">Aerospace Engineering</div>
+          <h3 class="rc-title">Rayen School Receives $540K NASA Grant for Aerospace-Grade Composite Materials</h3>
+          <p class="rc-excerpt">The two-year project develops lightweight carbon-fiber composites for deep-space applications, with three undergraduates named as paid research fellows.</p>
+          <div class="rc-meta"><span>Apr 28, 2026</span><span class="rc-grant">NASA $540K</span></div>
+        </div>
 
-      <div class="research-list">
-        <div class="research-item">
-          <div class="ri-bar"></div>
-          <div>
-            <div class="ri-field">Engineering</div>
-            <div class="ri-title">Rayen School Receives $540K NASA Grant for Aerospace-Grade Composite Materials Research</div>
-            <p class="ri-excerpt">The two-year project will develop lightweight carbon-fiber composites suitable for deep-space applications, with three undergraduate students named as paid research fellows.</p>
-            <div class="ri-meta">Apr 28, 2026 · Engineering</div>
-          </div>
+        <div class="research-card" data-cat="chemistry">
+          <div class="rc-field">Chemistry</div>
+          <h3 class="rc-title">YSU Chemistry Lab Develops Low-Cost Water Purification Membrane for Rural Communities</h3>
+          <p class="rc-excerpt">Dr. Osei's cellulose-based filtration membrane removes 99.4% of agricultural contaminants at a fraction of market cost, now piloted in three Ohio counties.</p>
+          <div class="rc-meta"><span>Apr 25, 2026</span><span class="rc-grant">Ohio EPA Partnership</span></div>
         </div>
-        <div class="research-item">
-          <div class="ri-bar"></div>
-          <div>
-            <div class="ri-field">Chemistry</div>
-            <div class="ri-title">YSU Chemistry Lab Develops Low-Cost Water Purification Membrane for Rural Communities</div>
-            <p class="ri-excerpt">Dr. James Osei's team has created a cellulose-based filtration membrane that removes 99.4% of common agricultural contaminants at a fraction of current market cost.</p>
-            <div class="ri-meta">Apr 25, 2026 · Chemistry</div>
-          </div>
+
+        <div class="research-card" data-cat="biology">
+          <div class="rc-field">Biology</div>
+          <h3 class="rc-title">YSU Biologists Publish Findings on Mahoning River Ecosystem Recovery in Nature Ecology</h3>
+          <p class="rc-excerpt">A decade-long study tracking the return of native fish species to the Mahoning River following industrial cleanup has been published in a top-tier ecology journal.</p>
+          <div class="rc-meta"><span>Apr 22, 2026</span><span class="rc-grant">NSF Funded</span></div>
         </div>
-        <div class="research-item">
-          <div class="ri-bar"></div>
-          <div>
-            <div class="ri-field">Biology</div>
-            <div class="ri-title">YSU Biologists Publish Findings on Mahoning River Ecosystem Recovery in Nature Ecology</div>
-            <p class="ri-excerpt">A decade-long study tracking the return of native fish species to the Mahoning River following industrial cleanup efforts has been published in a top-tier ecology journal.</p>
-            <div class="ri-meta">Apr 22, 2026 · Biology</div>
-          </div>
+
+        <div class="research-card" data-cat="energy">
+          <div class="rc-field">Clean Energy</div>
+          <h3 class="rc-title">YSU Clean Energy Lab Secures $720K DOE Grant for Next-Gen Solar Cell Research</h3>
+          <p class="rc-excerpt">Dr. Petrova's team develops perovskite-silicon tandem solar cells targeting efficiency rates above 35% — surpassing current commercial benchmarks by a significant margin.</p>
+          <div class="rc-meta"><span>Apr 18, 2026</span><span class="rc-grant">DOE $720K</span></div>
         </div>
-        <div class="research-item">
-          <div class="ri-bar"></div>
-          <div>
-            <div class="ri-field">Health Sciences</div>
-            <div class="ri-title">New Biomedical Engineering Track Launches Fall 2026 — Already 200+ Applicants</div>
-            <p class="ri-excerpt">Developed in partnership with Mercy Health and St. Elizabeth Boardman, the interdisciplinary track combines engineering coursework with hands-on clinical research experience.</p>
-            <div class="ri-meta">May 1, 2026 · Academics</div>
-          </div>
+
+        <div class="research-card" data-cat="health">
+          <div class="rc-field">Biomedical Engineering</div>
+          <h3 class="rc-title">New Biomedical Engineering Track Launches Fall 2026 — Already 200+ Applicants</h3>
+          <p class="rc-excerpt">Developed with Mercy Health and St. Elizabeth, the interdisciplinary track combines engineering coursework with hands-on clinical research experience.</p>
+          <div class="rc-meta"><span>May 1, 2026</span><span class="rc-grant">Mercy Health Partnership</span></div>
         </div>
-        <div class="research-item">
-          <div class="ri-bar"></div>
-          <div>
-            <div class="ri-field">Engineering</div>
-            <div class="ri-title">YSU Clean Energy Lab Secures $720K DOE Grant for Next-Gen Solar Cell Research</div>
-            <p class="ri-excerpt">Dr. Irina Petrova's team will spend two years developing perovskite-silicon tandem solar cells targeting efficiency rates above 35%, surpassing current commercial benchmarks.</p>
-            <div class="ri-meta">Apr 18, 2026 · Engineering</div>
-          </div>
+
+        <div class="research-card" data-cat="nursing">
+          <div class="rc-field">Nursing Research</div>
+          <h3 class="rc-title">YSU Nursing Faculty Publish Patient Outcomes Study in Journal of Nursing Scholarship</h3>
+          <p class="rc-excerpt">Research led by Dr. Morris's team demonstrates that YSU-trained nurses achieve patient outcome scores 12% above state averages in their first year of practice.</p>
+          <div class="rc-meta"><span>Mar 15, 2026</span><span class="rc-grant">Journal of Nursing Scholarship</span></div>
         </div>
+
+        <div class="research-card" data-cat="math">
+          <div class="rc-field">Mathematics</div>
+          <h3 class="rc-title">YSU Mathematician's Algorithm Adopted by Three Regional Hospital Systems for Patient Scheduling</h3>
+          <p class="rc-excerpt">Dr. Elena Kowalski's optimization algorithm reduces emergency department wait times by an average of 23% and has been licensed to three Northeast Ohio hospital networks.</p>
+          <div class="rc-meta"><span>Feb 20, 2026</span><span class="rc-grant">Applied Mathematics</span></div>
+        </div>
+
+        <div class="research-card" data-cat="cs">
+          <div class="rc-field">Computer Science</div>
+          <h3 class="rc-title">YSU Cybersecurity Research Center Partners with DHS on Critical Infrastructure Protection</h3>
+          <p class="rc-excerpt">The newly established Cybersecurity Research Center, funded by a $480K DHS grant, will focus on protecting manufacturing and utilities infrastructure in the Mahoning Valley region.</p>
+          <div class="rc-meta"><span>Jan 30, 2026</span><span class="rc-grant">DHS $480K</span></div>
+        </div>
+
       </div>
 
       <!-- BEGIN:LAST_UPDATED -->
@@ -385,6 +416,7 @@
 
     </main>
 
+    <!-- SIDEBAR -->
     <aside class="sidebar">
 
       <div class="grants-box">
@@ -409,21 +441,25 @@
           <div><div class="gr-agency">NASA</div><div class="gr-dept">Aerospace Materials</div></div>
           <div class="gr-amount">$540K</div>
         </div>
+        <div class="grant-row">
+          <div><div class="gr-agency">DHS</div><div class="gr-dept">Cybersecurity</div></div>
+          <div class="gr-amount">$480K</div>
+        </div>
       </div>
 
-      <!-- BEGIN:LIVE_SIDEBAR -->
-      <!-- END:LIVE_SIDEBAR -->
-
       <div class="sidebar-section">
-        <div class="section-label">By Department</div>
+        <div class="section-label">Browse by Discipline</div>
         <div class="dept-list">
-          <div class="dept-item"><div class="di-name">Engineering</div><div class="di-count">14</div></div>
-          <div class="dept-item"><div class="di-name">Health Sciences</div><div class="di-count">11</div></div>
-          <div class="dept-item"><div class="di-name">Biology</div><div class="di-count">9</div></div>
-          <div class="dept-item"><div class="di-name">Chemistry</div><div class="di-count">8</div></div>
-          <div class="dept-item"><div class="di-name">Computer Science</div><div class="di-count">7</div></div>
-          <div class="dept-item"><div class="di-name">Physics</div><div class="di-count">5</div></div>
-          <div class="dept-item"><div class="di-name">Environmental</div><div class="di-count">6</div></div>
+          <div class="dept-item" onclick="filterScienceByDept('biology')"><div class="di-name">Biology</div><div class="di-count">→</div></div>
+          <div class="dept-item" onclick="filterScienceByDept('engineering')"><div class="di-name">Engineering</div><div class="di-count">→</div></div>
+          <div class="dept-item" onclick="filterScienceByDept('chemistry')"><div class="di-name">Chemistry</div><div class="di-count">→</div></div>
+          <div class="dept-item" onclick="filterScienceByDept('physics')"><div class="di-name">Physics</div><div class="di-count">→</div></div>
+          <div class="dept-item" onclick="filterScienceByDept('health')"><div class="di-name">Health Sciences</div><div class="di-count">→</div></div>
+          <div class="dept-item" onclick="filterScienceByDept('nursing')"><div class="di-name">Nursing Research</div><div class="di-count">→</div></div>
+          <div class="dept-item" onclick="filterScienceByDept('cs')"><div class="di-name">Computer Science</div><div class="di-count">→</div></div>
+          <div class="dept-item" onclick="filterScienceByDept('environmental')"><div class="di-name">Environmental</div><div class="di-count">→</div></div>
+          <div class="dept-item" onclick="filterScienceByDept('energy')"><div class="di-name">Energy</div><div class="di-count">→</div></div>
+          <div class="dept-item" onclick="filterScienceByDept('math')"><div class="di-name">Mathematics</div><div class="di-count">→</div></div>
         </div>
       </div>
 
@@ -431,20 +467,28 @@
         <div class="section-label">Recent Publications</div>
         <div class="sidebar-item">
           <div class="si-tag">Nature Materials</div>
-          <div class="si-title">Biodegradable Manganese-Based Electrochemical Cells for Implantable Devices</div>
-          <div class="si-meta">Nair et al. · Vol. 24, 2026</div>
+          <div class="si-title">Biodegradable Manganese-Based Electrochemical Cells</div>
+          <div class="si-meta">Nair et al. · 2026</div>
         </div>
         <div class="sidebar-item">
           <div class="si-tag">Nature Ecology</div>
-          <div class="si-title">Decadal Recovery of Native Fish Species in Post-Industrial Riverine Systems</div>
+          <div class="si-title">Decadal Recovery of Native Fish in Post-Industrial Rivers</div>
           <div class="si-meta">Chen et al. · Apr 2026</div>
         </div>
         <div class="sidebar-item">
           <div class="si-tag">Journal of Applied Physics</div>
-          <div class="si-title">Tau Neutrino Interaction Signatures in Underground Scintillator Arrays</div>
+          <div class="si-title">Tau Neutrino Signatures in Underground Arrays</div>
           <div class="si-meta">Huang et al. · Mar 2026</div>
         </div>
+        <div class="sidebar-item">
+          <div class="si-tag">Nursing Scholarship</div>
+          <div class="si-title">YSU Nurse Outcomes Above State Average by 12%</div>
+          <div class="si-meta">Morris et al. · Mar 2026</div>
+        </div>
       </div>
+
+      <!-- BEGIN:LIVE_SIDEBAR -->
+      <!-- END:LIVE_SIDEBAR -->
 
     </aside>
   </div>
@@ -452,7 +496,7 @@
   <footer>
     <div class="footer-brand">
       <div class="footer-name">Youngstown State University</div>
-      <div class="footer-sub">youngstownstateuniversity.com · The Penguin Report · Not affiliated with YSU</div>
+      <div class="footer-sub">youngstownstateuniversity.com · Not affiliated with YSU</div>
     </div>
     <div class="footer-links">
       <a href="index.html">News</a>
@@ -473,9 +517,39 @@
     document.getElementById('dateline').textContent =
       days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
 
-    function setFilter(btn) {
+    function filterScience(btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      applyFilter(btn.dataset.filter);
+    }
+
+    function filterScienceByDept(cat) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active');
+        if (b.dataset.filter === cat) b.classList.add('active');
+      });
+      applyFilter(cat);
+      window.scrollTo({ top: document.querySelector('.filter-bar').offsetTop - 60, behavior: 'smooth' });
+    }
+
+    function applyFilter(filter) {
+      const cards = document.querySelectorAll('.research-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      document.getElementById('noResults').classList.toggle('visible', visible === 0);
+      const btn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+      document.getElementById('science-section-label').textContent =
+        filter === 'all' ? 'Latest Research' : (btn ? btn.textContent + ' Research' : 'Latest Research');
+    }
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const btn = document.querySelector(`.filter-btn[data-filter="${hash}"]`);
+      if (btn) filterScience(btn);
     }
   </script>
 
