@@ -1,1 +1,506 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Students — Youngstown State University</title>
+  <meta name="description" content="YSU student achievements, campus life, scholarships, and Penguin student success stories."/>
+  <meta property="og:title" content="Students — Youngstown State University"/>
+  <meta property="og:image" content="assets/pete.jpg"/>
+  <meta property="og:url" content="https://youngstownstateuniversity.com/students.html"/>
+  <link rel="icon" href="assets/pete.jpg" type="image/jpeg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --scarlet: #CC0000;
+      --scarlet-dark: #990000;
+      --charcoal: #1A1A1A;
+      --warm-white: #FAF8F5;
+      --cream: #F2EDE6;
+      --mid: #6B6560;
+      --light-border: #E0DBD5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Source Serif 4', serif; background: var(--warm-white); color: var(--charcoal); }
+    a { text-decoration: none; color: inherit; }
+
+    /* MASTHEAD */
+    .masthead { background: var(--charcoal); border-bottom: 4px solid var(--scarlet); }
+    .masthead-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 32px 10px; border-bottom: 1px solid #2e2e2e;
+    }
+    .wordmark-main { font-family: 'Bebas Neue', sans-serif; font-size: 44px; letter-spacing: 4px; color: #fff; line-height: 1; }
+    .wordmark-sub { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 7px; color: var(--scarlet); }
+    .masthead-meta { text-align: right; font-size: 11px; letter-spacing: 1.5px; color: #555; font-weight: 300; text-transform: uppercase; }
+    .masthead-meta span { display: block; margin-top: 3px; color: #444; }
+    .pete-badge { width: 58px; height: 58px; border-radius: 50%; overflow: hidden; border: 2px solid var(--scarlet); flex-shrink: 0; }
+    .pete-badge img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    nav.main-nav { display: flex; padding: 0 32px; overflow-x: auto; scrollbar-width: none; }
+    nav.main-nav::-webkit-scrollbar { display: none; }
+    nav.main-nav a {
+      font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: 2.5px;
+      color: #888; padding: 10px 18px; white-space: nowrap; transition: color 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+    nav.main-nav a:hover { color: #fff; }
+    nav.main-nav a.active { color: #fff; border-bottom-color: var(--scarlet); }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--charcoal); padding: 36px 32px 32px;
+      border-bottom: 1px solid #2e2e2e; position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: 'STUDENTS';
+      position: absolute; right: -10px; top: -10px;
+      font-family: 'Bebas Neue', sans-serif; font-size: 120px;
+      color: rgba(204,0,0,0.06); letter-spacing: -2px; pointer-events: none; line-height: 1;
+    }
+    .page-header-eyebrow {
+      font-family: 'Bebas Neue', sans-serif; font-size: 11px;
+      letter-spacing: 4px; color: var(--scarlet); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .page-header-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 2px; background: var(--scarlet); }
+    .page-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 4px; color: #fff; line-height: 1; }
+    .page-header-sub { font-size: 13px; color: #555; font-weight: 300; letter-spacing: 1px; margin-top: 8px; }
+
+    /* FILTER BAR */
+    .filter-bar {
+      background: #fff; border-bottom: 1px solid var(--light-border);
+      padding: 0 32px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2.5px;
+      color: #aaa; padding: 12px 16px; cursor: pointer; white-space: nowrap;
+      border: none; background: none; border-bottom: 3px solid transparent; transition: color 0.2s;
+    }
+    .filter-btn:hover { color: var(--charcoal); }
+    .filter-btn.active { color: var(--scarlet); border-bottom-color: var(--scarlet); }
+
+    /* STATS STRIP */
+    .stats-strip {
+      background: var(--scarlet); padding: 16px 32px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-bottom: 3px solid var(--scarlet-dark);
+    }
+    .stat-item { text-align: center; padding: 0 12px; border-right: 1px solid rgba(255,255,255,0.15); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #fff; line-height: 1; }
+    .stat-label { font-size: 9px; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 300; margin-top: 3px; }
+
+    /* MAIN LAYOUT */
+    .page-wrap { max-width: 1160px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 1fr 260px; gap: 40px; }
+
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 4px;
+      color: var(--mid); border-top: 2px solid var(--scarlet); padding-top: 8px; margin-bottom: 22px;
+    }
+
+    /* SPOTLIGHT CARD */
+    .spotlight-card {
+      background: var(--charcoal); border-radius: 4px; padding: 28px;
+      margin-bottom: 32px; border-left: 6px solid var(--scarlet);
+      display: grid; grid-template-columns: 1fr 200px; gap: 28px; align-items: start;
+    }
+    .sc-eyebrow { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 4px; color: var(--scarlet); margin-bottom: 10px; }
+    .sc-name { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 2px; color: #fff; line-height: 1; margin-bottom: 4px; }
+    .sc-major { font-size: 12px; color: #666; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 300; margin-bottom: 14px; }
+    .sc-story { font-size: 14px; color: #999; line-height: 1.7; font-weight: 300; }
+    .sc-aside {}
+    .sc-award {
+      background: #242424; border-radius: 4px; padding: 16px; text-align: center;
+      border-top: 2px solid var(--scarlet); margin-bottom: 12px;
+    }
+    .sc-award-label { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 6px; }
+    .sc-award-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: #fff; line-height: 1.3; }
+    .sc-award-detail { font-size: 11px; color: #666; margin-top: 4px; font-weight: 300; }
+
+    /* STUDENT GRID */
+    .student-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+    .student-card { border-bottom: 1px solid var(--light-border); padding-bottom: 20px; cursor: pointer; }
+    .student-card:hover .stc-title { color: var(--scarlet); }
+    .stc-tag { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 6px; }
+    .stc-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 7px; transition: color 0.2s; }
+    .stc-excerpt { font-size: 13px; color: var(--mid); line-height: 1.6; font-weight: 300; }
+    .stc-meta { margin-top: 9px; font-size: 11px; color: #bbb; }
+
+    /* STUDENT LIST */
+    .student-list { display: flex; flex-direction: column; margin-bottom: 32px; }
+    .student-item {
+      display: grid; grid-template-columns: 56px 1fr;
+      gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--light-border); cursor: pointer;
+    }
+    .student-item:hover .si-title { color: var(--scarlet); }
+    .si-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--light-border);
+      line-height: 1; text-align: center; padding-top: 4px;
+    }
+    .student-item:hover .si-num { color: var(--scarlet); }
+    .si-tag { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 5px; }
+    .si-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 5px; transition: color 0.2s; }
+    .si-excerpt { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
+    .si-meta { font-size: 11px; color: #bbb; margin-top: 5px; }
+
+    /* SIDEBAR */
+    .sidebar { border-left: 1px solid var(--light-border); padding-left: 24px; }
+    .sidebar-section { margin-bottom: 30px; }
+    .sidebar-item { padding: 12px 0; border-bottom: 1px solid #ece9e4; cursor: pointer; }
+    .sidebar-item:hover .sit-title { color: var(--scarlet); }
+    .sit-tag { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 4px; }
+    .sit-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--charcoal); transition: color 0.2s; }
+    .sit-meta { font-size: 11px; color: #bbb; margin-top: 4px; font-weight: 300; }
+
+    /* SCHOLARSHIP BOX */
+    .scholarship-box { background: var(--charcoal); border-radius: 4px; padding: 18px; margin-bottom: 28px; border-top: 3px solid var(--scarlet); }
+    .sb-label { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 4px; color: var(--scarlet); margin-bottom: 14px; }
+    .sb-item { padding: 8px 0; border-bottom: 1px solid #2a2a2a; }
+    .sb-item:last-child { border-bottom: none; }
+    .sb-name { font-size: 12px; color: #ccc; font-weight: 300; line-height: 1.4; }
+    .sb-amount { font-family: 'Bebas Neue', sans-serif; font-size: 15px; color: var(--scarlet); margin-top: 2px; }
+
+    /* CAMPUS LIFE GRID */
+    .campus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .campus-item {
+      background: var(--cream); border-radius: 3px; padding: 12px;
+      border-left: 3px solid var(--scarlet); cursor: pointer;
+    }
+    .campus-item:hover { background: #ece6dd; }
+    .ci-title { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 1.5px; color: var(--charcoal); line-height: 1.3; }
+    .ci-detail { font-size: 11px; color: var(--mid); margin-top: 3px; font-weight: 300; }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal); border-top: 4px solid var(--scarlet);
+      padding: 24px 32px; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand .footer-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 4px; color: #fff; }
+    .footer-brand .footer-sub { font-size: 10px; letter-spacing: 2px; color: #444; text-transform: uppercase; margin-top: 2px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2px; color: #555; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--scarlet); }
+    .footer-copy { font-size: 10px; color: #333; letter-spacing: 1px; font-weight: 300; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .masthead-top { padding: 10px 16px; }
+      .wordmark-main { font-size: 30px; }
+      nav.main-nav { padding: 0 16px; }
+      .page-header { padding: 24px 16px; }
+      .page-header h1 { font-size: 36px; }
+      .filter-bar { padding: 0 16px; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); padding: 12px 16px; }
+      .stat-item:nth-child(2) { border-right: none; }
+      .page-wrap { grid-template-columns: 1fr; gap: 24px; padding: 20px 16px; }
+      .sidebar { border-left: none; border-top: 1px solid var(--light-border); padding-left: 0; padding-top: 24px; }
+      .spotlight-card { grid-template-columns: 1fr; }
+      .student-grid { grid-template-columns: 1fr; }
+      .campus-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; align-items: flex-start; padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <div>
+        <div class="wordmark-main">Youngstown State</div>
+        <div class="wordmark-sub">University</div>
+      </div>
+      <div class="masthead-meta">
+        <span id="dateline">Loading...</span>
+        <span>Youngstown, Ohio</span>
+        <span style="color:var(--scarlet);margin-top:4px;">Go Penguins</span>
+      </div>
+      <div class="pete-badge">
+        <img src="assets/pete.jpg" alt="Pete the Penguin"/>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">News</a>
+      <a href="sports.html">Sports</a>
+      <a href="science.html">Science</a>
+      <a href="accolades.html">Accolades</a>
+      <a href="students.html" class="active">Students</a>
+      <a href="faculty.html">Faculty</a>
+      <a href="alumni.html">Alumni</a>
+    </nav>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-eyebrow">Campus Life & Achievement</div>
+    <h1>YSU Students</h1>
+    <div class="page-header-sub">The achievements, stories, and milestones of Youngstown State's student body</div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="setFilter(this)">All</button>
+    <button class="filter-btn" onclick="setFilter(this)">Achievement</button>
+    <button class="filter-btn" onclick="setFilter(this)">Scholarships</button>
+    <button class="filter-btn" onclick="setFilter(this)">Research</button>
+    <button class="filter-btn" onclick="setFilter(this)">Campus Life</button>
+    <button class="filter-btn" onclick="setFilter(this)">Veterans</button>
+    <button class="filter-btn" onclick="setFilter(this)">Leadership</button>
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num">12,400</div>
+      <div class="stat-label">Enrolled Students</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">97%</div>
+      <div class="stat-label">Graduate Placement</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">600+</div>
+      <div class="stat-label">Student Veterans</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">$14M</div>
+      <div class="stat-label">Scholarships Awarded</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="page-wrap">
+    <main>
+
+      <div class="section-label">Student Spotlight</div>
+
+      <!-- SPOTLIGHT CARD -->
+      <div class="spotlight-card">
+        <div>
+          <div class="sc-eyebrow">Student of the Month</div>
+          <div class="sc-name">Dominique Walters</div>
+          <div class="sc-major">Senior · Williamson College of Business · Entrepreneurship</div>
+          <p class="sc-story">A first-generation college student from Youngstown's East Side, Dominique entered YSU on a full merit scholarship and spent four years turning a class project into a real business. Her agri-tech startup — which uses sensor data to reduce water waste on small farms — beat out entries from Wharton, Kellogg, and Stanford at the National Collegiate Entrepreneurship Competition, earning her a $150,000 seed investment and a spot in a Chicago-based accelerator program. She graduates in May.</p>
+        </div>
+        <div class="sc-aside">
+          <div class="sc-award">
+            <div class="sc-award-label">National Award</div>
+            <div class="sc-award-title">Entrepreneurship Competition Champion</div>
+            <div class="sc-award-detail">$150K Investment · 400+ Competitors</div>
+          </div>
+          <div class="sc-award">
+            <div class="sc-award-label">Background</div>
+            <div class="sc-award-title">First-Generation College Student</div>
+            <div class="sc-award-detail">Full Merit Scholarship · YSU Class of 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Student Achievement</div>
+
+      <!-- STUDENT GRID -->
+      <div class="student-grid">
+        <div class="student-card">
+          <div class="stc-tag">Leadership</div>
+          <h3 class="stc-title">YSU Model UN Team Places First at Harvard National Invitational for Second Straight Year</h3>
+          <p class="stc-excerpt">Competing against Georgetown, NYU, and Michigan delegations, the Penguin team took top honors in the Security Council simulation — cementing YSU's reputation in collegiate diplomacy.</p>
+          <div class="stc-meta">May 3, 2026 · Students</div>
+        </div>
+        <div class="student-card">
+          <div class="stc-tag">Research</div>
+          <h3 class="stc-title">Four YSU Undergraduates Named Co-Authors on Nature Materials Paper — A First for the University</h3>
+          <p class="stc-excerpt">Students Preet Patel, Marcus Webb, Lily Cho, and Sofia Reyes spent two years working alongside Dr. Nair's lab team and earned a coveted co-authorship on the landmark biodegradable battery paper.</p>
+          <div class="stc-meta">May 5, 2026 · Research</div>
+        </div>
+        <div class="student-card">
+          <div class="stc-tag">Scholarships</div>
+          <h3 class="stc-title">YSU Junior Awarded Prestigious Goldwater Scholarship for STEM Excellence</h3>
+          <p class="stc-excerpt">Chemistry junior Aiden Park becomes the fourth YSU student in a decade to earn the Goldwater Scholarship, the nation's most prestigious undergraduate STEM award.</p>
+          <div class="stc-meta">Apr 28, 2026 · Academic</div>
+        </div>
+        <div class="student-card">
+          <div class="stc-tag">Campus Life</div>
+          <h3 class="stc-title">Penguin Pantry Serves 4,000 Students — Zero Hunger Initiative Enters Year Two</h3>
+          <p class="stc-excerpt">The student-run food security program, launched by the Student Government Association, expanded to three campus locations and has eliminated food insecurity for thousands of Penguins.</p>
+          <div class="stc-meta">May 5, 2026 · Campus</div>
+        </div>
+      </div>
+
+      <div class="section-label">More Student Stories</div>
+
+      <!-- STUDENT LIST -->
+      <div class="student-list">
+        <div class="student-item">
+          <div class="si-num">01</div>
+          <div>
+            <div class="si-tag">Veterans</div>
+            <div class="si-title">Student Veterans Center Opens Expanded Wing — Serving 600+ Veteran and Active-Duty Students</div>
+            <p class="si-excerpt">The newly renovated Veterans Resource Center adds two full-time counselors, a dedicated employer recruiting suite, and a quiet study lounge exclusively for veteran students.</p>
+            <div class="si-meta">Apr 30, 2026 · Veterans</div>
+          </div>
+        </div>
+        <div class="student-item">
+          <div class="si-num">02</div>
+          <div>
+            <div class="si-tag">Achievement</div>
+            <div class="si-title">YSU Students Win Four Regional Emmy Nominations for Documentary Films</div>
+            <p class="si-excerpt">Students in the Dana School of Music and Department of Communication co-produced five documentaries submitted for regional Emmy consideration — four earned nominations.</p>
+            <div class="si-meta">May 6, 2026 · Arts</div>
+          </div>
+        </div>
+        <div class="student-item">
+          <div class="si-num">03</div>
+          <div>
+            <div class="si-tag">Research</div>
+            <div class="si-title">YSU Sophomore Presents Climate Research at National Science Foundation Conference in Washington D.C.</div>
+            <p class="si-excerpt">Biology sophomore Maya Torres presented her independent research on urban heat island mitigation at the NSF's annual undergraduate research showcase — one of only 40 students selected nationally.</p>
+            <div class="si-meta">Apr 22, 2026 · Research</div>
+          </div>
+        </div>
+        <div class="student-item">
+          <div class="si-num">04</div>
+          <div>
+            <div class="si-tag">Leadership</div>
+            <div class="si-title">YSU Student Government Raises $80K for Campus Improvement Fund — Largest in SGA History</div>
+            <p class="si-excerpt">Led by SGA President Marcus Cole, the student government organized a series of community fundraising events and matching donation campaigns to fund new outdoor study spaces across campus.</p>
+            <div class="si-meta">Apr 18, 2026 · Leadership</div>
+          </div>
+        </div>
+        <div class="student-item">
+          <div class="si-num">05</div>
+          <div>
+            <div class="si-tag">Achievement</div>
+            <div class="si-title">YSU Engineering Student Team Places Second at National Robotics Competition in Houston</div>
+            <p class="si-excerpt">A five-member YSU team competed against 200+ university teams at the FIRST Robotics College Championship, finishing second in the autonomous navigation category.</p>
+            <div class="si-meta">Apr 14, 2026 · Engineering</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- SCHOLARSHIPS -->
+      <div class="scholarship-box">
+        <div class="sb-label">Featured Scholarships</div>
+        <div class="sb-item">
+          <div class="sb-name">YSU Presidential Merit Scholarship</div>
+          <div class="sb-amount">Up to $12,000/yr</div>
+        </div>
+        <div class="sb-item">
+          <div class="sb-name">Rayen School Engineering Award</div>
+          <div class="sb-amount">Up to $8,000/yr</div>
+        </div>
+        <div class="sb-item">
+          <div class="sb-name">Williamson Business Excellence</div>
+          <div class="sb-amount">Up to $6,500/yr</div>
+        </div>
+        <div class="sb-item">
+          <div class="sb-name">YSU Veterans Tuition Waiver</div>
+          <div class="sb-amount">Full Tuition</div>
+        </div>
+        <div class="sb-item">
+          <div class="sb-name">Mahoning Valley Community Award</div>
+          <div class="sb-amount">Up to $5,000/yr</div>
+        </div>
+      </div>
+
+      <!-- CAMPUS LIFE -->
+      <div class="sidebar-section">
+        <div class="section-label">Campus Life</div>
+        <div class="campus-grid">
+          <div class="campus-item">
+            <div class="ci-title">200+ Student Orgs</div>
+            <div class="ci-detail">Clubs & activities</div>
+          </div>
+          <div class="campus-item">
+            <div class="ci-title">Penguin Pantry</div>
+            <div class="ci-detail">3 campus locations</div>
+          </div>
+          <div class="campus-item">
+            <div class="ci-title">Veterans Center</div>
+            <div class="ci-detail">Expanded 2026</div>
+          </div>
+          <div class="campus-item">
+            <div class="ci-title">Rec Center</div>
+            <div class="ci-detail">State-of-the-art</div>
+          </div>
+          <div class="campus-item">
+            <div class="ci-title">Research Fellows</div>
+            <div class="ci-detail">Paid opportunities</div>
+          </div>
+          <div class="campus-item">
+            <div class="ci-title">Study Abroad</div>
+            <div class="ci-detail">30+ countries</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECENT WINS -->
+      <div class="sidebar-section">
+        <div class="section-label">Recent Student Wins</div>
+        <div class="sidebar-item">
+          <div class="sit-tag">Scholarship</div>
+          <div class="sit-title">Aiden Park earns Goldwater Scholarship in Chemistry</div>
+          <div class="sit-meta">Apr 28, 2026</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sit-tag">Competition</div>
+          <div class="sit-title">Model UN places first at Harvard Invitational</div>
+          <div class="sit-meta">May 3, 2026</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sit-tag">Research</div>
+          <div class="sit-title">Four undergrads co-author Nature Materials paper</div>
+          <div class="sit-meta">May 5, 2026</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="sit-tag">Business</div>
+          <div class="sit-title">Dominique Walters wins $150K entrepreneurship prize</div>
+          <div class="sit-meta">May 3, 2026</div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <div class="footer-name">Youngstown State University</div>
+      <div class="footer-sub">youngstownstateuniversity.com · The Penguin Report · Not affiliated with YSU</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">News</a>
+      <a href="sports.html">Sports</a>
+      <a href="science.html">Science</a>
+      <a href="accolades.html">Accolades</a>
+      <a href="students.html">Students</a>
+      <a href="faculty.html">Faculty</a>
+      <a href="alumni.html">Alumni</a>
+    </div>
+    <div class="footer-copy">© 2026 youngstownstateuniversity.com</div>
+  </footer>
+
+  <script>
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const now = new Date();
+    document.getElementById('dateline').textContent =
+      days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+
+    function setFilter(btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
