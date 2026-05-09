@@ -12,7 +12,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4051YC1LHZ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -75,20 +74,21 @@
 
     .sport-nav {
       background: #fff; border-bottom: 1px solid var(--light-border);
-      padding: 0 32px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+      padding: 0 32px; display: flex; overflow-x: auto; scrollbar-width: none;
     }
     .sport-nav::-webkit-scrollbar { display: none; }
     .sport-btn {
       font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2.5px;
       color: #aaa; padding: 12px 16px; cursor: pointer; white-space: nowrap;
       border: none; background: none; border-bottom: 3px solid transparent; transition: color 0.2s;
+      flex-shrink: 0;
     }
     .sport-btn:hover { color: var(--charcoal); }
     .sport-btn.active { color: var(--scarlet); border-bottom-color: var(--scarlet); }
 
     .scoreboard-strip {
       background: var(--charcoal); padding: 16px 32px;
-      display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
+      display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
       border-bottom: 2px solid #2e2e2e;
     }
     .scoreboard-strip::-webkit-scrollbar { display: none; }
@@ -98,13 +98,13 @@
     }
     .score-card.win { border-left-color: var(--scarlet); }
     .score-card.upcoming { border-left-color: #444; }
-    .sc-sport { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: #555; margin-bottom: 6px; }
+    .sc-sport-label { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: #555; margin-bottom: 6px; }
     .sc-matchup { font-size: 12px; color: #ccc; font-weight: 300; line-height: 1.4; margin-bottom: 6px; }
     .sc-matchup strong { color: #fff; font-weight: 400; }
     .sc-result { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; }
     .sc-result.win { color: var(--scarlet); }
-    .sc-result.upcoming { color: #555; font-size: 12px; letter-spacing: 1px; font-family: 'Source Serif 4', serif; font-weight: 300; }
-    .sc-date { font-size: 10px; color: #444; margin-top: 4px; letter-spacing: 1px; font-weight: 300; }
+    .sc-result.upcoming { color: #555; font-size: 12px; font-family: 'Source Serif 4', serif; font-weight: 300; }
+    .sc-date { font-size: 10px; color: #444; margin-top: 4px; letter-spacing: 1px; }
 
     .page-wrap { max-width: 1160px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 1fr 260px; gap: 40px; }
 
@@ -123,28 +123,28 @@
       pointer-events: none;
     }
     .sl-tag { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 10px; }
-    .sl-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 12px; }
+    .sl-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 12px; }
     .sl-title em { font-style: italic; color: var(--scarlet); }
     .sl-excerpt { font-size: 14px; color: #aaa; line-height: 1.65; font-weight: 300; max-width: 600px; margin-bottom: 16px; }
     .sl-stats { display: flex; gap: 32px; }
-    .sl-stat-item { text-align: center; }
     .sl-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--scarlet); line-height: 1; }
     .sl-stat-label { font-size: 9px; letter-spacing: 2px; color: #555; text-transform: uppercase; margin-top: 2px; font-weight: 300; }
 
-    /* SPORT CARDS */
     .sport-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+
     .sport-card {
       border: 1px solid var(--light-border); border-radius: 4px; padding: 20px;
       cursor: pointer; transition: box-shadow 0.2s; border-top: 3px solid var(--scarlet);
       background: #fff;
     }
     .sport-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
-    .sport-card:hover .sc-title { color: var(--scarlet); }
+    .sport-card:hover .spc-title { color: var(--scarlet); }
     .sport-card.hidden { display: none; }
-    .sc-sport-tag { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 6px; }
-    .sc-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; line-height: 1.25; color: var(--charcoal); margin-bottom: 7px; transition: color 0.2s; }
-    .sc-excerpt { font-size: 13px; color: var(--mid); line-height: 1.6; font-weight: 300; }
-    .sc-byline { margin-top: 9px; font-size: 11px; color: #bbb; }
+
+    .spc-tag { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 6px; }
+    .spc-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; line-height: 1.25; color: var(--charcoal); margin-bottom: 7px; transition: color 0.2s; }
+    .spc-excerpt { font-size: 13px; color: var(--mid); line-height: 1.6; font-weight: 300; }
+    .spc-byline { margin-top: 9px; font-size: 11px; color: #bbb; }
 
     .no-results {
       display: none; text-align: center; padding: 48px 0;
@@ -160,58 +160,35 @@
       color: var(--mid); padding: 8px 10px; text-align: left; font-weight: 400;
     }
     .standings-table th.num { text-align: center; }
-    .standings-table td { padding: 10px 10px; border-bottom: 1px solid var(--light-border); color: var(--charcoal); font-weight: 300; }
+    .standings-table td { padding: 10px; border-bottom: 1px solid var(--light-border); color: var(--charcoal); font-weight: 300; }
     .standings-table td.num { text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 15px; }
-    .standings-table tr.ysu-row td { font-weight: 400; background: rgba(204,0,0,0.04); }
+    .standings-table tr.ysu-row td { background: rgba(204,0,0,0.04); }
     .standings-table tr.ysu-row td:first-child { border-left: 3px solid var(--scarlet); padding-left: 7px; }
-    .standings-table td.num.win { color: var(--scarlet); }
-    .standings-table.hidden { display: none; }
-    .team-name { font-weight: 400; }
-    .team-name strong { font-weight: 700; }
-
-    .news-list { display: flex; flex-direction: column; }
-    .news-item {
-      display: grid; grid-template-columns: 80px 1fr;
-      gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--light-border); cursor: pointer;
-    }
-    .news-item:hover .ni-title { color: var(--scarlet); }
-    .ni-date-block { text-align: center; padding-top: 4px; }
-    .ni-month { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--scarlet); }
-    .ni-day { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--charcoal); line-height: 1; }
-    .ni-year { font-size: 10px; color: #bbb; letter-spacing: 1px; font-weight: 300; }
-    .ni-tag { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 5px; }
-    .ni-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 6px; transition: color 0.2s; }
-    .ni-excerpt { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
+    .standings-table td.win { color: var(--scarlet); }
 
     .sidebar { border-left: 1px solid var(--light-border); padding-left: 24px; }
     .sidebar-section { margin-bottom: 30px; }
-    .sidebar-item { padding: 12px 0; border-bottom: 1px solid #ece9e4; cursor: pointer; }
-    .sidebar-item:hover .si-title { color: var(--scarlet); }
+    .sidebar-item { padding: 12px 0; border-bottom: 1px solid #ece9e4; }
     .si-tag { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 4px; }
-    .si-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--charcoal); transition: color 0.2s; }
+    .si-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--charcoal); }
     .si-meta { font-size: 11px; color: #bbb; margin-top: 4px; font-weight: 300; }
 
-    .schedule-item {
-      padding: 10px 0; border-bottom: 1px solid #ece9e4;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .sched-info { font-size: 12px; color: var(--charcoal); font-weight: 300; line-height: 1.4; }
-    .sched-info strong { font-weight: 400; display: block; }
-    .sched-date { font-family: 'Bebas Neue', sans-serif; font-size: 13px; color: var(--scarlet); letter-spacing: 1px; text-align: right; white-space: nowrap; margin-left: 12px; }
-
-    .athlete-box {
-      background: var(--charcoal); border-radius: 4px; padding: 18px; margin-bottom: 28px;
-      border-top: 3px solid var(--scarlet);
-    }
+    .athlete-box { background: var(--charcoal); border-radius: 4px; padding: 18px; margin-bottom: 28px; border-top: 3px solid var(--scarlet); }
     .athlete-box-label { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 4px; color: var(--scarlet); margin-bottom: 12px; }
     .athlete-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: #fff; line-height: 1; }
-    .athlete-sport { font-size: 11px; color: #555; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 300; margin-bottom: 10px; margin-top: 3px; }
+    .athlete-sport { font-size: 11px; color: #555; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 300; margin: 3px 0 10px; }
+    .athlete-bio { font-size: 12px; color: #777; line-height: 1.55; font-weight: 300; }
     .athlete-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
     .as-item { text-align: center; background: #2a2a2a; border-radius: 3px; padding: 8px 4px; }
     .as-num { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--scarlet); line-height: 1; }
-    .as-label { font-size: 9px; color: #555; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; font-weight: 300; }
+    .as-label { font-size: 9px; color: #555; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
 
-    .last-updated { font-size: 10px; color: #aaa; letter-spacing: 1px; font-weight: 300; text-align: center; padding: 12px 0 4px; }
+    .schedule-item { padding: 10px 0; border-bottom: 1px solid #ece9e4; display: flex; justify-content: space-between; align-items: center; }
+    .sched-info { font-size: 12px; color: var(--charcoal); font-weight: 300; line-height: 1.4; }
+    .sched-info strong { font-weight: 500; display: block; }
+    .sched-date { font-family: 'Bebas Neue', sans-serif; font-size: 13px; color: var(--scarlet); letter-spacing: 1px; white-space: nowrap; margin-left: 12px; }
+
+    .last-updated { font-size: 10px; color: #aaa; letter-spacing: 1px; text-align: center; padding: 12px 0 4px; }
 
     footer {
       background: var(--charcoal); border-top: 4px solid var(--scarlet);
@@ -223,7 +200,7 @@
     .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
     .footer-links a { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2px; color: #555; transition: color 0.2s; }
     .footer-links a:hover { color: var(--scarlet); }
-    .footer-copy { font-size: 10px; color: #333; letter-spacing: 1px; font-weight: 300; }
+    .footer-copy { font-size: 10px; color: #333; letter-spacing: 1px; }
 
     @media (max-width: 768px) {
       .masthead-top { padding: 10px 16px; }
@@ -236,7 +213,6 @@
       .page-wrap { grid-template-columns: 1fr; gap: 24px; padding: 20px 16px; }
       .sidebar { border-left: none; border-top: 1px solid var(--light-border); padding-left: 0; padding-top: 24px; }
       .sport-grid { grid-template-columns: 1fr; }
-      .sl-stats { gap: 20px; }
       footer { flex-direction: column; align-items: flex-start; padding: 20px 16px; }
     }
   </style>
@@ -275,62 +251,62 @@
     <div class="page-header-sub">Scores, standings, and stories from Penguin Nation</div>
   </div>
 
-  <!-- SPORT NAV — working filters -->
+  <!-- SPORT FILTER NAV -->
   <div class="sport-nav">
-    <button class="sport-btn active" data-filter="all" onclick="filterSport(this)">All Sports</button>
-    <button class="sport-btn" data-filter="football" onclick="filterSport(this)">Football</button>
-    <button class="sport-btn" data-filter="baseball" onclick="filterSport(this)">Baseball</button>
-    <button class="sport-btn" data-filter="softball" onclick="filterSport(this)">Softball</button>
-    <button class="sport-btn" data-filter="basketball" onclick="filterSport(this)">Basketball</button>
-    <button class="sport-btn" data-filter="volleyball" onclick="filterSport(this)">Volleyball</button>
-    <button class="sport-btn" data-filter="track" onclick="filterSport(this)">Track & Field</button>
-    <button class="sport-btn" data-filter="soccer" onclick="filterSport(this)">Soccer</button>
-    <button class="sport-btn" data-filter="golf" onclick="filterSport(this)">Golf</button>
-    <button class="sport-btn" data-filter="swimming" onclick="filterSport(this)">Swimming</button>
-    <button class="sport-btn" data-filter="tennis" onclick="filterSport(this)">Tennis</button>
-    <button class="sport-btn" data-filter="crosscountry" onclick="filterSport(this)">Cross Country</button>
+    <button class="sport-btn active" data-filter="all">All Sports</button>
+    <button class="sport-btn" data-filter="football">Football</button>
+    <button class="sport-btn" data-filter="baseball">Baseball</button>
+    <button class="sport-btn" data-filter="softball">Softball</button>
+    <button class="sport-btn" data-filter="basketball">Basketball</button>
+    <button class="sport-btn" data-filter="volleyball">Volleyball</button>
+    <button class="sport-btn" data-filter="track">Track & Field</button>
+    <button class="sport-btn" data-filter="soccer">Soccer</button>
+    <button class="sport-btn" data-filter="golf">Golf</button>
+    <button class="sport-btn" data-filter="swimming">Swimming</button>
+    <button class="sport-btn" data-filter="tennis">Tennis</button>
+    <button class="sport-btn" data-filter="crosscountry">Cross Country</button>
   </div>
 
   <!-- SCOREBOARD STRIP -->
   <div class="scoreboard-strip">
     <div class="score-card win">
-      <div class="sc-sport">Baseball</div>
+      <div class="sc-sport-label">Baseball</div>
       <div class="sc-matchup"><strong>YSU</strong> vs Wright State</div>
       <div class="sc-result win">W 8–2</div>
       <div class="sc-date">May 6, 2026</div>
     </div>
     <div class="score-card win">
-      <div class="sc-sport">Softball</div>
+      <div class="sc-sport-label">Softball</div>
       <div class="sc-matchup"><strong>YSU</strong> vs N. Kentucky</div>
       <div class="sc-result win">W 4–1</div>
       <div class="sc-date">May 5, 2026</div>
     </div>
     <div class="score-card win">
-      <div class="sc-sport">Baseball</div>
+      <div class="sc-sport-label">Baseball</div>
       <div class="sc-matchup"><strong>YSU</strong> vs N. Kentucky</div>
       <div class="sc-result win">W 6–3</div>
       <div class="sc-date">May 4, 2026</div>
     </div>
     <div class="score-card win">
-      <div class="sc-sport">Track & Field</div>
+      <div class="sc-sport-label">Track & Field</div>
       <div class="sc-matchup"><strong>YSU</strong> Horizon League Meet</div>
       <div class="sc-result win">1st Place</div>
       <div class="sc-date">May 3, 2026</div>
     </div>
     <div class="score-card upcoming">
-      <div class="sc-sport">Baseball</div>
+      <div class="sc-sport-label">Baseball</div>
       <div class="sc-matchup"><strong>YSU</strong> vs Oakland</div>
       <div class="sc-result upcoming">Sat · 1:00 PM</div>
       <div class="sc-date">May 9, 2026</div>
     </div>
     <div class="score-card upcoming">
-      <div class="sc-sport">Softball</div>
+      <div class="sc-sport-label">Softball</div>
       <div class="sc-matchup"><strong>YSU</strong> vs Milwaukee</div>
       <div class="sc-result upcoming">Sat · 11:00 AM</div>
       <div class="sc-date">May 9, 2026</div>
     </div>
     <div class="score-card upcoming">
-      <div class="sc-sport">Golf</div>
+      <div class="sc-sport-label">Golf</div>
       <div class="sc-matchup"><strong>YSU</strong> Horizon Championship</div>
       <div class="sc-result upcoming">Mon · 8:00 AM</div>
       <div class="sc-date">May 11, 2026</div>
@@ -341,16 +317,15 @@
     <main>
 
       <div class="section-label">Top Story</div>
-
       <div class="sport-lead">
         <div class="sl-tag">Baseball</div>
         <h2 class="sl-title">Penguins Baseball Sweeps Horizon League Weekend Series — <em>Ranked #3 Nationally</em></h2>
-        <p class="sl-excerpt">Ace pitcher Marco DelVecchio struck out 14 in Saturday's opener as YSU swept Wright State to improve to 31–7 on the season. The Penguins have now won 18 straight Horizon League games and sit third in the national FCS rankings — the highest in program history.</p>
+        <p class="sl-excerpt">Ace pitcher Marco DelVecchio struck out 14 in Saturday's opener as YSU swept Wright State to improve to 31–7 on the season. The Penguins have now won 18 straight Horizon League games.</p>
         <div class="sl-stats">
-          <div class="sl-stat-item"><div class="sl-stat-num">31–7</div><div class="sl-stat-label">Season Record</div></div>
-          <div class="sl-stat-item"><div class="sl-stat-num">18</div><div class="sl-stat-label">Conf. Win Streak</div></div>
-          <div class="sl-stat-item"><div class="sl-stat-num">#3</div><div class="sl-stat-label">National Rank</div></div>
-          <div class="sl-stat-item"><div class="sl-stat-num">14</div><div class="sl-stat-label">DelVecchio K's</div></div>
+          <div><div class="sl-stat-num">31–7</div><div class="sl-stat-label">Season Record</div></div>
+          <div><div class="sl-stat-num">18</div><div class="sl-stat-label">Win Streak</div></div>
+          <div><div class="sl-stat-num">#3</div><div class="sl-stat-label">National Rank</div></div>
+          <div><div class="sl-stat-num">14</div><div class="sl-stat-label">K's vs WSU</div></div>
         </div>
       </div>
 
@@ -361,99 +336,99 @@
       <div class="section-label" id="sport-section-label">Latest Sports News</div>
       <div class="no-results" id="noResults">No stories found for this sport yet.</div>
 
-      <!-- SPORT CARDS — each tagged with data-cat -->
+      <!-- SPORT CARDS — data-cat must match data-filter on buttons above -->
       <div class="sport-grid" id="sportGrid">
 
         <div class="sport-card" data-cat="baseball">
-          <div class="sc-sport-tag">Baseball</div>
-          <h3 class="sc-title">Penguins Baseball Sweep Horizon League Weekend Series — Ranked #3 Nationally</h3>
-          <p class="sc-excerpt">Marco DelVecchio struck out 14 as YSU improves to 31–7. The Penguins have now won 18 straight Horizon League games.</p>
-          <div class="sc-byline">May 6, 2026 · Athletics</div>
+          <div class="spc-tag">Baseball</div>
+          <h3 class="spc-title">Penguins Sweep Horizon League Weekend Series — Ranked #3 Nationally</h3>
+          <p class="spc-excerpt">Marco DelVecchio struck out 14 as YSU improves to 31–7. The Penguins have now won 18 straight Horizon League games.</p>
+          <div class="spc-byline">May 6, 2026 · Athletics</div>
         </div>
 
         <div class="sport-card" data-cat="softball">
-          <div class="sc-sport-tag">Softball</div>
-          <h3 class="sc-title">Pitcher Aaliyah Reeves Throws No-Hitter Against Northern Kentucky, Strikes Out 11</h3>
-          <p class="sc-excerpt">The junior from Warren, Ohio delivered the first no-hitter in YSU softball history, walking just one batter in a dominant 4–0 shutout.</p>
-          <div class="sc-byline">May 5, 2026 · Athletics</div>
+          <div class="spc-tag">Softball</div>
+          <h3 class="spc-title">Pitcher Aaliyah Reeves Throws No-Hitter Against Northern Kentucky, Strikes Out 11</h3>
+          <p class="spc-excerpt">The junior from Warren delivered the first no-hitter in YSU softball history in a dominant 4–0 shutout performance.</p>
+          <div class="spc-byline">May 5, 2026 · Athletics</div>
         </div>
 
         <div class="sport-card" data-cat="football">
-          <div class="sc-sport-tag">Football</div>
-          <h3 class="sc-title">Spring Game Draws 8,000 Fans to Stambaugh Stadium — Biggest Turnout in a Decade</h3>
-          <p class="sc-excerpt">New head coach Marcus Williams debuted his high-powered spread offense as the Penguins look to build on last season's playoff appearance.</p>
-          <div class="sc-byline">Apr 27, 2026 · Football</div>
+          <div class="spc-tag">Football</div>
+          <h3 class="spc-title">Spring Game Draws 8,000 Fans to Stambaugh Stadium — Biggest Turnout in a Decade</h3>
+          <p class="spc-excerpt">New head coach Marcus Williams debuted his high-powered spread offense as the Penguins look to build on last season's playoff appearance.</p>
+          <div class="spc-byline">Apr 27, 2026 · Football</div>
         </div>
 
         <div class="sport-card" data-cat="golf">
-          <div class="sc-sport-tag">Golf</div>
-          <h3 class="sc-title">YSU Men's Golf Qualifies for NCAA Regional for Second Straight Year</h3>
-          <p class="sc-excerpt">The Penguins earned an at-large bid to the NCAA Columbus Regional after finishing second at the Horizon League Championship.</p>
-          <div class="sc-byline">Apr 30, 2026 · Athletics</div>
+          <div class="spc-tag">Golf</div>
+          <h3 class="spc-title">YSU Men's Golf Qualifies for NCAA Regional for Second Straight Year</h3>
+          <p class="spc-excerpt">The Penguins earned an at-large bid to the NCAA Columbus Regional after finishing second at the Horizon League Championship.</p>
+          <div class="spc-byline">Apr 30, 2026 · Athletics</div>
         </div>
 
         <div class="sport-card" data-cat="track">
-          <div class="sc-sport-tag">Track & Field</div>
-          <h3 class="sc-title">YSU Sweeps Horizon League Track & Field Championships — Men's and Women's Titles</h3>
-          <p class="sc-excerpt">For the first time in school history, the Penguins claimed both the men's and women's outdoor titles at the Horizon League Championships in Cleveland.</p>
-          <div class="sc-byline">May 3, 2026 · Athletics</div>
+          <div class="spc-tag">Track &amp; Field</div>
+          <h3 class="spc-title">YSU Sweeps Horizon League Track & Field Championships — Men's and Women's Titles</h3>
+          <p class="spc-excerpt">For the first time in school history, the Penguins claimed both the men's and women's outdoor titles at the Horizon League Championships.</p>
+          <div class="spc-byline">May 3, 2026 · Athletics</div>
         </div>
 
         <div class="sport-card" data-cat="volleyball">
-          <div class="sc-sport-tag">Volleyball</div>
-          <h3 class="sc-title">Penguins Volleyball Opens Fall Schedule with Three New Recruits from Mahoning Valley</h3>
-          <p class="sc-excerpt">Head coach Amanda Rivera announced the signing of three standout players from Northeast Ohio high schools, bolstering the squad ahead of the fall Horizon League season.</p>
-          <div class="sc-byline">Apr 20, 2026 · Athletics</div>
+          <div class="spc-tag">Volleyball</div>
+          <h3 class="spc-title">Penguins Volleyball Opens Fall Schedule with Three New Recruits from Mahoning Valley</h3>
+          <p class="spc-excerpt">Head coach Amanda Rivera announced the signing of three standout players from Northeast Ohio high schools ahead of the fall Horizon League season.</p>
+          <div class="spc-byline">Apr 20, 2026 · Athletics</div>
         </div>
 
         <div class="sport-card" data-cat="basketball">
-          <div class="sc-sport-tag">Basketball</div>
-          <h3 class="sc-title">YSU Men's Basketball Signs Top Recruiting Class — Four Players Rated Three-Star or Higher</h3>
-          <p class="sc-excerpt">Head coach Jerrod Calhoun secured commitments from four highly rated prospects, including a point guard ranked in the top 150 nationally by ESPN.</p>
-          <div class="sc-byline">Apr 15, 2026 · Basketball</div>
+          <div class="spc-tag">Basketball</div>
+          <h3 class="spc-title">YSU Men's Basketball Signs Top Recruiting Class — Four Players Rated Three-Star or Higher</h3>
+          <p class="spc-excerpt">Head coach Jerrod Calhoun secured commitments from four highly rated prospects, including a point guard ranked in the top 150 nationally.</p>
+          <div class="spc-byline">Apr 15, 2026 · Basketball</div>
         </div>
 
         <div class="sport-card" data-cat="soccer">
-          <div class="sc-sport-tag">Soccer</div>
-          <h3 class="sc-title">YSU Women's Soccer Announces Fall 2026 Schedule — Horizon League Opener vs Wright State</h3>
-          <p class="sc-excerpt">The Penguins open their Horizon League schedule at home against Wright State on September 12, with three preseason matches scheduled in August.</p>
-          <div class="sc-byline">Apr 10, 2026 · Athletics</div>
+          <div class="spc-tag">Soccer</div>
+          <h3 class="spc-title">YSU Women's Soccer Announces Fall 2026 Schedule — Horizon League Opener vs Wright State</h3>
+          <p class="spc-excerpt">The Penguins open their Horizon League schedule at home against Wright State on September 12, with three preseason matches in August.</p>
+          <div class="spc-byline">Apr 10, 2026 · Athletics</div>
         </div>
 
         <div class="sport-card" data-cat="swimming">
-          <div class="sc-sport-tag">Swimming</div>
-          <h3 class="sc-title">YSU Swimmer Olivia Park Qualifies for NCAA Championships in 200m Butterfly</h3>
-          <p class="sc-excerpt">The sophomore from Columbus posted a time of 1:54.82 at the Horizon League Championships — well under the NCAA qualifying standard — earning a spot at the national meet.</p>
-          <div class="sc-byline">Mar 18, 2026 · Athletics</div>
+          <div class="spc-tag">Swimming</div>
+          <h3 class="spc-title">YSU Swimmer Olivia Park Qualifies for NCAA Championships in 200m Butterfly</h3>
+          <p class="spc-excerpt">The sophomore posted a time of 1:54.82 at the Horizon League Championships — well under the NCAA qualifying standard.</p>
+          <div class="spc-byline">Mar 18, 2026 · Athletics</div>
         </div>
 
         <div class="sport-card" data-cat="crosscountry">
-          <div class="sc-sport-tag">Cross Country</div>
-          <h3 class="sc-title">YSU Cross Country Teams Both Finish in Top 3 at Horizon League Championships</h3>
-          <p class="sc-excerpt">The men's team placed second and the women's team finished third at the Horizon League Cross Country Championships held at Boardman Park in Youngstown.</p>
-          <div class="sc-byline">Nov 2, 2025 · Athletics</div>
+          <div class="spc-tag">Cross Country</div>
+          <h3 class="spc-title">YSU Cross Country Teams Both Finish in Top 3 at Horizon League Championships</h3>
+          <p class="spc-excerpt">The men's team placed second and the women's team finished third at the Horizon League Championships held at Boardman Park.</p>
+          <div class="spc-byline">Nov 2, 2025 · Athletics</div>
         </div>
 
         <div class="sport-card" data-cat="tennis">
-          <div class="sc-sport-tag">Tennis</div>
-          <h3 class="sc-title">YSU Men's Tennis Wins Horizon League Regular Season Title for First Time Since 2018</h3>
-          <p class="sc-excerpt">The Penguins finished the regular season 8–1 in conference play, claiming the Horizon League regular season title and earning the top seed in the conference tournament.</p>
-          <div class="sc-byline">Apr 22, 2026 · Athletics</div>
+          <div class="spc-tag">Tennis</div>
+          <h3 class="spc-title">YSU Men's Tennis Wins Horizon League Regular Season Title for First Time Since 2018</h3>
+          <p class="spc-excerpt">The Penguins finished 8–1 in conference play, claiming the Horizon League title and earning the top seed in the conference tournament.</p>
+          <div class="spc-byline">Apr 22, 2026 · Athletics</div>
         </div>
 
         <div class="sport-card" data-cat="football">
-          <div class="sc-sport-tag">Football</div>
-          <h3 class="sc-title">YSU Football Announces 2026 Schedule — Home Opener vs Duquesne on September 5</h3>
-          <p class="sc-excerpt">The Penguins open at Stambaugh Stadium against Duquesne before a three-game road stretch. The Horizon League schedule begins September 26 at Illinois State.</p>
-          <div class="sc-byline">Mar 10, 2026 · Football</div>
+          <div class="spc-tag">Football</div>
+          <h3 class="spc-title">YSU Football Announces 2026 Schedule — Home Opener vs Duquesne on September 5</h3>
+          <p class="spc-excerpt">The Penguins open at Stambaugh Stadium against Duquesne. The Horizon League schedule begins September 26 at Illinois State.</p>
+          <div class="spc-byline">Mar 10, 2026 · Football</div>
         </div>
 
       </div>
 
-      <!-- STANDINGS — shown for all or baseball -->
+      <!-- STANDINGS -->
       <div id="standingsSection">
         <div class="section-label">Horizon League Baseball Standings</div>
-        <table class="standings-table" id="baseballStandings">
+        <table class="standings-table">
           <thead>
             <tr>
               <th>Team</th>
@@ -466,16 +441,16 @@
           </thead>
           <tbody>
             <tr class="ysu-row">
-              <td class="team-name"><strong>Youngstown State</strong></td>
+              <td><strong>Youngstown State</strong></td>
               <td class="num win">22</td><td class="num">4</td>
               <td class="num win">31</td><td class="num">7</td>
-              <td class="num" style="color:var(--scarlet);">W18</td>
+              <td class="num win">W18</td>
             </tr>
-            <tr><td class="team-name">Wright State</td><td class="num">18</td><td class="num">8</td><td class="num">26</td><td class="num">14</td><td class="num">W3</td></tr>
-            <tr><td class="team-name">Oakland</td><td class="num">16</td><td class="num">10</td><td class="num">24</td><td class="num">16</td><td class="num">L1</td></tr>
-            <tr><td class="team-name">Northern Kentucky</td><td class="num">14</td><td class="num">12</td><td class="num">22</td><td class="num">18</td><td class="num">W2</td></tr>
-            <tr><td class="team-name">Milwaukee</td><td class="num">12</td><td class="num">14</td><td class="num">19</td><td class="num">21</td><td class="num">L2</td></tr>
-            <tr><td class="team-name">Detroit Mercy</td><td class="num">8</td><td class="num">18</td><td class="num">14</td><td class="num">26</td><td class="num">L4</td></tr>
+            <tr><td>Wright State</td><td class="num">18</td><td class="num">8</td><td class="num">26</td><td class="num">14</td><td class="num">W3</td></tr>
+            <tr><td>Oakland</td><td class="num">16</td><td class="num">10</td><td class="num">24</td><td class="num">16</td><td class="num">L1</td></tr>
+            <tr><td>Northern Kentucky</td><td class="num">14</td><td class="num">12</td><td class="num">22</td><td class="num">18</td><td class="num">W2</td></tr>
+            <tr><td>Milwaukee</td><td class="num">12</td><td class="num">14</td><td class="num">19</td><td class="num">21</td><td class="num">L2</td></tr>
+            <tr><td>Detroit Mercy</td><td class="num">8</td><td class="num">18</td><td class="num">14</td><td class="num">26</td><td class="num">L4</td></tr>
           </tbody>
         </table>
       </div>
@@ -491,7 +466,7 @@
         <div class="athlete-box-label">Athlete Spotlight</div>
         <div class="athlete-name">Marco DelVecchio</div>
         <div class="athlete-sport">Baseball · Starting Pitcher · Jr.</div>
-        <div style="font-size:12px;color:#777;line-height:1.55;font-weight:300;">The Warren native is on pace to break YSU's single-season strikeout record. Projected top-10 MLB Draft pick.</div>
+        <div class="athlete-bio">The Warren native is on pace to break YSU's single-season strikeout record. Projected top-10 MLB Draft pick.</div>
         <div class="athlete-stats">
           <div class="as-item"><div class="as-num">2.1</div><div class="as-label">ERA</div></div>
           <div class="as-item"><div class="as-num">142</div><div class="as-label">Strikeouts</div></div>
@@ -577,38 +552,42 @@
   </footer>
 
   <script>
+    // Set dateline
     const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const now = new Date();
     document.getElementById('dateline').textContent =
       days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
 
-    function filterSport(btn) {
-      document.querySelectorAll('.sport-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      applyFilter(btn.dataset.filter);
-    }
-
-    function applyFilter(filter) {
-      const cards = document.querySelectorAll('.sport-card');
-      let visible = 0;
-      cards.forEach(card => {
-        const show = filter === 'all' || card.dataset.cat === filter;
-        card.classList.toggle('hidden', !show);
-        if (show) visible++;
+    // Sport filter — wire up after DOM is ready
+    document.querySelectorAll('.sport-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.sport-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var filter = btn.getAttribute('data-filter');
+        var cards = document.querySelectorAll('.sport-card');
+        var visible = 0;
+        cards.forEach(function(card) {
+          if (filter === 'all' || card.getAttribute('data-cat') === filter) {
+            card.classList.remove('hidden');
+            visible++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+        document.getElementById('noResults').classList.toggle('visible', visible === 0);
+        document.getElementById('sport-section-label').textContent =
+          filter === 'all' ? 'Latest Sports News' : btn.textContent + ' News';
+        document.getElementById('standingsSection').style.display =
+          (filter === 'all' || filter === 'baseball') ? '' : 'none';
       });
-      document.getElementById('noResults').classList.toggle('visible', visible === 0);
-      const btn = document.querySelector(`.sport-btn[data-filter="${filter}"]`);
-      document.getElementById('sport-section-label').textContent =
-        filter === 'all' ? 'Latest Sports News' : (btn ? btn.textContent + ' News' : 'Latest Sports News');
-      const standingsSection = document.getElementById('standingsSection');
-      standingsSection.style.display = (filter === 'all' || filter === 'baseball') ? '' : 'none';
-    }
+    });
 
-    const hash = window.location.hash.replace('#', '');
+    // Hash support
+    var hash = window.location.hash.replace('#', '');
     if (hash) {
-      const btn = document.querySelector(`.sport-btn[data-filter="${hash}"]`);
-      if (btn) filterSport(btn);
+      var btn = document.querySelector('.sport-btn[data-filter="' + hash + '"]');
+      if (btn) btn.click();
     }
   </script>
 
