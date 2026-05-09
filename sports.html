@@ -12,6 +12,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4051YC1LHZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4051YC1LHZ');
+  </script>
   <style>
     :root {
       --scarlet: #CC0000;
@@ -220,6 +228,7 @@
 </head>
 <body>
 
+  <!-- MASTHEAD -->
   <header class="masthead">
     <div class="masthead-top">
       <div>
@@ -246,24 +255,28 @@
     </nav>
   </header>
 
+  <!-- PAGE HEADER -->
   <div class="page-header">
     <div class="page-header-eyebrow">Penguins Athletics</div>
     <h1>YSU Sports</h1>
     <div class="page-header-sub">Scores, standings, and stories from Penguin Nation</div>
   </div>
 
+  <!-- SPORT NAV -->
   <div class="sport-nav">
     <button class="sport-btn active" onclick="setSport(this)">All Sports</button>
     <button class="sport-btn" onclick="setSport(this)">Football</button>
     <button class="sport-btn" onclick="setSport(this)">Baseball</button>
     <button class="sport-btn" onclick="setSport(this)">Softball</button>
     <button class="sport-btn" onclick="setSport(this)">Basketball</button>
+    <button class="sport-btn" onclick="setSport(this)">Volleyball</button>
     <button class="sport-btn" onclick="setSport(this)">Track & Field</button>
     <button class="sport-btn" onclick="setSport(this)">Soccer</button>
     <button class="sport-btn" onclick="setSport(this)">Golf</button>
     <button class="sport-btn" onclick="setSport(this)">Swimming</button>
   </div>
 
+  <!-- SCOREBOARD STRIP -->
   <div class="scoreboard-strip">
     <div class="score-card win">
       <div class="sc-sport">Baseball</div>
@@ -309,6 +322,7 @@
     </div>
   </div>
 
+  <!-- MAIN -->
   <div class="page-wrap">
     <main>
 
@@ -431,6 +445,7 @@
 
     </main>
 
+    <!-- SIDEBAR -->
     <aside class="sidebar">
 
       <div class="athlete-box">
@@ -500,10 +515,11 @@
     </aside>
   </div>
 
+  <!-- FOOTER -->
   <footer>
     <div class="footer-brand">
       <div class="footer-name">Youngstown State University</div>
-      <div class="footer-sub">youngstownstateuniversity.com · The Penguin Report · Not affiliated with YSU</div>
+      <div class="footer-sub">youngstownstateuniversity.com · Not affiliated with YSU</div>
     </div>
     <div class="footer-links">
       <a href="index.html">News</a>
