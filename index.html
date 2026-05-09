@@ -1,1 +1,840 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Youngstown State University — The Penguin Report</title>
+  <meta name="description" content="The latest YSU news, sports, science, student achievements, faculty spotlights, and alumni success stories."/>
+  <meta property="og:title" content="Youngstown State University — The Penguin Report"/>
+  <meta property="og:description" content="Positive YSU news — academics, athletics, research, and Penguin pride."/>
+  <meta property="og:image" content="assets/pete.jpg"/>
+  <meta property="og:url" content="https://youngstownstateuniversity.com"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="icon" href="assets/pete.jpg" type="image/jpeg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --scarlet: #CC0000;
+      --scarlet-dark: #990000;
+      --charcoal: #1A1A1A;
+      --warm-white: #FAF8F5;
+      --cream: #F2EDE6;
+      --mid: #6B6560;
+      --light-border: #E0DBD5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Source Serif 4', serif;
+      background: var(--warm-white);
+      color: var(--charcoal);
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--charcoal);
+      border-bottom: 4px solid var(--scarlet);
+    }
+    .masthead-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 32px 10px;
+      border-bottom: 1px solid #2e2e2e;
+    }
+    .wordmark-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px;
+      letter-spacing: 4px;
+      color: #fff;
+      line-height: 1;
+    }
+    .wordmark-sub {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 7px;
+      color: var(--scarlet);
+    }
+    .masthead-meta {
+      text-align: right;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: #555;
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+    .masthead-meta span { display: block; margin-top: 3px; color: #444; }
+    .pete-badge {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--scarlet);
+      flex-shrink: 0;
+    }
+    .pete-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    nav.main-nav {
+      display: flex;
+      padding: 0 32px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    nav.main-nav::-webkit-scrollbar { display: none; }
+    nav.main-nav a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px;
+      letter-spacing: 2.5px;
+      color: #888;
+      padding: 10px 18px;
+      white-space: nowrap;
+      transition: color 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+    nav.main-nav a:hover { color: #fff; }
+    nav.main-nav a.active {
+      color: #fff;
+      border-bottom-color: var(--scarlet);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 480px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('assets/pete.jpg') center top / cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.88) 45%, rgba(0,0,0,0.2) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 48px 36px;
+      max-width: 600px;
+    }
+    .hero-eyebrow {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--scarlet);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 2px;
+      background: var(--scarlet);
+    }
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero-headline em { color: var(--scarlet); font-style: italic; }
+    .hero-deck {
+      font-size: 15px;
+      color: #ccc;
+      font-weight: 300;
+      line-height: 1.65;
+      margin-bottom: 22px;
+      max-width: 480px;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--scarlet);
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-right: 10px;
+    }
+    .hero-date {
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: #666;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    /* ── ACCOLADES STRIP ── */
+    .accolades-strip {
+      background: var(--scarlet);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 3px solid var(--scarlet-dark);
+    }
+    .acc-item {
+      padding: 16px 20px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .acc-item:last-child { border-right: none; }
+    .acc-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+    .acc-label {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      font-weight: 300;
+      margin-top: 3px;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .page-wrap {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 40px;
+    }
+
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--mid);
+      border-top: 2px solid var(--scarlet);
+      padding-top: 8px;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+
+    /* ── NEWS GRID ── */
+    .news-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+    .story-card {
+      border-bottom: 1px solid var(--light-border);
+      padding-bottom: 18px;
+      cursor: pointer;
+    }
+    .story-card:hover .story-title { color: var(--scarlet); }
+    .story-tag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--scarlet);
+      margin-bottom: 6px;
+    }
+    .story-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--charcoal);
+      margin-bottom: 7px;
+      transition: color 0.2s;
+    }
+    .story-excerpt {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    .story-byline {
+      margin-top: 9px;
+      font-size: 11px;
+      color: #bbb;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── FEATURE STORY ── */
+    .feature-story {
+      border-top: 2px solid var(--scarlet);
+      padding-top: 20px;
+      margin-bottom: 36px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 24px;
+    }
+    .feature-tag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--scarlet);
+      margin-bottom: 8px;
+    }
+    .feature-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .feature-title em { font-style: italic; color: var(--scarlet); }
+    .feature-excerpt {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #444;
+      font-weight: 300;
+    }
+    .feature-aside {
+      border-left: 1px solid var(--light-border);
+      padding-left: 22px;
+    }
+    .stat-block {
+      text-align: center;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--light-border);
+      margin-bottom: 16px;
+    }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      color: var(--scarlet);
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--mid);
+      text-transform: uppercase;
+      font-weight: 300;
+      margin-top: 3px;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { border-left: 1px solid var(--light-border); padding-left: 24px; }
+    .sidebar-section { margin-bottom: 30px; }
+    .sidebar-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #ece9e4;
+      cursor: pointer;
+    }
+    .sidebar-item:hover .si-title { color: var(--scarlet); }
+    .si-tag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: var(--scarlet);
+      margin-bottom: 4px;
+    }
+    .si-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--charcoal);
+      transition: color 0.2s;
+    }
+    .si-meta {
+      font-size: 11px;
+      color: #bbb;
+      margin-top: 4px;
+      font-weight: 300;
+    }
+
+    /* ── SCOREBOARD ── */
+    .scoreboard {
+      background: var(--charcoal);
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 28px;
+    }
+    .score-header {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--scarlet);
+      margin-bottom: 14px;
+    }
+    .score-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid #2e2e2e;
+    }
+    .score-row:last-child { border-bottom: none; }
+    .score-teams { font-size: 12px; color: #bbb; font-weight: 300; line-height: 1.4; }
+    .score-teams strong { color: #fff; font-weight: 400; }
+    .score-result { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 1px; }
+    .score-result.win { color: var(--scarlet); }
+    .score-result.upcoming { color: #555; font-size: 11px; letter-spacing: 1px; }
+
+    /* ── BOTTOM GRID ── */
+    .bottom-section {
+      border-top: 1px solid var(--light-border);
+      padding-top: 28px;
+      margin-top: 8px;
+    }
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+    .bottom-col-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--mid);
+      border-top: 2px solid var(--charcoal);
+      padding-top: 8px;
+      margin-bottom: 14px;
+    }
+    .mini-story {
+      padding: 10px 0;
+      border-bottom: 1px solid #ece9e4;
+      cursor: pointer;
+    }
+    .mini-story:hover .mini-title { color: var(--scarlet); }
+    .mini-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+      transition: color 0.2s;
+    }
+    .mini-meta { font-size: 11px; color: #bbb; font-weight: 300; }
+
+    /* ── NEWS TICKER ── */
+    .ticker-wrap {
+      background: var(--charcoal);
+      border-top: 2px solid var(--scarlet);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 8px 0;
+    }
+    .ticker-label {
+      display: inline-block;
+      background: var(--scarlet);
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 2px 14px;
+      margin-right: 16px;
+      vertical-align: middle;
+    }
+    .ticker-track {
+      display: inline-block;
+      animation: ticker 40s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      display: inline-block;
+      font-size: 12px;
+      color: #aaa;
+      font-weight: 300;
+      margin-right: 48px;
+      letter-spacing: 0.3px;
+      vertical-align: middle;
+    }
+    .ticker-dot {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      background: var(--scarlet);
+      border-radius: 50%;
+      margin-right: 48px;
+      vertical-align: middle;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      border-top: 4px solid var(--scarlet);
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand .footer-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 4px;
+      color: #fff;
+    }
+    .footer-brand .footer-sub {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #444;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #555;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--scarlet); }
+    .footer-copy {
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 1px;
+      font-weight: 300;
+    }
+
+    /* ── LOADING STATE ── */
+    .loading-msg {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: #aaa;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .masthead-top { padding: 10px 16px; }
+      .wordmark-main { font-size: 30px; }
+      nav.main-nav { padding: 0 16px; }
+      .hero-content { padding: 32px 20px; }
+      .hero-headline { font-size: 28px; }
+      .accolades-strip { grid-template-columns: repeat(2, 1fr); }
+      .page-wrap { grid-template-columns: 1fr; gap: 24px; padding: 20px 16px; }
+      .sidebar { border-left: none; border-top: 1px solid var(--light-border); padding-left: 0; padding-top: 24px; }
+      .news-grid { grid-template-columns: 1fr; }
+      .feature-story { grid-template-columns: 1fr; }
+      .feature-aside { border-left: none; border-top: 1px solid var(--light-border); padding-left: 0; padding-top: 16px; }
+      .bottom-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; align-items: flex-start; padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <div>
+        <div class="wordmark-main">Youngstown State</div>
+        <div class="wordmark-sub">University</div>
+      </div>
+      <div class="masthead-meta">
+        <span id="dateline">Loading...</span>
+        <span>Youngstown, Ohio</span>
+        <span style="color:var(--scarlet);margin-top:4px;">Go Penguins</span>
+      </div>
+      <div class="pete-badge">
+        <img src="assets/pete.jpg" alt="Pete the Penguin"/>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html" class="active">News</a>
+      <a href="sports.html">Sports</a>
+      <a href="science.html">Science</a>
+      <a href="accolades.html">Accolades</a>
+      <a href="students.html">Students</a>
+      <a href="faculty.html">Faculty</a>
+      <a href="alumni.html">Alumni</a>
+    </nav>
+  </header>
+
+  <!-- NEWS TICKER -->
+  <div class="ticker-wrap">
+    <span class="ticker-label">YSU</span>
+    <span class="ticker-track" id="tickerTrack">
+      <span class="ticker-item">Penguins Baseball ranked #3 nationally in FCS</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">YSU Engineering grads achieve record placement rates</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">Dana School of Music ensemble invited to Kennedy Center</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">YSU breaks ground on $62M STEM Innovation Hub</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">Penguin alumna named Chief of Cardiology at Cleveland Clinic</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">YSU student wins national entrepreneurship competition</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">Penguins Baseball ranked #3 nationally in FCS</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">YSU Engineering grads achieve record placement rates</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">Dana School of Music ensemble invited to Kennedy Center</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">YSU breaks ground on $62M STEM Innovation Hub</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">Penguin alumna named Chief of Cardiology at Cleveland Clinic</span>
+      <span class="ticker-dot"></span>
+      <span class="ticker-item">YSU student wins national entrepreneurship competition</span>
+      <span class="ticker-dot"></span>
+    </span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Top Story</div>
+      <h1 class="hero-headline" id="heroHeadline">YSU Engineering Grads Land Roles at <em>NASA, Boeing & SpaceX</em> in Record Numbers</h1>
+      <p class="hero-deck" id="heroDeck">The Rayen School of Engineering produced its most accomplished graduating class in university history — with placement rates outpacing programs three times its size.</p>
+      <div>
+        <span class="hero-tag" id="heroTag">Academics</span>
+        <span class="hero-date" id="heroDate">May 8, 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCOLADES STRIP -->
+  <div class="accolades-strip">
+    <div class="acc-item">
+      <div class="acc-num">#1</div>
+      <div class="acc-label">Ohio Nursing Program</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-num">14×</div>
+      <div class="acc-label">FCS Football Champions</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-num">Top 10</div>
+      <div class="acc-label">NSF STEM Grants</div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-num">97%</div>
+      <div class="acc-label">Graduate Placement Rate</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="page-wrap">
+
+    <!-- PRIMARY -->
+    <main>
+      <div class="section-label">Latest News</div>
+
+      <!-- FEATURE STORY -->
+      <div class="feature-story">
+        <div>
+          <div class="feature-tag" id="feat1Tag">Research</div>
+          <h2 class="feature-title" id="feat1Title">YSU Materials Science Lab Publishes <em>Breakthrough</em> in Biodegradable Battery Technology</h2>
+          <p class="feature-excerpt" id="feat1Excerpt">A team led by Dr. Priya Nair has published findings in Nature Materials showing a new manganese-based cell capable of powering small medical devices — fully dissolving in saline within 90 days. Three major medical device manufacturers have reached out for partnership discussions.</p>
+        </div>
+        <div class="feature-aside">
+          <div class="stat-block">
+            <div class="stat-num">$4.2M</div>
+            <div class="stat-label">NSF Grant Funding 2025–26</div>
+          </div>
+          <div style="font-size:13px;font-family:'Playfair Display',serif;font-weight:700;line-height:1.4;color:var(--charcoal);margin-bottom:8px;">Student researchers co-authored the paper — a first for YSU's STEM division</div>
+          <div style="font-size:11px;color:#aaa;font-weight:300;">Published in <em>Nature Materials</em></div>
+        </div>
+      </div>
+
+      <!-- NEWS GRID -->
+      <div class="news-grid" id="newsGrid">
+        <div class="story-card">
+          <div class="story-tag">Sports</div>
+          <h3 class="story-title">Penguins Baseball Sweeps Horizon League Weekend Series, Improve to 31–7</h3>
+          <p class="story-excerpt">Ace pitcher Marco DelVecchio struck out 14 in Saturday's opener as YSU climbs to the top of the national small-college rankings.</p>
+          <div class="story-byline">May 6, 2026 · Sports Desk</div>
+        </div>
+        <div class="story-card">
+          <div class="story-tag">Faculty</div>
+          <h3 class="story-title">Professor Ahmed Khalil Named a Guggenheim Fellow in Social Sciences</h3>
+          <p class="story-excerpt">The political science chair becomes the third YSU faculty member ever awarded the prestigious fellowship, recognized for scholarship in labor movements and post-industrial urban identity.</p>
+          <div class="story-byline">May 4, 2026 · University Affairs</div>
+        </div>
+        <div class="story-card">
+          <div class="story-tag">Students</div>
+          <h3 class="story-title">YSU Senior Wins National Entrepreneurship Competition, Lands $150K Investment</h3>
+          <p class="story-excerpt">Dominique Walters, a senior in the Williamson College of Business, beat out 400+ competitors from schools including Wharton and Kellogg with her agri-tech startup concept.</p>
+          <div class="story-byline">May 3, 2026 · Campus Life</div>
+        </div>
+        <div class="story-card">
+          <div class="story-tag">Alumni</div>
+          <h3 class="story-title">Former Penguin QB Jordan Steele Signs with Cleveland Browns — An NFL Dream 12 Years in the Making</h3>
+          <p class="story-excerpt">The 2014 YSU grad survived practice squads, arena leagues, and an ACL to finally earn a roster spot. His hometown is celebrating.</p>
+          <div class="story-byline">May 2, 2026 · Alumni</div>
+        </div>
+      </div>
+
+      <!-- BOTTOM STORIES -->
+      <div class="bottom-section">
+        <div class="bottom-grid">
+          <div>
+            <div class="bottom-col-label">Science & Research</div>
+            <div class="mini-story">
+              <div class="mini-title">YSU Physics Team Detects Rare Neutrino Signature in Underground Lab Collaboration</div>
+              <div class="mini-meta">May 4, 2026 · Research</div>
+            </div>
+            <div class="mini-story">
+              <div class="mini-title">New Biomedical Engineering Track Launches Fall 2026 — Already 200+ Applicants</div>
+              <div class="mini-meta">May 1, 2026 · Academics</div>
+            </div>
+            <div class="mini-story">
+              <div class="mini-title">YSU Partners with Mercy Health on Telehealth Research Initiative</div>
+              <div class="mini-meta">Apr 29, 2026 · Health</div>
+            </div>
+          </div>
+          <div>
+            <div class="bottom-col-label">Student Life</div>
+            <div class="mini-story">
+              <div class="mini-title">Penguin Pantry Expands — Zero Students Left Hungry Pilot Enters Year Two</div>
+              <div class="mini-meta">May 5, 2026 · Campus</div>
+            </div>
+            <div class="mini-story">
+              <div class="mini-title">YSU Model UN Team Places First at Harvard National Invitational</div>
+              <div class="mini-meta">May 3, 2026 · Students</div>
+            </div>
+            <div class="mini-story">
+              <div class="mini-title">Student Veterans Center Opens Expanded Counseling and Career Wing</div>
+              <div class="mini-meta">Apr 30, 2026 · Veterans</div>
+            </div>
+          </div>
+          <div>
+            <div class="bottom-col-label">Campus & Community</div>
+            <div class="mini-story">
+              <div class="mini-title">YSU Breaks Ground on $62M STEM Innovation Hub — Opening 2028</div>
+              <div class="mini-meta">May 6, 2026 · Development</div>
+            </div>
+            <div class="mini-story">
+              <div class="mini-title">Youngstown Mayor Credits YSU Partnerships for City's Economic Turnaround</div>
+              <div class="mini-meta">May 2, 2026 · Community</div>
+            </div>
+            <div class="mini-story">
+              <div class="mini-title">YSU–WKBN Partnership Produces Award-Winning Student Journalism Segment</div>
+              <div class="mini-meta">Apr 28, 2026 · Media</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- SCOREBOARD -->
+      <div class="scoreboard">
+        <div class="score-header">Penguins Scores</div>
+        <div class="score-row">
+          <div>
+            <div class="score-teams"><strong>YSU</strong> vs Wright State</div>
+            <div style="font-size:10px;color:#555;margin-top:2px;letter-spacing:1px;">Baseball · May 6</div>
+          </div>
+          <div class="score-result win">W 8–2</div>
+        </div>
+        <div class="score-row">
+          <div>
+            <div class="score-teams"><strong>YSU</strong> vs N. Kentucky</div>
+            <div style="font-size:10px;color:#555;margin-top:2px;letter-spacing:1px;">Softball · May 5</div>
+          </div>
+          <div class="score-result win">W 4–1</div>
+        </div>
+        <div class="score-row">
+          <div>
+            <div class="score-teams"><strong>YSU</strong> vs Oakland</div>
+            <div style="font-size:10px;color:#555;margin-top:2px;letter-spacing:1px;">Baseball · May 9</div>
+          </div>
+          <div class="score-result upcoming">Sat · 1:00 PM</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Faculty Spotlight</div>
+        <div class="sidebar-item">
+          <div class="si-tag">Science</div>
+          <div class="si-title">Dr. Layla Chen's Climate Lab Attracts Fulbright Researcher from Berlin</div>
+          <div class="si-meta">Biology · May 6</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="si-tag">Arts</div>
+          <div class="si-title">Dana School of Music Ensemble Invited to Kennedy Center Fall 2026</div>
+          <div class="si-meta">Fine Arts · May 5</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="si-tag">Research</div>
+          <div class="si-title">YSU AI Ethics Initiative Partners with Case Western and Pitt</div>
+          <div class="si-meta">Computer Science · May 3</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="section-label">Alumni Watch</div>
+        <div class="sidebar-item">
+          <div class="si-tag">Business</div>
+          <div class="si-title">YSU Alum Raises $28M Series B for Youngstown-Based Fintech Startup</div>
+          <div class="si-meta">Class of 2015 · May 4</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="si-tag">Medicine</div>
+          <div class="si-title">Dr. Renee Okafor, '08, Named Chief of Cardiology at Cleveland Clinic</div>
+          <div class="si-meta">Alumni · May 2</div>
+        </div>
+        <div class="sidebar-item">
+          <div class="si-tag">Law</div>
+          <div class="si-title">YSU Law Grad Appointed Federal Magistrate Judge at 34</div>
+          <div class="si-meta">Class of 2016 · Apr 30</div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <div class="footer-name">Youngstown State University</div>
+      <div class="footer-sub">youngstownstateuniversity.com · The Penguin Report · Not affiliated with YSU</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">News</a>
+      <a href="sports.html">Sports</a>
+      <a href="science.html">Science</a>
+      <a href="accolades.html">Accolades</a>
+      <a href="students.html">Students</a>
+      <a href="faculty.html">Faculty</a>
+      <a href="alumni.html">Alumni</a>
+    </div>
+    <div class="footer-copy">© 2026 youngstownstateuniversity.com</div>
+  </footer>
+
+  <script>
+    // Set dateline
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const now = new Date();
+    document.getElementById('dateline').textContent =
+      days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+  </script>
+
+</body>
+</html>
