@@ -1,0 +1,43 @@
+name: YSU News Pipeline
+
+on:
+  schedule:
+    - cron: '0 6 * * *'    # 6am UTC
+    - cron: '0 10 * * *'   # 10am UTC
+    - cron: '0 14 * * *'   # 2pm UTC
+    - cron: '0 17 * * *'   # 5pm UTC
+    - cron: '0 20 * * *'   # 8pm UTC
+    - cron: '0 23 * * *'   # 11pm UTC
+  workflow_dispatch:
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests anthropic
+
+      - name: Run news pipeline
+        env:
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python pipeline.py
+
+      - name: Commit updated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "Auto: news refresh $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
