@@ -12,7 +12,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4051YC1LHZ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -103,7 +102,6 @@
       color: var(--mid); border-top: 2px solid var(--scarlet); padding-top: 8px; margin-bottom: 22px;
     }
 
-    /* SPOTLIGHT */
     .spotlight-card {
       background: var(--charcoal); border-radius: 4px; padding: 28px;
       margin-bottom: 32px; border-left: 6px solid var(--scarlet);
@@ -118,7 +116,6 @@
     .sc-award-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: #fff; line-height: 1.3; }
     .sc-award-detail { font-size: 11px; color: #666; margin-top: 4px; font-weight: 300; }
 
-    /* STUDENT CARDS */
     .student-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
     .student-card {
       border: 1px solid var(--light-border); border-radius: 4px; padding: 20px;
@@ -134,7 +131,7 @@
       color: var(--mid); padding: 3px 10px; border-radius: 2px; margin-bottom: 10px;
     }
     .stc-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 4px; transition: color 0.2s; }
-    .stc-major { font-size: 11px; color: var(--mid); font-weight: 300; margin-bottom: 8px; letter-spacing: 0.3px; }
+    .stc-major { font-size: 11px; color: var(--mid); font-weight: 300; margin-bottom: 8px; }
     .stc-story { font-size: 13px; color: var(--mid); line-height: 1.6; font-weight: 300; }
     .stc-meta { margin-top: 10px; font-size: 11px; color: #bbb; display: flex; gap: 10px; flex-wrap: wrap; }
     .stc-award { color: var(--scarlet); font-weight: 400; }
@@ -146,22 +143,6 @@
     }
     .no-results.visible { display: block; }
 
-    /* NEWS LIST */
-    .news-list { display: flex; flex-direction: column; }
-    .news-item {
-      display: grid; grid-template-columns: 80px 1fr;
-      gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--light-border); cursor: pointer;
-    }
-    .news-item:hover .ni-title { color: var(--scarlet); }
-    .ni-date-block { text-align: center; padding-top: 4px; }
-    .ni-month { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--scarlet); }
-    .ni-day { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--charcoal); line-height: 1; }
-    .ni-year { font-size: 10px; color: #bbb; letter-spacing: 1px; font-weight: 300; }
-    .ni-tag { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 3px; color: var(--scarlet); margin-bottom: 5px; }
-    .ni-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 6px; transition: color 0.2s; }
-    .ni-excerpt { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
-
-    /* SIDEBAR */
     .sidebar { border-left: 1px solid var(--light-border); padding-left: 24px; }
     .sidebar-section { margin-bottom: 30px; }
     .sidebar-item { padding: 12px 0; border-bottom: 1px solid #ece9e4; cursor: pointer; }
@@ -182,6 +163,7 @@
     .college-row {
       display: flex; justify-content: space-between; align-items: center;
       padding: 8px 0; border-bottom: 1px solid #2a2a2a; cursor: pointer;
+      text-decoration: none; color: inherit;
     }
     .college-row:last-child { border-bottom: none; }
     .college-row:hover .cr-name { color: var(--scarlet); }
@@ -253,7 +235,6 @@
     <div class="page-header-sub">The achievements, stories, and milestones of Youngstown State's student body</div>
   </div>
 
-  <!-- FILTER BAR — ALL COLLEGES + CATEGORIES -->
   <div class="filter-bar">
     <button class="filter-btn active" data-filter="all" onclick="filterStudents(this)">All</button>
     <button class="filter-btn" data-filter="engineering" onclick="filterStudents(this)">Engineering</button>
@@ -269,7 +250,6 @@
     <button class="filter-btn" data-filter="leadership" onclick="filterStudents(this)">Leadership</button>
   </div>
 
-  <!-- STATS STRIP -->
   <div class="stats-strip">
     <div class="stat-item"><div class="stat-num">12,400</div><div class="stat-label">Enrolled Students</div></div>
     <div class="stat-item"><div class="stat-num">97%</div><div class="stat-label">Graduate Placement</div></div>
@@ -281,7 +261,6 @@
     <main>
 
       <div class="section-label">Student Spotlight</div>
-
       <div class="spotlight-card">
         <div>
           <div class="sc-eyebrow">Student of the Month</div>
@@ -310,7 +289,6 @@
       <div class="section-label" id="student-section-label">Student Achievement</div>
       <div class="no-results" id="noResults">No student stories found in this category yet.</div>
 
-      <!-- STUDENT CARDS — data-cat matches filter buttons -->
       <div class="student-grid" id="studentGrid">
 
         <div class="student-card" data-cat="business">
@@ -357,7 +335,7 @@
           <div class="stc-college">Nursing — College of Health & Human Services</div>
           <div class="stc-name">Taylor Hennessey</div>
           <div class="stc-major">Senior · Nursing</div>
-          <p class="stc-story">Accepted to the Cleveland Clinic's competitive nursing residency program directly from YSU — one of only 12 students nationally selected from a non-research university. Credited YSU's clinical partnerships for her preparation.</p>
+          <p class="stc-story">Accepted to the Cleveland Clinic's competitive nursing residency program directly from YSU — one of only 12 students nationally selected from a non-research university.</p>
           <div class="stc-meta"><span>Apr 10, 2026</span><span class="stc-award">Cleveland Clinic Residency</span></div>
         </div>
 
@@ -389,7 +367,7 @@
           <div class="stc-college">Dana School of Music</div>
           <div class="stc-name">YSU Chamber Ensemble</div>
           <div class="stc-major">Music Students · Dana School</div>
-          <p class="stc-story">Selected to perform at the Kennedy Center in Washington D.C. this fall — the most prestigious performance opportunity in the Dana School's history, recognizing the ensemble's excellence in classical performance.</p>
+          <p class="stc-story">Selected to perform at the Kennedy Center in Washington D.C. this fall — the most prestigious performance opportunity in the Dana School's history.</p>
           <div class="stc-meta"><span>May 5, 2026</span><span class="stc-award">Kennedy Center Invitation</span></div>
         </div>
 
@@ -397,7 +375,7 @@
           <div class="stc-college">College of Education</div>
           <div class="stc-name">Marcus Thompson</div>
           <div class="stc-major">Senior · Early Childhood Education</div>
-          <p class="stc-story">Named Ohio Student Teacher of the Year by the Ohio Council for Exceptional Children. His innovative literacy intervention program, piloted at a Youngstown elementary school, showed a 34% improvement in reading scores among at-risk students.</p>
+          <p class="stc-story">Named Ohio Student Teacher of the Year by the Ohio Council for Exceptional Children. His literacy intervention program showed a 34% improvement in reading scores among at-risk students.</p>
           <div class="stc-meta"><span>Apr 5, 2026</span><span class="stc-award">Ohio Student Teacher of the Year</span></div>
         </div>
 
@@ -448,10 +426,8 @@
 
     </main>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
-      <!-- SCHOLARSHIPS -->
       <div class="scholarship-box">
         <div class="sb-label">Featured Scholarships</div>
         <div class="sb-item">
@@ -484,49 +460,48 @@
         </div>
       </div>
 
-      <!-- BROWSE BY COLLEGE -->
       <div class="college-box">
         <div class="college-box-label">Browse by College</div>
-        <div class="college-row" onclick="filterStudentsByCollege('engineering')">
+        <a href="https://ysu.edu/rayen-school-engineering" target="_blank" rel="noopener" class="college-row">
           <div class="cr-name">Engineering</div>
           <div class="cr-count">→</div>
-        </div>
-        <div class="college-row" onclick="filterStudentsByCollege('nursing')">
+        </a>
+        <a href="https://ysu.edu/nursing" target="_blank" rel="noopener" class="college-row">
           <div class="cr-name">Nursing</div>
           <div class="cr-count">→</div>
-        </div>
-        <div class="college-row" onclick="filterStudentsByCollege('health')">
+        </a>
+        <a href="https://ysu.edu/chhs" target="_blank" rel="noopener" class="college-row">
           <div class="cr-name">Health Sciences</div>
           <div class="cr-count">→</div>
-        </div>
-        <div class="college-row" onclick="filterStudentsByCollege('sciences')">
+        </a>
+        <a href="https://ysu.edu/cstem" target="_blank" rel="noopener" class="college-row">
           <div class="cr-name">Sciences & Math</div>
           <div class="cr-count">→</div>
-        </div>
-        <div class="college-row" onclick="filterStudentsByCollege('business')">
+        </a>
+        <a href="https://ysu.edu/wcba" target="_blank" rel="noopener" class="college-row">
           <div class="cr-name">Business</div>
           <div class="cr-count">→</div>
-        </div>
-        <div class="college-row" onclick="filterStudentsByCollege('lass')">
+        </a>
+        <a href="https://ysu.edu/class" target="_blank" rel="noopener" class="college-row">
           <div class="cr-name">Liberal Arts & Social Sciences</div>
           <div class="cr-count">→</div>
-        </div>
-        <div class="college-row" onclick="filterStudentsByCollege('music')">
+        </a>
+        <a href="https://ysu.edu/dana-school-music" target="_blank" rel="noopener" class="college-row">
           <div class="cr-name">Music & Arts</div>
           <div class="cr-count">→</div>
-        </div>
-        <div class="college-row" onclick="filterStudentsByCollege('education')">
+        </a>
+        <a href="https://ysu.edu/college-education" target="_blank" rel="noopener" class="college-row">
           <div class="cr-name">Education</div>
           <div class="cr-count">→</div>
-        </div>
-        <div class="college-row" onclick="filterStudentsByCollege('graduate')">
+        </a>
+        <a href="https://ysu.edu/graduate-studies" target="_blank" rel="noopener" class="college-row">
           <div class="cr-name">Graduate Studies</div>
           <div class="cr-count">→</div>
-        </div>
-        <div class="college-row" onclick="filterStudentsByCollege('veterans')">
+        </a>
+        <a href="https://ysu.edu/veterans-military-services" target="_blank" rel="noopener" class="college-row">
           <div class="cr-name">Veterans</div>
           <div class="cr-count">→</div>
-        </div>
+        </a>
       </div>
 
       <!-- BEGIN:LIVE_SIDEBAR -->
@@ -592,15 +567,6 @@
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       applyFilter(btn.dataset.filter);
-    }
-
-    function filterStudentsByCollege(cat) {
-      document.querySelectorAll('.filter-btn').forEach(b => {
-        b.classList.remove('active');
-        if (b.dataset.filter === cat) b.classList.add('active');
-      });
-      applyFilter(cat);
-      window.scrollTo({ top: document.querySelector('.filter-bar').offsetTop - 60, behavior: 'smooth' });
     }
 
     function applyFilter(filter) {
