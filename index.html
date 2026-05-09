@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -472,6 +471,16 @@
       100% { transform: translateX(-50%); }
     }
 
+    /* ── LAST UPDATED ── */
+    .last-updated {
+      font-size: 10px;
+      color: #aaa;
+      letter-spacing: 1px;
+      font-weight: 300;
+      text-align: center;
+      padding: 12px 0 4px;
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--charcoal);
@@ -510,16 +519,6 @@
       color: #333;
       letter-spacing: 1px;
       font-weight: 300;
-    }
-
-    /* ── LOADING STATE ── */
-    .loading-msg {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 13px;
-      letter-spacing: 3px;
-      color: #aaa;
-      text-align: center;
-      padding: 40px 0;
     }
 
     /* ── RESPONSIVE ── */
@@ -640,7 +639,10 @@
 
     <!-- PRIMARY -->
     <main>
-      <div class="section-label">Latest News</div>
+      <div class="section-label">Live News</div>
+
+      <!-- BEGIN:LIVE_NEWS -->
+      <!-- END:LIVE_NEWS -->
 
       <!-- FEATURE STORY -->
       <div class="feature-story">
@@ -656,34 +658,6 @@
           </div>
           <div style="font-size:13px;font-family:'Playfair Display',serif;font-weight:700;line-height:1.4;color:var(--charcoal);margin-bottom:8px;">Student researchers co-authored the paper — a first for YSU's STEM division</div>
           <div style="font-size:11px;color:#aaa;font-weight:300;">Published in <em>Nature Materials</em></div>
-        </div>
-      </div>
-
-      <!-- NEWS GRID -->
-      <div class="news-grid" id="newsGrid">
-        <div class="story-card">
-          <div class="story-tag">Sports</div>
-          <h3 class="story-title">Penguins Baseball Sweeps Horizon League Weekend Series, Improve to 31–7</h3>
-          <p class="story-excerpt">Ace pitcher Marco DelVecchio struck out 14 in Saturday's opener as YSU climbs to the top of the national small-college rankings.</p>
-          <div class="story-byline">May 6, 2026 · Sports Desk</div>
-        </div>
-        <div class="story-card">
-          <div class="story-tag">Faculty</div>
-          <h3 class="story-title">Professor Ahmed Khalil Named a Guggenheim Fellow in Social Sciences</h3>
-          <p class="story-excerpt">The political science chair becomes the third YSU faculty member ever awarded the prestigious fellowship, recognized for scholarship in labor movements and post-industrial urban identity.</p>
-          <div class="story-byline">May 4, 2026 · University Affairs</div>
-        </div>
-        <div class="story-card">
-          <div class="story-tag">Students</div>
-          <h3 class="story-title">YSU Senior Wins National Entrepreneurship Competition, Lands $150K Investment</h3>
-          <p class="story-excerpt">Dominique Walters, a senior in the Williamson College of Business, beat out 400+ competitors from schools including Wharton and Kellogg with her agri-tech startup concept.</p>
-          <div class="story-byline">May 3, 2026 · Campus Life</div>
-        </div>
-        <div class="story-card">
-          <div class="story-tag">Alumni</div>
-          <h3 class="story-title">Former Penguin QB Jordan Steele Signs with Cleveland Browns — An NFL Dream 12 Years in the Making</h3>
-          <p class="story-excerpt">The 2014 YSU grad survived practice squads, arena leagues, and an ACL to finally earn a roster spot. His hometown is celebrating.</p>
-          <div class="story-byline">May 2, 2026 · Alumni</div>
         </div>
       </div>
 
@@ -737,6 +711,10 @@
           </div>
         </div>
       </div>
+
+      <!-- BEGIN:LAST_UPDATED -->
+      <!-- END:LAST_UPDATED -->
+
     </main>
 
     <!-- SIDEBAR -->
@@ -767,6 +745,9 @@
           <div class="score-result upcoming">Sat · 1:00 PM</div>
         </div>
       </div>
+
+      <!-- BEGIN:LIVE_SIDEBAR -->
+      <!-- END:LIVE_SIDEBAR -->
 
       <div class="sidebar-section">
         <div class="section-label">Faculty Spotlight</div>
@@ -828,7 +809,6 @@
   </footer>
 
   <script>
-    // Set dateline
     const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const now = new Date();
