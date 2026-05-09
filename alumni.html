@@ -12,6 +12,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4051YC1LHZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4051YC1LHZ');
+  </script>
   <style>
     :root {
       --scarlet: #CC0000;
@@ -71,8 +79,8 @@
     }
     .filter-bar::-webkit-scrollbar { display: none; }
     .filter-btn {
-      font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2.5px;
-      color: #aaa; padding: 12px 16px; cursor: pointer; white-space: nowrap;
+      font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2px;
+      color: #aaa; padding: 12px 14px; cursor: pointer; white-space: nowrap;
       border: none; background: none; border-bottom: 3px solid transparent; transition: color 0.2s;
     }
     .filter-btn:hover { color: var(--charcoal); }
@@ -95,6 +103,7 @@
       color: var(--mid); border-top: 2px solid var(--scarlet); padding-top: 8px; margin-bottom: 22px;
     }
 
+    /* SPOTLIGHT */
     .alumni-spotlight {
       background: var(--charcoal); border-radius: 4px; padding: 28px;
       margin-bottom: 32px; border-left: 6px solid var(--scarlet);
@@ -110,48 +119,63 @@
     .as-class { font-size: 12px; color: #666; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 300; margin-bottom: 16px; }
     .as-story { font-size: 14px; color: #999; line-height: 1.7; font-weight: 300; max-width: 640px; margin-bottom: 20px; }
     .as-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-    .as-tag {
-      font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 2px;
-      background: #242424; color: #888; padding: 4px 12px; border-radius: 2px;
-    }
+    .as-tag { font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 2px; background: #242424; color: #888; padding: 4px 12px; border-radius: 2px; }
     .as-tag.highlight { background: var(--scarlet); color: #fff; }
 
+    /* ALUMNI CARDS */
     .alumni-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
-    .alumni-card { border-bottom: 1px solid var(--light-border); padding-bottom: 20px; cursor: pointer; }
+    .alumni-card {
+      border: 1px solid var(--light-border); border-radius: 4px; padding: 20px;
+      cursor: pointer; transition: box-shadow 0.2s; border-top: 3px solid var(--scarlet);
+      background: #fff;
+    }
+    .alumni-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
     .alumni-card:hover .ac-name { color: var(--scarlet); }
+    .alumni-card.hidden { display: none; }
     .ac-field {
       display: inline-block; background: var(--cream); border: 1px solid var(--light-border);
       font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2.5px;
-      color: var(--mid); padding: 3px 10px; border-radius: 2px; margin-bottom: 8px;
+      color: var(--mid); padding: 3px 10px; border-radius: 2px; margin-bottom: 10px;
     }
     .ac-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; line-height: 1.2; color: var(--charcoal); margin-bottom: 3px; transition: color 0.2s; }
     .ac-class { font-size: 11px; color: #bbb; font-weight: 300; margin-bottom: 8px; }
     .ac-story { font-size: 13px; color: var(--mid); line-height: 1.6; font-weight: 300; }
     .ac-achievement {
-      margin-top: 10px; display: inline-block;
-      font-family: 'Bebas Neue', sans-serif; font-size: 10px; letter-spacing: 2px;
-      color: var(--scarlet); border-top: 1px solid var(--light-border);
-      padding-top: 8px; width: 100%;
+      margin-top: 10px; font-family: 'Bebas Neue', sans-serif; font-size: 10px;
+      letter-spacing: 2px; color: var(--scarlet); border-top: 1px solid var(--light-border);
+      padding-top: 8px; display: block; width: 100%;
     }
 
-    .alumni-list { display: flex; flex-direction: column; margin-bottom: 32px; }
-    .alumni-item {
-      display: grid; grid-template-columns: 100px 1fr;
-      gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--light-border);
-      cursor: pointer; align-items: start;
+    .no-results {
+      display: none; text-align: center; padding: 48px 0;
+      font-family: 'Bebas Neue', sans-serif; font-size: 16px;
+      letter-spacing: 3px; color: #bbb;
     }
-    .alumni-item:hover .ai-name { color: var(--scarlet); }
-    .ai-class-block {
-      background: var(--charcoal); border-radius: 4px; padding: 12px 8px;
-      text-align: center; border-top: 2px solid var(--scarlet);
-    }
-    .ai-class-label { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2px; color: #555; }
-    .ai-class-year { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #fff; line-height: 1; }
-    .ai-field { font-family: 'Bebas Neue', sans-serif; font-size: 9px; letter-spacing: 2.5px; color: var(--scarlet); margin-bottom: 4px; }
-    .ai-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.2; color: var(--charcoal); margin-bottom: 4px; transition: color 0.2s; }
-    .ai-role { font-size: 12px; color: var(--mid); font-weight: 300; margin-bottom: 7px; }
-    .ai-story { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
+    .no-results.visible { display: block; }
 
+    /* DECADE FILTER */
+    .decade-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .decade-btn {
+      font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 2px;
+      padding: 5px 14px; border: 1px solid var(--light-border); color: var(--mid);
+      cursor: pointer; background: none; transition: all 0.2s; border-radius: 2px;
+    }
+    .decade-btn:hover, .decade-btn.active { background: var(--scarlet); color: #fff; border-color: var(--scarlet); }
+
+    /* SECTOR GRID */
+    .sector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+    .sector-card {
+      background: #fff; border: 1px solid var(--light-border); border-radius: 4px;
+      padding: 18px 16px; text-align: center; border-top: 3px solid var(--scarlet);
+      cursor: pointer; transition: background 0.2s;
+    }
+    .sector-card:hover { background: var(--cream); }
+    .sector-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+    .sector-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--scarlet); line-height: 1; }
+    .sector-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: var(--charcoal); margin: 4px 0 3px; }
+    .sector-detail { font-size: 11px; color: #bbb; font-weight: 300; }
+
+    /* LIVE NEWS */
     .news-list { display: flex; flex-direction: column; }
     .news-item {
       display: grid; grid-template-columns: 80px 1fr;
@@ -166,17 +190,7 @@
     .ni-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--charcoal); margin-bottom: 6px; transition: color 0.2s; }
     .ni-excerpt { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
 
-    .sector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
-    .sector-card {
-      background: #fff; border: 1px solid var(--light-border); border-radius: 4px;
-      padding: 18px 16px; text-align: center; border-top: 3px solid var(--scarlet); cursor: pointer;
-    }
-    .sector-card:hover { background: var(--cream); }
-    .sector-icon { font-size: 28px; margin-bottom: 8px; display: block; }
-    .sector-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--scarlet); line-height: 1; }
-    .sector-label { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: var(--charcoal); margin: 4px 0 3px; }
-    .sector-detail { font-size: 11px; color: #bbb; font-weight: 300; }
-
+    /* SIDEBAR */
     .sidebar { border-left: 1px solid var(--light-border); padding-left: 24px; }
     .sidebar-section { margin-bottom: 30px; }
     .sidebar-item { padding: 12px 0; border-bottom: 1px solid #ece9e4; cursor: pointer; }
@@ -191,14 +205,6 @@
     .notable-item:last-child { border-bottom: none; }
     .notable-name { font-size: 13px; color: #ddd; font-weight: 400; line-height: 1.3; }
     .notable-desc { font-size: 11px; color: #555; font-weight: 300; margin-top: 2px; }
-
-    .decade-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-    .decade-btn {
-      font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 2px;
-      padding: 5px 14px; border: 1px solid var(--light-border); color: var(--mid);
-      cursor: pointer; background: none; transition: all 0.2s; border-radius: 2px;
-    }
-    .decade-btn:hover, .decade-btn.active { background: var(--scarlet); color: #fff; border-color: var(--scarlet); }
 
     .last-updated { font-size: 10px; color: #aaa; letter-spacing: 1px; font-weight: 300; text-align: center; padding: 12px 0 4px; }
 
@@ -226,8 +232,6 @@
       .page-wrap { grid-template-columns: 1fr; gap: 24px; padding: 20px 16px; }
       .sidebar { border-left: none; border-top: 1px solid var(--light-border); padding-left: 0; padding-top: 24px; }
       .alumni-grid { grid-template-columns: 1fr; }
-      .alumni-item { grid-template-columns: 1fr; }
-      .ai-class-block { display: none; }
       .sector-grid { grid-template-columns: repeat(2, 1fr); }
       footer { flex-direction: column; align-items: flex-start; padding: 20px 16px; }
     }
@@ -267,34 +271,28 @@
     <div class="page-header-sub">Penguin graduates making their mark across every field — from the NFL to the Cleveland Clinic</div>
   </div>
 
+  <!-- FILTER BAR -->
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="setFilter(this)">All</button>
-    <button class="filter-btn" onclick="setFilter(this)">Business</button>
-    <button class="filter-btn" onclick="setFilter(this)">Medicine</button>
-    <button class="filter-btn" onclick="setFilter(this)">Law</button>
-    <button class="filter-btn" onclick="setFilter(this)">Sports</button>
-    <button class="filter-btn" onclick="setFilter(this)">Science</button>
-    <button class="filter-btn" onclick="setFilter(this)">Arts</button>
-    <button class="filter-btn" onclick="setFilter(this)">Public Service</button>
+    <button class="filter-btn active" data-filter="all" onclick="filterAlumni(this)">All</button>
+    <button class="filter-btn" data-filter="engineering" onclick="filterAlumni(this)">Engineering</button>
+    <button class="filter-btn" data-filter="nursing" onclick="filterAlumni(this)">Nursing</button>
+    <button class="filter-btn" data-filter="medicine" onclick="filterAlumni(this)">Medicine</button>
+    <button class="filter-btn" data-filter="business" onclick="filterAlumni(this)">Business</button>
+    <button class="filter-btn" data-filter="law" onclick="filterAlumni(this)">Law</button>
+    <button class="filter-btn" data-filter="lass" onclick="filterAlumni(this)">Liberal Arts & Social Sciences</button>
+    <button class="filter-btn" data-filter="sports" onclick="filterAlumni(this)">Sports</button>
+    <button class="filter-btn" data-filter="science" onclick="filterAlumni(this)">Science</button>
+    <button class="filter-btn" data-filter="music" onclick="filterAlumni(this)">Music & Arts</button>
+    <button class="filter-btn" data-filter="education" onclick="filterAlumni(this)">Education</button>
+    <button class="filter-btn" data-filter="publicservice" onclick="filterAlumni(this)">Public Service</button>
   </div>
 
+  <!-- STATS STRIP -->
   <div class="stats-strip">
-    <div class="stat-item">
-      <div class="stat-num">85,000+</div>
-      <div class="stat-label">Living Alumni</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">97%</div>
-      <div class="stat-label">Employment Rate</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">120+</div>
-      <div class="stat-label">Countries Represented</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">$28M+</div>
-      <div class="stat-label">Alumni Giving 2025</div>
-    </div>
+    <div class="stat-item"><div class="stat-num">85,000+</div><div class="stat-label">Living Alumni</div></div>
+    <div class="stat-item"><div class="stat-num">97%</div><div class="stat-label">Employment Rate</div></div>
+    <div class="stat-item"><div class="stat-num">120+</div><div class="stat-label">Countries Represented</div></div>
+    <div class="stat-item"><div class="stat-num">$28M+</div><div class="stat-label">Alumni Giving 2025</div></div>
   </div>
 
   <div class="page-wrap">
@@ -316,151 +314,163 @@
       </div>
 
       <div class="section-label">Live Alumni News</div>
-
       <!-- BEGIN:LIVE_NEWS -->
       <!-- END:LIVE_NEWS -->
 
-      <div class="section-label">Alumni Achievement</div>
+      <div class="section-label" id="alumni-section-label">Alumni Achievement</div>
+      <div class="no-results" id="noResults">No alumni found in this category yet.</div>
 
-      <div class="alumni-grid">
-        <div class="alumni-card">
+      <!-- ALUMNI CARDS — data-cat matches filter buttons -->
+      <div class="alumni-grid" id="alumniGrid">
+
+        <div class="alumni-card" data-cat="sports">
+          <div class="ac-field">Sports</div>
+          <div class="ac-name">Jordan Steele</div>
+          <div class="ac-class">Class of 2014 · Exercise Science</div>
+          <p class="ac-story">After a 12-year journey through practice squads and arena leagues, the former Penguin QB signed with the Cleveland Browns in 2026. His perseverance became a national sports story.</p>
+          <div class="ac-achievement">Cleveland Browns · Signed 2026</div>
+        </div>
+
+        <div class="alumni-card" data-cat="medicine">
           <div class="ac-field">Medicine</div>
           <div class="ac-name">Dr. Renee Okafor</div>
           <div class="ac-class">Class of 2008 · B.S. Biology</div>
-          <p class="ac-story">After graduating from YSU with honors, Dr. Okafor completed her MD at Case Western Reserve and a cardiology fellowship at Johns Hopkins. In April 2026, she was named Chief of Cardiology at the Cleveland Clinic at just 40 years old.</p>
+          <p class="ac-story">After graduating with honors from YSU, Dr. Okafor completed her MD at Case Western and a cardiology fellowship at Johns Hopkins. Named Chief of Cardiology at the Cleveland Clinic at just 40 years old.</p>
           <div class="ac-achievement">Chief of Cardiology · Cleveland Clinic · 2026</div>
         </div>
-        <div class="alumni-card">
+
+        <div class="alumni-card" data-cat="nursing">
+          <div class="ac-field">Nursing</div>
+          <div class="ac-name">Angela Kowalski, RN</div>
+          <div class="ac-class">Class of 2012 · B.S. Nursing</div>
+          <p class="ac-story">Named Ohio Nurse of the Year by the Ohio Nurses Association for her work developing a sepsis early-warning protocol at University Hospitals Cleveland that has reduced mortality rates by 18% since implementation.</p>
+          <div class="ac-achievement">Ohio Nurse of the Year · 2026</div>
+        </div>
+
+        <div class="alumni-card" data-cat="business">
           <div class="ac-field">Business</div>
           <div class="ac-name">Marcus Webb</div>
           <div class="ac-class">Class of 2015 · B.S. Finance</div>
-          <p class="ac-story">Webb returned to Youngstown to found BlockBridge Financial, a platform that helps small manufacturers access working capital through blockchain-based invoice factoring. The company closed a $28M Series B in April 2026 and employs 40 people in downtown Youngstown.</p>
+          <p class="ac-story">Returned to Youngstown to found BlockBridge Financial — a blockchain-based invoice factoring platform helping small manufacturers access capital. Closed a $28M Series B in April 2026 with 40 employees in downtown Youngstown.</p>
           <div class="ac-achievement">$28M Series B · BlockBridge Financial · 2026</div>
         </div>
-        <div class="alumni-card">
+
+        <div class="alumni-card" data-cat="law">
           <div class="ac-field">Law</div>
           <div class="ac-name">Hon. Priscilla Torres</div>
           <div class="ac-class">Class of 2016 · B.A. Political Science</div>
-          <p class="ac-story">Torres graduated from YSU and finished first in her class at Ohio State's Moritz College of Law. After four years as a federal prosecutor, she was appointed U.S. Federal Magistrate Judge in April 2026 — at 32, one of the youngest federal judges in Ohio history.</p>
+          <p class="ac-story">Finished first in her class at Ohio State's Moritz College of Law. After four years as a federal prosecutor in the Northern District of Ohio, appointed U.S. Federal Magistrate Judge at age 32 — one of the youngest in Ohio history.</p>
           <div class="ac-achievement">Federal Magistrate Judge · Northern District of Ohio · 2026</div>
         </div>
-        <div class="alumni-card">
+
+        <div class="alumni-card" data-cat="science">
           <div class="ac-field">Science</div>
           <div class="ac-name">Dr. Kevin Ngozi</div>
           <div class="ac-class">Class of 2012 · B.S. Chemistry</div>
-          <p class="ac-story">Dr. Ngozi earned his PhD at MIT and joined NASA's Jet Propulsion Laboratory in 2019. In 2026 he was named lead materials scientist on NASA's Europa Clipper mission, responsible for instruments that will analyze Jupiter's moon Europa for signs of life.</p>
+          <p class="ac-story">Earned his PhD at MIT and joined NASA's Jet Propulsion Laboratory in 2019. Named lead materials scientist on NASA's Europa Clipper mission — responsible for instruments that will analyze Jupiter's moon Europa for signs of life.</p>
           <div class="ac-achievement">Lead Materials Scientist · NASA JPL · Europa Clipper</div>
         </div>
-      </div>
 
-      <div class="section-label">More Alumni News</div>
+        <div class="alumni-card" data-cat="engineering">
+          <div class="ac-field">Engineering</div>
+          <div class="ac-name">Tanya Kowalski</div>
+          <div class="ac-class">Class of 2018 · B.S. Mechanical Engineering</div>
+          <p class="ac-story">Joined SpaceX straight out of the Rayen School and has worked on four Falcon 9 launches. Promoted to Senior Propulsion Engineer in 2025, leading a team of 12 in propulsion systems testing.</p>
+          <div class="ac-achievement">Senior Propulsion Engineer · SpaceX · 2025</div>
+        </div>
 
-      <div class="decade-row">
-        <button class="decade-btn active" onclick="setDecade(this)">All Years</button>
-        <button class="decade-btn" onclick="setDecade(this)">2020s</button>
-        <button class="decade-btn" onclick="setDecade(this)">2010s</button>
-        <button class="decade-btn" onclick="setDecade(this)">2000s</button>
-        <button class="decade-btn" onclick="setDecade(this)">1990s</button>
-        <button class="decade-btn" onclick="setDecade(this)">1980s</button>
-      </div>
+        <div class="alumni-card" data-cat="music">
+          <div class="ac-field">Music & Arts</div>
+          <div class="ac-name">Darnell Washington</div>
+          <div class="ac-class">Class of 2010 · B.M. Music Performance · Dana School</div>
+          <p class="ac-story">Graduated from the Dana School of Music and earned the principal oboe seat with the Philadelphia Orchestra in 2015. Has performed at Carnegie Hall eleven times and records with Deutsche Grammophon.</p>
+          <div class="ac-achievement">Principal Oboist · Philadelphia Orchestra</div>
+        </div>
 
-      <div class="alumni-list">
-        <div class="alumni-item">
-          <div class="ai-class-block">
-            <div class="ai-class-label">Class of</div>
-            <div class="ai-class-year">2018</div>
-          </div>
-          <div>
-            <div class="ai-field">Engineering</div>
-            <div class="ai-name">Tanya Kowalski</div>
-            <div class="ai-role">Senior Propulsion Engineer · SpaceX</div>
-            <p class="ai-story">A 2018 Rayen School graduate, Kowalski joined SpaceX straight out of YSU and has worked on four Falcon 9 launches. She was promoted to Senior Engineer in 2025 and leads a team of 12 in propulsion systems testing.</p>
-          </div>
+        <div class="alumni-card" data-cat="publicservice">
+          <div class="ac-field">Public Service</div>
+          <div class="ac-name">Councilwoman Angela Ferraro</div>
+          <div class="ac-class">Class of 2005 · MPA · Public Administration</div>
+          <p class="ac-story">Has served three terms on Youngstown City Council, chairing the Economic Development Committee. Credited with attracting $180M in downtown investment since 2018. Widely considered a future mayoral candidate.</p>
+          <div class="ac-achievement">Youngstown City Council · Ward 4 · 3× Terms</div>
         </div>
-        <div class="alumni-item">
-          <div class="ai-class-block">
-            <div class="ai-class-label">Class of</div>
-            <div class="ai-class-year">2010</div>
-          </div>
-          <div>
-            <div class="ai-field">Arts</div>
-            <div class="ai-name">Darnell Washington</div>
-            <div class="ai-role">Principal Oboist · Philadelphia Orchestra</div>
-            <p class="ai-story">Washington graduated from the Dana School of Music in 2010 and earned the principal oboe seat with the Philadelphia Orchestra in 2015. He has performed at Carnegie Hall eleven times and records with Deutsche Grammophon.</p>
-          </div>
+
+        <div class="alumni-card" data-cat="medicine">
+          <div class="ac-field">Medicine</div>
+          <div class="ac-name">Dr. Samuel Bricker</div>
+          <div class="ac-class">Class of 2019 · B.S. Biology (Pre-Med)</div>
+          <p class="ac-story">Graduated summa cum laude and was accepted to Ohio State's College of Medicine. Completed his pediatric surgery residency in 2025 and joined Nationwide Children's Hospital — ranked among the top pediatric hospitals in the country.</p>
+          <div class="ac-achievement">Pediatric Surgeon · Nationwide Children's Hospital · 2025</div>
         </div>
-        <div class="alumni-item">
-          <div class="ai-class-block">
-            <div class="ai-class-label">Class of</div>
-            <div class="ai-class-year">2005</div>
-          </div>
-          <div>
-            <div class="ai-field">Public Service</div>
-            <div class="ai-name">Councilwoman Angela Ferraro</div>
-            <div class="ai-role">Youngstown City Council · Ward 4</div>
-            <p class="ai-story">Ferraro earned her MPA from YSU in 2005 and has served three terms on Youngstown City Council, chairing the Economic Development Committee and attracting $180M in downtown investment since 2018.</p>
-          </div>
+
+        <div class="alumni-card" data-cat="business">
+          <div class="ac-field">Business</div>
+          <div class="ac-name">Patricia Donnelly</div>
+          <div class="ac-class">Class of 1998 · B.S. Business Administration</div>
+          <p class="ac-story">Built her manufacturing consulting firm into a regional powerhouse with 200 employees and $40M annual revenue. Serves on YSU's Board of Trustees and endowed the Donnelly Scholarship for first-generation business students in 2022.</p>
+          <div class="ac-achievement">CEO · Mahoning Valley Manufacturing Group</div>
         </div>
-        <div class="alumni-item">
-          <div class="ai-class-block">
-            <div class="ai-class-label">Class of</div>
-            <div class="ai-class-year">2019</div>
-          </div>
-          <div>
-            <div class="ai-field">Medicine</div>
-            <div class="ai-name">Dr. Samuel Bricker</div>
-            <div class="ai-role">Pediatric Surgeon · Nationwide Children's Hospital</div>
-            <p class="ai-story">Bricker graduated summa cum laude from YSU's pre-med program in 2019 and completed his pediatric surgery residency in 2025. He joined Nationwide Children's Hospital — ranked among the top pediatric hospitals in the country.</p>
-          </div>
+
+        <div class="alumni-card" data-cat="lass">
+          <div class="ac-field">Liberal Arts & Social Sciences</div>
+          <div class="ac-name">Dr. Marcus Cole</div>
+          <div class="ac-class">Class of 2014 · B.A. Sociology</div>
+          <p class="ac-story">Earned his PhD in Sociology at Northwestern and now leads the Center for Urban Studies at Case Western Reserve University. His research on post-industrial community resilience has been cited in U.S. Congressional testimony.</p>
+          <div class="ac-achievement">Director · Center for Urban Studies · Case Western</div>
         </div>
-        <div class="alumni-item">
-          <div class="ai-class-block">
-            <div class="ai-class-label">Class of</div>
-            <div class="ai-class-year">1998</div>
-          </div>
-          <div>
-            <div class="ai-field">Business</div>
-            <div class="ai-name">Patricia Donnelly</div>
-            <div class="ai-role">CEO · Mahoning Valley Manufacturing Group</div>
-            <p class="ai-story">A 1998 Williamson College of Business graduate, Donnelly built her manufacturing consulting firm into a regional powerhouse with 200 employees. She endowed the Donnelly Scholarship for first-generation business students in 2022.</p>
-          </div>
+
+        <div class="alumni-card" data-cat="education">
+          <div class="ac-field">Education</div>
+          <div class="ac-name">Dr. Linda Russo</div>
+          <div class="ac-class">Class of 2003 · M.Ed. Educational Leadership</div>
+          <p class="ac-story">Named Superintendent of Youngstown City Schools in 2022, the first YSU alumna to hold the position. Under her leadership the district's graduation rate has climbed from 71% to 84% in three years.</p>
+          <div class="ac-achievement">Superintendent · Youngstown City Schools · 2022</div>
         </div>
+
+        <div class="alumni-card" data-cat="nursing">
+          <div class="ac-field">Nursing</div>
+          <div class="ac-name">James Park, DNP</div>
+          <div class="ac-class">Class of 2009 · B.S. Nursing</div>
+          <p class="ac-story">Completed his Doctor of Nursing Practice at Case Western and serves as Chief Nursing Officer at St. Elizabeth Boardman Hospital. Under his leadership the hospital achieved Magnet designation — the highest honor in nursing excellence.</p>
+          <div class="ac-achievement">Chief Nursing Officer · St. Elizabeth Boardman · Magnet CNO</div>
+        </div>
+
       </div>
 
       <div class="section-label">Where Penguins Land</div>
 
       <div class="sector-grid">
-        <div class="sector-card">
+        <div class="sector-card" onclick="filterAlumniByField('medicine')">
           <span class="sector-icon">🏥</span>
           <div class="sector-num">18%</div>
           <div class="sector-label">Healthcare & Medicine</div>
           <div class="sector-detail">Nurses, doctors, researchers</div>
         </div>
-        <div class="sector-card">
+        <div class="sector-card" onclick="filterAlumniByField('engineering')">
           <span class="sector-icon">⚙️</span>
           <div class="sector-num">22%</div>
           <div class="sector-label">Engineering & Manufacturing</div>
           <div class="sector-detail">NASA, Boeing, local industry</div>
         </div>
-        <div class="sector-card">
+        <div class="sector-card" onclick="filterAlumniByField('business')">
           <span class="sector-icon">💼</span>
           <div class="sector-num">20%</div>
           <div class="sector-label">Business & Finance</div>
           <div class="sector-detail">Startups, banking, consulting</div>
         </div>
-        <div class="sector-card">
+        <div class="sector-card" onclick="filterAlumniByField('law')">
           <span class="sector-icon">⚖️</span>
           <div class="sector-num">8%</div>
           <div class="sector-label">Law & Public Service</div>
           <div class="sector-detail">Courts, government, policy</div>
         </div>
-        <div class="sector-card">
+        <div class="sector-card" onclick="filterAlumniByField('education')">
           <span class="sector-icon">🎓</span>
           <div class="sector-num">12%</div>
           <div class="sector-label">Education & Academia</div>
           <div class="sector-detail">Teachers, professors, researchers</div>
         </div>
-        <div class="sector-card">
+        <div class="sector-card" onclick="filterAlumniByField('music')">
           <span class="sector-icon">🎵</span>
           <div class="sector-num">6%</div>
           <div class="sector-label">Arts & Media</div>
@@ -473,6 +483,7 @@
 
     </main>
 
+    <!-- SIDEBAR -->
     <aside class="sidebar">
 
       <div class="notable-box">
@@ -515,6 +526,11 @@
           <div class="sit-meta">Apr 28, 2026</div>
         </div>
         <div class="sidebar-item">
+          <div class="sit-tag">Nursing</div>
+          <div class="sit-title">Angela Kowalski named Ohio Nurse of the Year</div>
+          <div class="sit-meta">Apr 20, 2026</div>
+        </div>
+        <div class="sidebar-item">
           <div class="sit-tag">Law</div>
           <div class="sit-title">Priscilla Torres appointed Federal Magistrate Judge at 32</div>
           <div class="sit-meta">Apr 30, 2026</div>
@@ -546,7 +562,7 @@
   <footer>
     <div class="footer-brand">
       <div class="footer-name">Youngstown State University</div>
-      <div class="footer-sub">youngstownstateuniversity.com · The Penguin Report · Not affiliated with YSU</div>
+      <div class="footer-sub">youngstownstateuniversity.com · Not affiliated with YSU</div>
     </div>
     <div class="footer-links">
       <a href="index.html">News</a>
@@ -567,14 +583,39 @@
     document.getElementById('dateline').textContent =
       days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
 
-    function setFilter(btn) {
+    function filterAlumni(btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      applyFilter(btn.dataset.filter);
     }
 
-    function setDecade(btn) {
-      document.querySelectorAll('.decade-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    function filterAlumniByField(cat) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active');
+        if (b.dataset.filter === cat) b.classList.add('active');
+      });
+      applyFilter(cat);
+      window.scrollTo({ top: document.querySelector('.filter-bar').offsetTop - 60, behavior: 'smooth' });
+    }
+
+    function applyFilter(filter) {
+      const cards = document.querySelectorAll('.alumni-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      document.getElementById('noResults').classList.toggle('visible', visible === 0);
+      const btn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+      document.getElementById('alumni-section-label').textContent =
+        filter === 'all' ? 'Alumni Achievement' : (btn ? btn.textContent + ' Alumni' : 'Alumni Achievement');
+    }
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const btn = document.querySelector(`.filter-btn[data-filter="${hash}"]`);
+      if (btn) filterAlumni(btn);
     }
   </script>
 
