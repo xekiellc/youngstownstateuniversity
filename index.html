@@ -188,45 +188,48 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* HERO */
+    /* HERO — SPLIT LAYOUT */
     .hero {
-      position: relative;
-      height: 85vh;
-      min-height: 560px;
-      max-height: 780px;
+      background: var(--charcoal);
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      min-height: 580px;
       overflow: hidden;
+      position: relative;
+    }
+    .hero-left {
+      padding: 64px 52px;
       display: flex;
-      align-items: flex-end;
-    }
-    .hero-img {
-      position: absolute;
-      inset: 0;
-      background: url('assets/pete.jpg') right top / cover no-repeat;
-    }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(0,0,0,0.88) 0%,
-        rgba(0,0,0,0.55) 35%,
-        rgba(0,0,0,0.05) 65%,
-        rgba(0,0,0,0) 100%
-      );
-    }
-    .hero-overlay-bottom {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 200px;
-      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
-    }
-    .hero-content {
+      flex-direction: column;
+      justify-content: center;
       position: relative;
       z-index: 2;
-      padding: 60px 48px;
-      max-width: 600px;
+    }
+    .hero-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(204,0,0,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(26,26,26,0.5) 0%, transparent 50%);
+      z-index: 1;
+      pointer-events: none;
     }
     .hero-eyebrow {
       display: inline-flex;
@@ -247,7 +250,7 @@
     }
     .hero-headline {
       font-family: 'Playfair Display', serif;
-      font-size: 52px;
+      font-size: 48px;
       font-weight: 700;
       color: #fff;
       line-height: 1.08;
@@ -255,12 +258,12 @@
     }
     .hero-headline em { color: var(--scarlet); font-style: italic; }
     .hero-deck {
-      font-size: 17px;
-      color: rgba(255,255,255,0.75);
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
       font-weight: 300;
       line-height: 1.7;
       margin-bottom: 28px;
-      max-width: 500px;
+      max-width: 480px;
     }
     .hero-meta { display: flex; align-items: center; gap: 16px; }
     .hero-tag {
@@ -273,7 +276,7 @@
     }
     .hero-date {
       font-size: 12px;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.4);
       letter-spacing: 1px;
       text-transform: uppercase;
       font-weight: 300;
@@ -284,6 +287,7 @@
       background: var(--charcoal);
       display: grid;
       grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid #2a2a2a;
     }
     .acc-item {
       padding: 22px 24px;
@@ -347,7 +351,6 @@
       padding: 22px 0;
       border-bottom: 1px solid var(--border);
       cursor: pointer;
-      transition: all 0.2s;
     }
     .news-card:first-child { padding-top: 0; }
     .news-card:hover .nc-title { color: var(--scarlet); }
@@ -427,9 +430,6 @@
       transition: opacity 0.2s;
     }
     .fb-date { font-size: 11px; color: rgba(255,255,255,0.35); }
-
-    /* LIVE NEWS */
-    .live-wrap { margin-bottom: 44px; }
 
     /* BOTTOM 3-COL */
     .bottom-cols {
@@ -621,6 +621,10 @@
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { height: 340px; }
+      .hero-left { padding: 40px 24px; }
+      .hero-headline { font-size: 32px; }
       .page-wrap { grid-template-columns: 1fr; gap: 32px; padding: 32px 20px; }
       .feature-band { margin: 0 -20px 36px; padding: 24px 20px; }
       .feature-band-grid { grid-template-columns: 1fr; }
@@ -631,9 +635,6 @@
       .masthead-name { font-size: 28px; }
       nav.main-nav { padding: 0 20px; }
       .top-bar { padding: 7px 20px; }
-      .hero { height: 70vh; }
-      .hero-content { padding: 40px 24px; }
-      .hero-headline { font-size: 34px; }
       footer { grid-template-columns: 1fr; gap: 28px; padding: 28px 20px; }
       .footer-bottom { padding: 14px 20px; }
     }
@@ -706,12 +707,9 @@
     </span>
   </div>
 
-  <!-- HERO -->
+  <!-- HERO — SPLIT LAYOUT: TEXT LEFT · PETE RIGHT -->
   <section class="hero">
-    <div class="hero-img"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-overlay-bottom"></div>
-    <div class="hero-content">
+    <div class="hero-left">
       <div class="hero-eyebrow">
         <div class="hero-eyebrow-line"></div>
         <div class="hero-eyebrow-text">Top Story</div>
@@ -722,6 +720,9 @@
         <span class="hero-tag">Academics</span>
         <span class="hero-date">May 8, 2026</span>
       </div>
+    </div>
+    <div class="hero-right">
+      <img src="assets/pete.jpg" alt="Pete the Penguin — Youngstown State University"/>
     </div>
   </section>
 
