@@ -2,12 +2,7 @@ name: YSU News Pipeline
 
 on:
   schedule:
-    - cron: '0 6 * * *'    # 6am UTC
     - cron: '0 10 * * *'   # 10am UTC
-    - cron: '0 14 * * *'   # 2pm UTC
-    - cron: '0 17 * * *'   # 5pm UTC
-    - cron: '0 20 * * *'   # 8pm UTC
-    - cron: '0 23 * * *'   # 11pm UTC
   workflow_dispatch:
 
 jobs:
