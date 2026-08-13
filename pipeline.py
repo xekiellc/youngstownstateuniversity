@@ -2,7 +2,7 @@ import os
 import json
 import requests
 from anthropic import Anthropic
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 client = Anthropic(timeout=60.0)
 NEWSAPI_KEY = os.environ["NEWSAPI_KEY"]
@@ -15,6 +15,15 @@ QUERIES = [
     "YSU research",
     "Youngstown State academics",
     "Youngstown State athletics",
+    "Youngstown Ohio university",
+    "YSU nursing",
+    "YSU engineering",
+    "YSU football",
+    "YSU basketball",
+    "YSU baseball",
+    "Youngstown State graduation",
+    "Youngstown State scholarship",
+    "Youngstown State alumni",
 ]
 
 SECTIONS = {
@@ -62,6 +71,8 @@ Return ONLY valid JSON. No markdown, no explanation, no preamble."""
 def fetch_articles():
     articles = []
     seen_titles = set()
+    # 7-day lookback window
+    from_date = (datetime.now(timezone.utc) - timedelta(days=7)).strftime("%Y-%m-%dT%H:%M:%SZ")
     for query in QUERIES:
         try:
             r = requests.get(
@@ -70,6 +81,7 @@ def fetch_articles():
                     "q": query,
                     "language": "en",
                     "sortBy": "publishedAt",
+                    "from": from_date,
                     "pageSize": 10,
                     "apiKey": NEWSAPI_KEY,
                 },
@@ -99,7 +111,6 @@ def fetch_articles():
 # ── FILTER WITH CLAUDE — single call for all articles ────────────────────────
 
 def filter_all_articles(articles):
-    """One Claude call to filter all articles — returns list of approved articles."""
     if not articles:
         return []
     all_tags = ["News","Academics","Research","Sports","Athletics","Students","Faculty","Alumni",
@@ -133,7 +144,6 @@ def filter_all_articles(articles):
 
 
 def filter_by_tags(articles, tags):
-    """Filter pre-approved articles by relevant tags for a specific section."""
     tag_set = set(t.lower() for t in tags)
     matched = [a for a in articles if a.get("tag", "").lower() in tag_set]
     if not matched:
@@ -254,7 +264,6 @@ def main():
         print("No articles fetched — exiting.")
         return
 
-    # ONE Claude call for all articles
     print("\nFiltering all articles with Claude...")
     approved = filter_all_articles(all_articles)
     if not approved:
