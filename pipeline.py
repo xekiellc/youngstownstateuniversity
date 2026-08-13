@@ -1,10 +1,8 @@
 import os
 import json
 import requests
-import re
 from anthropic import Anthropic
 from datetime import datetime, timezone, timedelta
-from html.parser import HTMLParser
 
 client = Anthropic(timeout=60.0)
 NEWSAPI_KEY = os.environ["NEWSAPI_KEY"]
@@ -17,8 +15,93 @@ NEWSAPI_QUERIES = [
     "Youngstown State athletics",
 ]
 
-YSU_NEWS_URL = "https://ysu.edu/news"
-YSU_BASE_URL = "https://ysu.edu"
+# Baseline YSU stories scraped from ysu.edu/news — updated periodically
+BASELINE_ARTICLES = [
+    {
+        "title": "YSU Receives Nearly $2 Million Behavioral Health Scholarship Award",
+        "excerpt": "Youngstown State University received a $1,995,000 award from the Ohio Department of Behavioral Health to support graduate students in counseling and social work programs.",
+        "url": "https://ysu.edu/news/ysu-receives-nearly-2-million-behavioral-health-scholarship-award",
+        "date": "2026-07-27",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "Youngstown Advanced Manufacturing Innovation Center Creates New Student Pathways",
+        "excerpt": "The Youngstown Advanced Manufacturing Innovation Center is creating new pathways for student collaboration and industry experience at YSU.",
+        "url": "https://ysu.edu/news/youngstown-advanced-manufacturing-innovation-center-creates-new-pathways-student-collaboration",
+        "date": "2026-07-20",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "YSU Launches Hybrid Ophthalmic Clinical Assistant Certificate Program",
+        "excerpt": "Youngstown State University is launching a new hybrid Ophthalmic Clinical Assistant Certificate program for Fall 2026 through the Bitonte College of Health and Human Services.",
+        "url": "https://ysu.edu/news/ysu-launches-hybrid-ophthalmic-clinical-assistant-certificate-program-fall-2026",
+        "date": "2026-07-13",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "YSU Engineering Professor Earns Two National Honors for Education Research",
+        "excerpt": "A Youngstown State University engineering professor has earned two prestigious national honors for contributions to engineering education research.",
+        "url": "https://ysu.edu/news/ysu-engineering-professor-earns-two-national-honors-engineering-education-research",
+        "date": "2026-07-27",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "YSU Graduate Hunter Lynch Earns National Recognition from Theta Chi",
+        "excerpt": "YSU graduate Hunter Lynch earned national recognition from Theta Chi Fraternity, reflecting the leadership development YSU fosters in its students.",
+        "url": "https://ysu.edu/news/ysu-graduate-hunter-lynch-earns-national-recognition-theta-chi",
+        "date": "2026-08-03",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "YSU Faculty Member Honors Mentor's Legacy Through New Book",
+        "excerpt": "A Youngstown State University faculty member has published a new book honoring the legacy of a mentor, presented at the Society for Civil War Historians conference.",
+        "url": "https://ysu.edu/news/ysu-faculty-member-honors-mentor-s-legacy-through-new-book",
+        "date": "2026-08-03",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "YSU Steubenville to Host Inaugural Penguin Kickoff",
+        "excerpt": "Youngstown State University's Steubenville campus hosted its inaugural Penguin Kickoff event, marking a major milestone in YSU's regional expansion.",
+        "url": "https://ysu.edu/news/ysu-steubenville-host-inaugural-penguin-kickoff-aug-11",
+        "date": "2026-07-27",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "Hartman Foundation Supports Kilcawley Center with $1 Million Gift",
+        "excerpt": "The Hartman Foundation has made a $1 million gift to support renovations at YSU's Kilcawley Center, the heart of student life on campus.",
+        "url": "https://ysu.edu/news/hartman-foundation-supports-kilcawley-center-1-million-gift",
+        "date": "2026-07-27",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "YSU Faculty Member's Solar Energy Research Published in Leading Journal",
+        "excerpt": "A YSU faculty member played a key role in solar energy research published in a leading scientific journal, advancing clean energy innovation.",
+        "url": "https://ysu.edu/news/ysu-faculty-member-plays-key-role-solar-energy-research-published-leading-journal",
+        "date": "2026-07-27",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "YSU Accounting Faculty's Business Intelligence Research Published in Top Journal",
+        "excerpt": "YSU accounting faculty member's business intelligence research was published in one of information systems' most prestigious journals.",
+        "url": "https://ysu.edu/news/ysu-accounting-faculty-member-s-business-intelligence-research-published-one-information",
+        "date": "2026-07-20",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "YSU Future Teachers Club Earns National Recognition and Statewide Honors",
+        "excerpt": "The YSU Future Teachers Club earned national recognition and statewide honors, reflecting the strength of YSU's education programs.",
+        "url": "https://ysu.edu/news/ysu-future-teachers-club-earns-national-recognition-and-statewide-honors",
+        "date": "2026-07-13",
+        "source": "ysu.edu"
+    },
+    {
+        "title": "YSU Expands Online Programs and Steubenville Presence",
+        "excerpt": "Youngstown State University deepens its commitment to the Ohio Valley region, partnering with Risepoint to grow its portfolio of online degree programs and strengthen its footprint in Steubenville.",
+        "url": "https://ysu.edu/news/ysu-expands-online-programs-steubenville",
+        "date": "2026-07-28",
+        "source": "ysu.edu"
+    },
+]
 
 SECTIONS = {
     "index":    {"label": "News",      "tags": ["News","Academics","Research","Sports","Students","Faculty","Alumni","Campus"]},
@@ -61,47 +144,6 @@ For each article respond with a JSON array. Each item must have:
 - "url": original article URL
 
 Return ONLY valid JSON. No markdown, no explanation, no preamble."""
-
-
-# ── SCRAPE YSU NEWS PAGE ──────────────────────────────────────────────────────
-
-def scrape_ysu_news():
-    articles = []
-    try:
-        r = requests.get(YSU_NEWS_URL, timeout=15, headers={
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
-        })
-        html = r.text
-        # Find all news article links — pattern: /news/some-slug
-        # Also find h5 links with titles
-        pattern = r'<a[^>]+href="(/news/[^"]+)"[^>]*>([^<]+)</a>'
-        matches = re.findall(pattern, html)
-        seen = set()
-        today = datetime.now(timezone.utc)
-        for path, title in matches:
-            title = title.strip()
-            if not title or len(title) < 10:
-                continue
-            if path in seen:
-                continue
-            seen.add(path)
-            url = YSU_BASE_URL + path
-            articles.append({
-                "title":   title,
-                "excerpt": "",
-                "url":     url,
-                "date":    today.strftime("%Y-%m-%d"),
-                "source":  "ysu.edu",
-            })
-        # Also look for date-stamped items
-        # Pattern: Mon, 08/03/2026 type dates near titles
-        date_pattern = r'(\w{3}, \d{2}/\d{2}/\d{4})'
-        dates = re.findall(date_pattern, html)
-
-        print(f"  YSU scrape: {len(articles)} articles found")
-    except Exception as e:
-        print(f"  YSU scrape error: {e}")
-    return articles[:20]  # cap at 20
 
 
 # ── FETCH FROM NEWSAPI ────────────────────────────────────────────────────────
@@ -152,8 +194,8 @@ def fetch_articles():
     articles = []
     seen_titles = set()
 
-    print("Scraping YSU news page...")
-    for a in scrape_ysu_news():
+    print(f"Loading {len(BASELINE_ARTICLES)} baseline YSU articles...")
+    for a in BASELINE_ARTICLES:
         if a["title"] not in seen_titles:
             seen_titles.add(a["title"])
             articles.append(a)
