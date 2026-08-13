@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import xml.etree.ElementTree as ET
 from anthropic import Anthropic
 from datetime import datetime, timezone, timedelta
 
@@ -9,21 +10,20 @@ NEWSAPI_KEY = os.environ["NEWSAPI_KEY"]
 
 # ── CONFIG ──────────────────────────────────────────────────────────────────
 
-QUERIES = [
+NEWSAPI_QUERIES = [
     "Youngstown State University",
     "YSU Penguins",
-    "YSU research",
-    "Youngstown State academics",
     "Youngstown State athletics",
-    "Youngstown Ohio university",
-    "YSU nursing",
-    "YSU engineering",
     "YSU football",
-    "YSU basketball",
-    "YSU baseball",
-    "Youngstown State graduation",
-    "Youngstown State scholarship",
-    "Youngstown State alumni",
+    "YSU Penguins football",
+]
+
+# YSU official RSS feeds
+RSS_FEEDS = [
+    "https://ysu.edu/news/rss.xml",
+    "https://ysu.edu/athletics/rss.xml",
+    "https://ysusports.com/rss.xml",
+    "https://ysu.edu/research/rss.xml",
 ]
 
 SECTIONS = {
@@ -44,7 +44,7 @@ PUBLISH if the article is:
 - Positive coverage of YSU academics, research, achievements, athletics, student success, faculty honors, or alumni accomplishments
 - Neutral factual reporting about YSU programs, events, rankings, or announcements
 - Coverage of Penguins athletics results, scores, standings, or player achievements
-- Any factual news about YSU that is not explicitly negative
+- Any factual news that is primarily about YSU or its students, faculty, or alumni
 
 DO NOT PUBLISH if the article:
 - Covers protests, activism, demonstrations, or campus unrest
@@ -69,13 +69,51 @@ For each article respond with a JSON array. Each item must have:
 Return ONLY valid JSON. No markdown, no explanation, no preamble."""
 
 
-# ── FETCH NEWS ───────────────────────────────────────────────────────────────
+# ── FETCH FROM RSS ────────────────────────────────────────────────────────────
 
-def fetch_articles():
+def fetch_rss(url):
+    articles = []
+    try:
+        r = requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
+        root = ET.fromstring(r.content)
+        ns = {"content": "http://purl.org/rss/1.0/modules/content/"}
+        cutoff = datetime.now(timezone.utc) - timedelta(days=30)
+        for item in root.iter("item"):
+            title = (item.findtext("title") or "").strip()
+            link  = (item.findtext("link") or "").strip()
+            desc  = (item.findtext("description") or "").strip()[:300]
+            pub   = item.findtext("pubDate") or ""
+            # parse date
+            date_str = ""
+            try:
+                dt = datetime.strptime(pub[:25].strip(), "%a, %d %b %Y %H:%M:%S")
+                dt = dt.replace(tzinfo=timezone.utc)
+                if dt < cutoff:
+                    continue
+                date_str = dt.strftime("%Y-%m-%d")
+            except Exception:
+                date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            if title and link:
+                articles.append({
+                    "title":   title,
+                    "excerpt": desc,
+                    "url":     link,
+                    "date":    date_str,
+                    "source":  "ysu.edu",
+                })
+        print(f"  RSS '{url}': {len(articles)} articles")
+    except Exception as e:
+        print(f"  RSS error '{url}': {e}")
+    return articles
+
+
+# ── FETCH FROM NEWSAPI ────────────────────────────────────────────────────────
+
+def fetch_newsapi():
     articles = []
     seen_titles = set()
     from_date = (datetime.now(timezone.utc) - timedelta(days=7)).strftime("%Y-%m-%dT%H:%M:%SZ")
-    for query in QUERIES:
+    for query in NEWSAPI_QUERIES:
         try:
             r = requests.get(
                 "https://newsapi.org/v2/everything",
@@ -91,7 +129,7 @@ def fetch_articles():
             )
             data = r.json()
             raw = data.get("articles", [])
-            print(f"  Query '{query}': {len(raw)} results")
+            print(f"  NewsAPI '{query}': {len(raw)} results")
             for a in raw:
                 title = (a.get("title") or "").strip()
                 if not title or title in seen_titles:
@@ -107,9 +145,30 @@ def fetch_articles():
                     "source":  (a.get("source") or {}).get("name", ""),
                 })
         except Exception as e:
-            print(f"NewsAPI error for '{query}': {e}")
-    print(f"Fetched {len(articles)} unique raw articles")
-    # Print all titles so we can see what was found
+            print(f"  NewsAPI error '{query}': {e}")
+    return articles
+
+
+# ── FETCH ALL ─────────────────────────────────────────────────────────────────
+
+def fetch_articles():
+    articles = []
+    seen_titles = set()
+
+    print("Fetching from YSU RSS feeds...")
+    for feed_url in RSS_FEEDS:
+        for a in fetch_rss(feed_url):
+            if a["title"] not in seen_titles:
+                seen_titles.add(a["title"])
+                articles.append(a)
+
+    print("Fetching from NewsAPI...")
+    for a in fetch_newsapi():
+        if a["title"] not in seen_titles:
+            seen_titles.add(a["title"])
+            articles.append(a)
+
+    print(f"Fetched {len(articles)} unique raw articles total")
     for i, a in enumerate(articles, 1):
         print(f"  {i}. [{a.get('date','')}] {a.get('title','')}")
     return articles
@@ -142,9 +201,8 @@ def filter_all_articles(articles):
             if raw.startswith("json"):
                 raw = raw[4:]
         filtered = json.loads(raw)
-        # Print what Claude decided on each article
         for a in filtered:
-            status = "✓ PUBLISH" if a.get("publish") else "✗ REJECT"
+            status = "PUBLISH" if a.get("publish") else "REJECT"
             print(f"  {status}: {a.get('title','')}")
         published = [a for a in filtered if a.get("publish")]
         print(f"Claude approved {len(published)}/{len(articles)} articles")
