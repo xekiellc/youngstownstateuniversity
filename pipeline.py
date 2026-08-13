@@ -18,12 +18,11 @@ NEWSAPI_QUERIES = [
     "YSU Penguins football",
 ]
 
-# YSU official RSS feeds
+# YSU official RSS feeds — verified URLs
 RSS_FEEDS = [
-    "https://ysu.edu/news/rss.xml",
-    "https://ysu.edu/athletics/rss.xml",
-    "https://ysusports.com/rss.xml",
-    "https://ysu.edu/research/rss.xml",
+    "https://ysu.edu/node/51/news.rss",
+    "https://newsroom.ysu.edu/feed",
+    "https://ysusports.com/rss.aspx",
 ]
 
 SECTIONS = {
@@ -74,23 +73,39 @@ Return ONLY valid JSON. No markdown, no explanation, no preamble."""
 def fetch_rss(url):
     articles = []
     try:
-        r = requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
-        root = ET.fromstring(r.content)
-        ns = {"content": "http://purl.org/rss/1.0/modules/content/"}
+        r = requests.get(url, timeout=15, headers={
+            "User-Agent": "Mozilla/5.0 (compatible; YSUNewsBot/1.0)",
+            "Accept": "application/rss+xml, application/xml, text/xml"
+        })
+        # Try to clean up common XML issues
+        content = r.content
+        # Remove any BOM
+        if content.startswith(b'\xef\xbb\xbf'):
+            content = content[3:]
+        root = ET.fromstring(content)
         cutoff = datetime.now(timezone.utc) - timedelta(days=30)
+        count = 0
         for item in root.iter("item"):
             title = (item.findtext("title") or "").strip()
             link  = (item.findtext("link") or "").strip()
             desc  = (item.findtext("description") or "").strip()[:300]
             pub   = item.findtext("pubDate") or ""
-            # parse date
             date_str = ""
             try:
-                dt = datetime.strptime(pub[:25].strip(), "%a, %d %b %Y %H:%M:%S")
-                dt = dt.replace(tzinfo=timezone.utc)
-                if dt < cutoff:
-                    continue
-                date_str = dt.strftime("%Y-%m-%d")
+                # Try multiple date formats
+                for fmt in ["%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S %Z"]:
+                    try:
+                        dt = datetime.strptime(pub.strip(), fmt)
+                        if dt.tzinfo is None:
+                            dt = dt.replace(tzinfo=timezone.utc)
+                        if dt.astimezone(timezone.utc) < cutoff:
+                            continue
+                        date_str = dt.strftime("%Y-%m-%d")
+                        break
+                    except Exception:
+                        continue
+                if not date_str:
+                    date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
             except Exception:
                 date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
             if title and link:
@@ -101,7 +116,10 @@ def fetch_rss(url):
                     "date":    date_str,
                     "source":  "ysu.edu",
                 })
-        print(f"  RSS '{url}': {len(articles)} articles")
+                count += 1
+        print(f"  RSS '{url}': {count} articles")
+    except ET.ParseError as e:
+        print(f"  RSS parse error '{url}': {e}")
     except Exception as e:
         print(f"  RSS error '{url}': {e}")
     return articles
@@ -118,7 +136,7 @@ def fetch_newsapi():
             r = requests.get(
                 "https://newsapi.org/v2/everything",
                 params={
-                    "q": query,
+                    "q": f'"{query}"',
                     "language": "en",
                     "sortBy": "publishedAt",
                     "from": from_date,
