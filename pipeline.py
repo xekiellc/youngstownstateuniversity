@@ -44,6 +44,7 @@ PUBLISH if the article is:
 - Positive coverage of YSU academics, research, achievements, athletics, student success, faculty honors, or alumni accomplishments
 - Neutral factual reporting about YSU programs, events, rankings, or announcements
 - Coverage of Penguins athletics results, scores, standings, or player achievements
+- Any factual news about YSU that is not explicitly negative
 
 DO NOT PUBLISH if the article:
 - Covers protests, activism, demonstrations, or campus unrest
@@ -54,6 +55,8 @@ DO NOT PUBLISH if the article:
 - Is negative, critical, or embarrassing to YSU
 - Is not primarily about YSU (only mentions YSU in passing)
 - Is a duplicate or near-duplicate of another article
+
+When in doubt, PUBLISH. A neutral story is better than no story.
 
 For each article respond with a JSON array. Each item must have:
 - "publish": true or false
@@ -71,7 +74,6 @@ Return ONLY valid JSON. No markdown, no explanation, no preamble."""
 def fetch_articles():
     articles = []
     seen_titles = set()
-    # 7-day lookback window
     from_date = (datetime.now(timezone.utc) - timedelta(days=7)).strftime("%Y-%m-%dT%H:%M:%SZ")
     for query in QUERIES:
         try:
@@ -88,7 +90,9 @@ def fetch_articles():
                 timeout=15,
             )
             data = r.json()
-            for a in data.get("articles", []):
+            raw = data.get("articles", [])
+            print(f"  Query '{query}': {len(raw)} results")
+            for a in raw:
                 title = (a.get("title") or "").strip()
                 if not title or title in seen_titles:
                     continue
@@ -104,11 +108,14 @@ def fetch_articles():
                 })
         except Exception as e:
             print(f"NewsAPI error for '{query}': {e}")
-    print(f"Fetched {len(articles)} raw articles")
+    print(f"Fetched {len(articles)} unique raw articles")
+    # Print all titles so we can see what was found
+    for i, a in enumerate(articles, 1):
+        print(f"  {i}. [{a.get('date','')}] {a.get('title','')}")
     return articles
 
 
-# ── FILTER WITH CLAUDE — single call for all articles ────────────────────────
+# ── FILTER WITH CLAUDE ────────────────────────────────────────────────────────
 
 def filter_all_articles(articles):
     if not articles:
@@ -135,6 +142,10 @@ def filter_all_articles(articles):
             if raw.startswith("json"):
                 raw = raw[4:]
         filtered = json.loads(raw)
+        # Print what Claude decided on each article
+        for a in filtered:
+            status = "✓ PUBLISH" if a.get("publish") else "✗ REJECT"
+            print(f"  {status}: {a.get('title','')}")
         published = [a for a in filtered if a.get("publish")]
         print(f"Claude approved {len(published)}/{len(articles)} articles")
         return published
