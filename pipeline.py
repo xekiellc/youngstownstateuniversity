@@ -4,7 +4,7 @@ import requests
 from anthropic import Anthropic
 from datetime import datetime, timezone
 
-client = Anthropic()
+client = Anthropic(timeout=60.0)
 NEWSAPI_KEY = os.environ["NEWSAPI_KEY"]
 
 # ── CONFIG ──────────────────────────────────────────────────────────────────
@@ -96,13 +96,19 @@ def fetch_articles():
     return articles
 
 
-# ── FILTER WITH CLAUDE ────────────────────────────────────────────────────────
+# ── FILTER WITH CLAUDE — single call for all articles ────────────────────────
 
-def filter_articles(articles, tags):
+def filter_all_articles(articles):
+    """One Claude call to filter all articles — returns list of approved articles."""
     if not articles:
         return []
+    all_tags = ["News","Academics","Research","Sports","Athletics","Students","Faculty","Alumni",
+                "Campus","Awards","Community","Baseball","Football","Basketball","Softball","Track",
+                "Biology","Engineering","Chemistry","Physics","Health Sciences","Computer Science",
+                "Environmental","Achievement","Scholarships","Campus Life","Veterans","Leadership",
+                "Business","Arts","Liberal Arts","Education","Medicine","Law","Public Service"]
     batch = json.dumps(articles, ensure_ascii=False)
-    tag_list = ", ".join(tags)
+    tag_list = ", ".join(all_tags)
     try:
         msg = client.messages.create(
             model="claude-sonnet-4-6",
@@ -113,7 +119,6 @@ def filter_articles(articles, tags):
             }]
         )
         raw = msg.content[0].text.strip()
-        # strip any accidental markdown fences
         if raw.startswith("```"):
             raw = raw.split("```")[1]
             if raw.startswith("json"):
@@ -127,6 +132,15 @@ def filter_articles(articles, tags):
         return []
 
 
+def filter_by_tags(articles, tags):
+    """Filter pre-approved articles by relevant tags for a specific section."""
+    tag_set = set(t.lower() for t in tags)
+    matched = [a for a in articles if a.get("tag", "").lower() in tag_set]
+    if not matched:
+        matched = articles[:4]
+    return matched
+
+
 # ── BUILD HTML SNIPPETS ───────────────────────────────────────────────────────
 
 def format_date(d):
@@ -138,7 +152,6 @@ def format_date(d):
 
 
 def build_news_cards(articles, max_cards=6):
-    """2-column story card grid for news/index pages."""
     if not articles:
         return '<p style="color:#aaa;font-size:13px;padding:20px 0;">No new stories at this time. Check back soon.</p>'
     html = '<div class="news-grid">'
@@ -160,7 +173,6 @@ def build_news_cards(articles, max_cards=6):
 
 
 def build_list_items(articles, max_items=8):
-    """Numbered list style for section pages."""
     if not articles:
         return '<p style="color:#aaa;font-size:13px;padding:20px 0;">No new stories at this time. Check back soon.</p>'
     html = '<div class="news-list">'
@@ -188,7 +200,6 @@ def build_list_items(articles, max_items=8):
 
 
 def build_sidebar_items(articles, max_items=4):
-    """Compact sidebar items."""
     if not articles:
         return ""
     html = ""
@@ -209,7 +220,6 @@ def build_sidebar_items(articles, max_items=4):
 # ── INJECT INTO HTML ──────────────────────────────────────────────────────────
 
 def inject(filepath, marker_id, new_html):
-    """Replace content between <!-- BEGIN:marker_id --> and <!-- END:marker_id -->"""
     try:
         with open(filepath, "r", encoding="utf-8") as f:
             content = f.read()
@@ -244,63 +254,38 @@ def main():
         print("No articles fetched — exiting.")
         return
 
+    # ONE Claude call for all articles
+    print("\nFiltering all articles with Claude...")
+    approved = filter_all_articles(all_articles)
+    if not approved:
+        print("No articles approved — exiting.")
+        return
+
     now_str = build_timestamp()
 
-    # ── INDEX PAGE ──
-    print("\n[index.html]")
-    idx_articles = filter_articles(all_articles, SECTIONS["index"]["tags"])
-    if idx_articles:
-        inject("index.html", "LIVE_NEWS",    build_news_cards(idx_articles, 4))
-        inject("index.html", "LIVE_SIDEBAR", build_sidebar_items(idx_articles, 4))
-        inject("index.html", "LAST_UPDATED", f'<div class="last-updated">{now_str}</div>')
+    pages = [
+        ("index.html",    SECTIONS["index"]["tags"],    True),
+        ("news.html",     SECTIONS["news"]["tags"],     False),
+        ("sports.html",   SECTIONS["sports"]["tags"],   False),
+        ("science.html",  SECTIONS["science"]["tags"],  False),
+        ("students.html", SECTIONS["students"]["tags"], False),
+        ("faculty.html",  SECTIONS["faculty"]["tags"],  False),
+        ("alumni.html",   SECTIONS["alumni"]["tags"],   False),
+    ]
 
-    # ── NEWS PAGE ──
-    print("\n[news.html]")
-    news_articles = filter_articles(all_articles, SECTIONS["news"]["tags"])
-    if news_articles:
-        inject("news.html", "LIVE_NEWS",    build_list_items(news_articles, 8))
-        inject("news.html", "LIVE_SIDEBAR", build_sidebar_items(news_articles, 4))
-        inject("news.html", "LAST_UPDATED", f'<div class="last-updated">{now_str}</div>')
-
-    # ── SPORTS PAGE ──
-    print("\n[sports.html]")
-    sports_articles = filter_articles(all_articles, SECTIONS["sports"]["tags"])
-    if sports_articles:
-        inject("sports.html", "LIVE_NEWS",    build_list_items(sports_articles, 6))
-        inject("sports.html", "LIVE_SIDEBAR", build_sidebar_items(sports_articles, 4))
-        inject("sports.html", "LAST_UPDATED", f'<div class="last-updated">{now_str}</div>')
-
-    # ── SCIENCE PAGE ──
-    print("\n[science.html]")
-    sci_articles = filter_articles(all_articles, SECTIONS["science"]["tags"])
-    if sci_articles:
-        inject("science.html", "LIVE_NEWS",    build_list_items(sci_articles, 6))
-        inject("science.html", "LIVE_SIDEBAR", build_sidebar_items(sci_articles, 4))
-        inject("science.html", "LAST_UPDATED", f'<div class="last-updated">{now_str}</div>')
-
-    # ── STUDENTS PAGE ──
-    print("\n[students.html]")
-    stu_articles = filter_articles(all_articles, SECTIONS["students"]["tags"])
-    if stu_articles:
-        inject("students.html", "LIVE_NEWS",    build_list_items(stu_articles, 6))
-        inject("students.html", "LIVE_SIDEBAR", build_sidebar_items(stu_articles, 4))
-        inject("students.html", "LAST_UPDATED", f'<div class="last-updated">{now_str}</div>')
-
-    # ── FACULTY PAGE ──
-    print("\n[faculty.html]")
-    fac_articles = filter_articles(all_articles, SECTIONS["faculty"]["tags"])
-    if fac_articles:
-        inject("faculty.html", "LIVE_NEWS",    build_list_items(fac_articles, 6))
-        inject("faculty.html", "LIVE_SIDEBAR", build_sidebar_items(fac_articles, 4))
-        inject("faculty.html", "LAST_UPDATED", f'<div class="last-updated">{now_str}</div>')
-
-    # ── ALUMNI PAGE ──
-    print("\n[alumni.html]")
-    alum_articles = filter_articles(all_articles, SECTIONS["alumni"]["tags"])
-    if alum_articles:
-        inject("alumni.html", "LIVE_NEWS",    build_list_items(alum_articles, 6))
-        inject("alumni.html", "LIVE_SIDEBAR", build_sidebar_items(alum_articles, 4))
-        inject("alumni.html", "LAST_UPDATED", f'<div class="last-updated">{now_str}</div>')
+    for filename, tags, use_cards in pages:
+        print(f"\n[{filename}]")
+        page_articles = filter_by_tags(approved, tags)
+        if not page_articles:
+            print(f"  No matching articles for {filename}")
+            continue
+        if use_cards:
+            news_html = build_news_cards(page_articles, 4)
+        else:
+            news_html = build_list_items(page_articles, 6)
+        inject(filename, "LIVE_NEWS",    news_html)
+        inject(filename, "LIVE_SIDEBAR", build_sidebar_items(page_articles, 4))
+        inject(filename, "LAST_UPDATED", f'<div class="last-updated">{now_str}</div>')
 
     print("\n=== Pipeline complete ===")
 
