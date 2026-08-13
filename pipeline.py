@@ -1,9 +1,10 @@
 import os
 import json
 import requests
-import xml.etree.ElementTree as ET
+import re
 from anthropic import Anthropic
 from datetime import datetime, timezone, timedelta
+from html.parser import HTMLParser
 
 client = Anthropic(timeout=60.0)
 NEWSAPI_KEY = os.environ["NEWSAPI_KEY"]
@@ -14,16 +15,10 @@ NEWSAPI_QUERIES = [
     "Youngstown State University",
     "YSU Penguins",
     "Youngstown State athletics",
-    "YSU football",
-    "YSU Penguins football",
 ]
 
-# YSU official RSS feeds — verified URLs
-RSS_FEEDS = [
-    "https://ysu.edu/node/51/news.rss",
-    "https://newsroom.ysu.edu/feed",
-    "https://ysusports.com/rss.aspx",
-]
+YSU_NEWS_URL = "https://ysu.edu/news"
+YSU_BASE_URL = "https://ysu.edu"
 
 SECTIONS = {
     "index":    {"label": "News",      "tags": ["News","Academics","Research","Sports","Students","Faculty","Alumni","Campus"]},
@@ -68,61 +63,45 @@ For each article respond with a JSON array. Each item must have:
 Return ONLY valid JSON. No markdown, no explanation, no preamble."""
 
 
-# ── FETCH FROM RSS ────────────────────────────────────────────────────────────
+# ── SCRAPE YSU NEWS PAGE ──────────────────────────────────────────────────────
 
-def fetch_rss(url):
+def scrape_ysu_news():
     articles = []
     try:
-        r = requests.get(url, timeout=15, headers={
-            "User-Agent": "Mozilla/5.0 (compatible; YSUNewsBot/1.0)",
-            "Accept": "application/rss+xml, application/xml, text/xml"
+        r = requests.get(YSU_NEWS_URL, timeout=15, headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
         })
-        # Try to clean up common XML issues
-        content = r.content
-        # Remove any BOM
-        if content.startswith(b'\xef\xbb\xbf'):
-            content = content[3:]
-        root = ET.fromstring(content)
-        cutoff = datetime.now(timezone.utc) - timedelta(days=30)
-        count = 0
-        for item in root.iter("item"):
-            title = (item.findtext("title") or "").strip()
-            link  = (item.findtext("link") or "").strip()
-            desc  = (item.findtext("description") or "").strip()[:300]
-            pub   = item.findtext("pubDate") or ""
-            date_str = ""
-            try:
-                # Try multiple date formats
-                for fmt in ["%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S %Z"]:
-                    try:
-                        dt = datetime.strptime(pub.strip(), fmt)
-                        if dt.tzinfo is None:
-                            dt = dt.replace(tzinfo=timezone.utc)
-                        if dt.astimezone(timezone.utc) < cutoff:
-                            continue
-                        date_str = dt.strftime("%Y-%m-%d")
-                        break
-                    except Exception:
-                        continue
-                if not date_str:
-                    date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-            except Exception:
-                date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-            if title and link:
-                articles.append({
-                    "title":   title,
-                    "excerpt": desc,
-                    "url":     link,
-                    "date":    date_str,
-                    "source":  "ysu.edu",
-                })
-                count += 1
-        print(f"  RSS '{url}': {count} articles")
-    except ET.ParseError as e:
-        print(f"  RSS parse error '{url}': {e}")
+        html = r.text
+        # Find all news article links — pattern: /news/some-slug
+        # Also find h5 links with titles
+        pattern = r'<a[^>]+href="(/news/[^"]+)"[^>]*>([^<]+)</a>'
+        matches = re.findall(pattern, html)
+        seen = set()
+        today = datetime.now(timezone.utc)
+        for path, title in matches:
+            title = title.strip()
+            if not title or len(title) < 10:
+                continue
+            if path in seen:
+                continue
+            seen.add(path)
+            url = YSU_BASE_URL + path
+            articles.append({
+                "title":   title,
+                "excerpt": "",
+                "url":     url,
+                "date":    today.strftime("%Y-%m-%d"),
+                "source":  "ysu.edu",
+            })
+        # Also look for date-stamped items
+        # Pattern: Mon, 08/03/2026 type dates near titles
+        date_pattern = r'(\w{3}, \d{2}/\d{2}/\d{4})'
+        dates = re.findall(date_pattern, html)
+
+        print(f"  YSU scrape: {len(articles)} articles found")
     except Exception as e:
-        print(f"  RSS error '{url}': {e}")
-    return articles
+        print(f"  YSU scrape error: {e}")
+    return articles[:20]  # cap at 20
 
 
 # ── FETCH FROM NEWSAPI ────────────────────────────────────────────────────────
@@ -136,7 +115,7 @@ def fetch_newsapi():
             r = requests.get(
                 "https://newsapi.org/v2/everything",
                 params={
-                    "q": f'"{query}"',
+                    "q": query,
                     "language": "en",
                     "sortBy": "publishedAt",
                     "from": from_date,
@@ -173,12 +152,11 @@ def fetch_articles():
     articles = []
     seen_titles = set()
 
-    print("Fetching from YSU RSS feeds...")
-    for feed_url in RSS_FEEDS:
-        for a in fetch_rss(feed_url):
-            if a["title"] not in seen_titles:
-                seen_titles.add(a["title"])
-                articles.append(a)
+    print("Scraping YSU news page...")
+    for a in scrape_ysu_news():
+        if a["title"] not in seen_titles:
+            seen_titles.add(a["title"])
+            articles.append(a)
 
     print("Fetching from NewsAPI...")
     for a in fetch_newsapi():
@@ -188,7 +166,7 @@ def fetch_articles():
 
     print(f"Fetched {len(articles)} unique raw articles total")
     for i, a in enumerate(articles, 1):
-        print(f"  {i}. [{a.get('date','')}] {a.get('title','')}")
+        print(f"  {i}. [{a.get('date','')}] {a.get('title','')[:80]}")
     return articles
 
 
@@ -221,7 +199,7 @@ def filter_all_articles(articles):
         filtered = json.loads(raw)
         for a in filtered:
             status = "PUBLISH" if a.get("publish") else "REJECT"
-            print(f"  {status}: {a.get('title','')}")
+            print(f"  {status}: {a.get('title','')[:80]}")
         published = [a for a in filtered if a.get("publish")]
         print(f"Claude approved {len(published)}/{len(articles)} articles")
         return published
